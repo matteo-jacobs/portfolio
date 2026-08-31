@@ -1,121 +1,77 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { useEffect, useRef } from 'react'
 import './App.css'
+import skier from './assets/skier.jpg'
+import navPlate from './assets/nav-plate.svg'
+import navActive from './assets/nav-active.svg'
+import titleBanner from './assets/title-banner.svg'
+import namePlate from './assets/name-plate.svg'
+import ctaPlate from './assets/cta-plate.svg'
+import arrowDown from './assets/arrow-down.svg'
+
+const STAGE_W = 1280
+const STAGE_H = 782
+
+const NAV_ITEMS = [
+  { label: 'Home', left: 809 },
+  { label: 'About me', left: 887 },
+  { label: 'APPState', left: 1000 },
+  { label: 'Portfolio', left: 1107, active: true },
+]
 
 function App() {
-  const [count, setCount] = useState(0)
+  const wrapRef = useRef(null)
+  const stageRef = useRef(null)
+
+  useEffect(() => {
+    const fit = () => {
+      const scale = Math.min(window.innerWidth / STAGE_W, 1)
+      stageRef.current.style.setProperty('--scale', scale)
+      wrapRef.current.style.height = `${STAGE_H * scale}px`
+    }
+    fit()
+    window.addEventListener('resize', fit)
+    return () => window.removeEventListener('resize', fit)
+  }, [])
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="hero" ref={wrapRef}>
+      <div className="hero-stage" ref={stageRef}>
+        <img className="hero-skier" src={skier} alt="Matteo skiing" />
 
-      <div className="ticks"></div>
+        <img className="hero-nameplate" src={namePlate} alt="" aria-hidden="true" />
+        <p className="hero-name">Matteo J.</p>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <img className="hero-navplate" src={navPlate} alt="" aria-hidden="true" />
+        <img className="hero-navactive" src={navActive} alt="" aria-hidden="true" />
+        <nav className="hero-nav">
+          {NAV_ITEMS.map((item) => (
+            <a
+              key={item.label}
+              href="#"
+              className={item.active ? 'is-active' : undefined}
+              aria-current={item.active ? 'page' : undefined}
+              style={{ left: `${item.left}px` }}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        <img className="hero-banner" src={titleBanner} alt="" aria-hidden="true" />
+        <h1 className="hero-title hero-title--name">Matteo&rsquo;s</h1>
+        <p className="hero-title hero-title--portfolio">Portfolio</p>
+
+        <p className="hero-role hero-role--dev">Developer</p>
+        <p className="hero-role hero-role--designer">designer</p>
+        <p className="hero-role hero-role--solver">problem-solver</p>
+
+        <img className="hero-ctaplate" src={ctaPlate} alt="" aria-hidden="true" />
+        <a className="hero-cta" href="#">
+          Check it out now
+        </a>
+        <img className="hero-cta-arrow" src={arrowDown} alt="" aria-hidden="true" />
+      </div>
+    </div>
   )
 }
 

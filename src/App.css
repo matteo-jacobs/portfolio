@@ -1,184 +1,205 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
+/* Home hero — implemented from Figma "Movement vzw assignment" (node 256:50).
+   The design is a fixed 1280 x 782 frame; the stage is positioned with
+   absolute pixel coordinates taken straight from Figma and scaled down to
+   fit narrower viewports. */
 
 .hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
-}
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
   width: 100%;
+  min-height: 100svh;
+  background: #ff0000;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+.hero-stage {
+  --scale: 1;
+  position: relative;
+  flex: none;
+  width: 1280px;
+  height: 782px;
+  transform: scale(var(--scale));
+  transform-origin: top center;
+  font-family: 'Open Sans', system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  font-stretch: 100%;
+  color: #f0f0f0;
+  letter-spacing: 0;
+}
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+.hero-stage img {
+  display: block;
+}
+
+/* Neutralise the template's base h1/p/a rules inside the stage */
+.hero-stage h1,
+.hero-stage p,
+.hero-stage a {
+  font-family: inherit;
+  letter-spacing: 0;
+}
+
+/* Skier photo (Rectangle 1) */
+.hero-skier {
+  position: absolute;
+  left: -131px;
+  top: -61px;
+  width: 877px;
+  height: 927px;
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+
+/* Name badge (Rectangle 24 + "Matteo J.") */
+.hero-nameplate {
+  position: absolute;
+  left: 59.3px;
+  top: 42.38px;
+  width: 195.705px;
+  height: 80.274px;
+}
+
+.hero-name {
+  position: absolute;
+  left: 95px;
+  top: 66px;
+  width: 123px;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: right;
+  text-transform: uppercase;
+  color: #f0f0f0;
+}
+
+/* Top navigation (Rectangle 5 plate + red active plate + links) */
+.hero-navplate {
+  position: absolute;
+  left: 788.67px;
+  top: 39px;
+  width: 426.044px;
+  height: 60px;
+}
+
+.hero-navactive {
+  position: absolute;
+  left: 1099px;
+  top: 54px;
+  width: 106px;
+  height: 31.5px;
+}
+
+.hero-nav a {
+  position: absolute;
+  top: 58px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #161616;
+}
+
+.hero-nav a.is-active {
+  color: #f0f0f0;
+}
+
+/* Title banner (Union of two off-white plates) + rotated red wordmark */
+.hero-banner {
+  position: absolute;
+  left: 675.73px;
+  top: 143.64px;
+  width: 591.393px;
+  height: 198.362px;
+}
+
+.hero-title {
+  position: absolute;
+  margin: 0;
+  font-size: 89.856px;
+  font-weight: 800;
+  font-style: italic;
+  font-stretch: 75%;
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #ff0000;
+}
+
+.hero-title--name {
+  left: 887px;
+  top: 136.48px;
+  transform: rotate(-0.91deg);
+}
+
+.hero-title--portfolio {
+  left: 696.32px;
+  top: 219.66px;
+  transform: rotate(-0.41deg);
+}
+
+/* Role stack */
+.hero-role {
+  position: absolute;
+  margin: 0;
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.4;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #f0f0f0;
+}
+
+.hero-role--dev {
+  left: 751px;
+  top: 386px;
+}
+
+.hero-role--designer {
+  left: 913px;
+  top: 472px;
+}
+
+.hero-role--solver {
+  left: 731px;
+  top: 558px;
+}
+
+/* Call to action (rotated plate + label + arrow) */
+.hero-ctaplate {
+  position: absolute;
+  left: 877px;
+  top: 685.59px;
+  width: 245.953px;
+  height: 65.558px;
+  transform: rotate(-2deg);
+}
+
+.hero-cta {
+  position: absolute;
+  left: 912px;
+  top: 701px;
+  width: 155px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: right;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #ff0000;
+}
+
+.hero-cta-arrow {
+  position: absolute;
+  left: 1092.6px;
+  top: 705.63px;
+  width: 21.493px;
+  height: 12.232px;
+  transform: rotate(90deg);
 }
