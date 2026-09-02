@@ -1,78 +1,40 @@
-import { useEffect, useRef } from 'react'
-import './App.css'
-import skier from './assets/skier.jpg'
-import navPlate from './assets/nav-plate.svg'
-import navActive from './assets/nav-active.svg'
-import titleBanner from './assets/title-banner.svg'
-import namePlate from './assets/name-plate.svg'
-import ctaPlate from './assets/cta-plate.svg'
-import arrowDown from './assets/arrow-down.svg'
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout.jsx'
+import Home from './pages/Home.jsx'
+import About from './pages/About.jsx'
+import AppState from './pages/AppState.jsx'
+import Course from './pages/Course.jsx'
+import Project from './pages/Project.jsx'
+import Portfolio from './pages/Portfolio.jsx'
+import NotFound from './pages/NotFound.jsx'
 
-const STAGE_W = 1280
-const STAGE_H = 782
-
-const NAV_ITEMS = [
-  { label: 'Home', left: 809 },
-  { label: 'About me', left: 887 },
-  { label: 'APPState', left: 1000 },
-  { label: 'Portfolio', left: 1107, active: true },
-]
-
-function App() {
-  const wrapRef = useRef(null)
-  const stageRef = useRef(null)
-
-  useEffect(() => {
-    const fit = () => {
-      const scale = Math.min(window.innerWidth / STAGE_W, 1)
-      stageRef.current.style.setProperty('--scale', scale)
-      wrapRef.current.style.height = `${STAGE_H * scale}px`
-    }
-    fit()
-    window.addEventListener('resize', fit)
-    return () => window.removeEventListener('resize', fit)
-  }, [])
-
+export default function App() {
   return (
-    <div className="hero" ref={wrapRef}>
-      <div className="hero-stage" ref={stageRef}>
-        <img className="hero-skier" src={skier} alt="Matteo skiing" />
+    <Routes>
+      {/* Home is the full-bleed Figma hero and carries its own nav, so it
+          sits outside the shared Layout chrome. */}
+      <Route path="/" element={<Home />} />
 
-        <img className="hero-nameplate" src={namePlate} alt="" aria-hidden="true" />
-        <p className="hero-name">Matteo J.</p>
+      {/* Everything else shares the header / footer Layout.
+          AppState hub -> a course -> the course's project subpages, with the
+          course and project segments dynamic so new content only needs a data
+          entry in src/data/courses.js, not a new route. */}
+      <Route element={<Layout />}>
+        <Route path="about" element={<About />} />
 
-        <img className="hero-navplate" src={navPlate} alt="" aria-hidden="true" />
-        <img className="hero-navactive" src={navActive} alt="" aria-hidden="true" />
-        <nav className="hero-nav">
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.label}
-              href="#"
-              className={item.active ? 'is-active' : undefined}
-              aria-current={item.active ? 'page' : undefined}
-              style={{ left: `${item.left}px` }}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
+        <Route path="appstate">
+          <Route index element={<AppState />} />
+          <Route path=":courseSlug">
+            <Route index element={<Course />} />
+            <Route path=":projectSlug" element={<Project />} />
+          </Route>
+        </Route>
 
-        <img className="hero-banner" src={titleBanner} alt="" aria-hidden="true" />
-        <h1 className="hero-title hero-title--name">Matteo&rsquo;s</h1>
-        <p className="hero-title hero-title--portfolio">Portfolio</p>
+        <Route path="portfolio" element={<Portfolio />} />
 
-        <p className="hero-role hero-role--dev">Developer</p>
-        <p className="hero-role hero-role--designer">designer</p>
-        <p className="hero-role hero-role--solver">problem-solver</p>
-
-        <img className="hero-ctaplate" src={ctaPlate} alt="" aria-hidden="true" />
-        <a className="hero-cta" href="#">
-          Check it out now
-        </a>
-        <img className="hero-cta-arrow" src={arrowDown} alt="" aria-hidden="true" />
-      </div>
-    </div>
+        {/* Catch-all 404 */}
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   )
 }
-
-export default App

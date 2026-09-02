@@ -83,11 +83,13 @@
   height: 60px;
 }
 
+/* Active-page plate. The hero only ever renders at "/", so the highlighted
+   item is always Home — the plate sits under the first nav link. */
 .hero-navactive {
   position: absolute;
-  left: 1099px;
+  left: 795px;
   top: 54px;
-  width: 106px;
+  width: 74px;
   height: 31.5px;
 }
 
