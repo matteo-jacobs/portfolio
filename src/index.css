@@ -1,199 +1,68 @@
-:root {
-  --bg: #ffffff;
-  --fg: #1a1a1a;
-  --muted: #666666;
-  --accent: #2a5db0;
-  --border: #e2e2e2;
-  --maxw: 44rem;
-}
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
 
-* {
-  box-sizing: border-box;
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
-
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
 body {
-  margin: 0;
-  color: var(--fg);
-  background: var(--bg);
-  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
-a {
-  color: var(--accent);
+/* ==========================================================================
+   Breakpoints (mobile-first)
+
+   Mobile:  default, no media query    (< 744px)
+   Tablet:  @media (min-width: 744px)   744px – 1279px
+   Desktop: @media (min-width: 1280px)  >= 1280px
+   ========================================================================== */
+
+/* Mobile styles are just your normal, unwrapped rules — no media query needed */
+
+/* Tablet and up */
+@media (min-width: 744px) {
+  /* overrides for 744px+ */
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-.site {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* Header / nav */
-.site-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem clamp(1rem, 4vw, 2rem);
-  border-bottom: 1px solid var(--border);
-}
-
-.brand {
-  font-weight: 700;
-  text-decoration: none;
-  color: var(--fg);
-}
-
-.site-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.25rem;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: var(--muted);
-}
-
-.nav-link:hover {
-  color: var(--fg);
-}
-
-.nav-link.is-active {
-  color: var(--fg);
-  font-weight: 600;
-}
-
-/* Main */
-.site-main {
-  flex: 1;
-  width: 100%;
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding: 2rem clamp(1rem, 4vw, 2rem);
-}
-
-.page h1 {
-  margin-top: 0;
-}
-
-.lede {
-  font-size: 1.15rem;
-  color: var(--muted);
-}
-
-.breadcrumb {
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-.card-meta {
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin: 0.25rem 0;
-}
-
-.catalog-description {
-  padding-left: 1rem;
-  border-left: 3px solid var(--border);
-  color: var(--muted);
-}
-
-/* Home / About images */
-.home {
-  text-align: center;
-}
-
-.home-image {
-  width: 220px;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.about-portrait {
-  width: 200px;
-  border-radius: 8px;
-  float: right;
-  margin: 0 0 1rem 1.5rem;
-}
-
-.contact-list {
-  padding-left: 1.1rem;
-}
-
-/* Cards */
-.card-list {
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 1rem;
-}
-
-.card {
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
-}
-
-.card h2,
-.card h3 {
-  margin: 0 0 0.25rem;
-}
-
-.card a {
-  text-decoration: none;
-}
-
-.card a:hover {
-  text-decoration: underline;
-}
-
-/* Image placeholder */
-.image-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 16 / 9;
-  background: repeating-linear-gradient(45deg, #f3f3f3, #f3f3f3 12px, #ececec 12px, #ececec 24px);
-  color: var(--muted);
-  border-radius: 8px;
-  font-size: 0.9rem;
-}
-
-/* 404 */
-.not-found {
-  text-align: center;
-}
-
-.error-code {
-  font-size: 4rem;
-  font-weight: 800;
-  color: var(--border);
-  margin: 0;
-}
-
-.button {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background: var(--accent);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-}
-
-/* Footer */
-.site-footer {
-  border-top: 1px solid var(--border);
-  padding: 1.5rem;
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--muted);
+/* Desktop and up */
+@media (min-width: 1280px) {
+  /* overrides for 1280px+ */
 }
