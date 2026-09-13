@@ -4,6 +4,7 @@
    fit narrower viewports. */
 
 .hero {
+  position: relative;
   width: 100%;
   min-height: 100svh;
   background: #ff0000;
@@ -13,9 +14,23 @@
   align-items: flex-start;
 }
 
+/* Zigzag pattern layer, tiled and slanted to a -11deg slope. Oversized and
+   rotated inside the clipped .hero so no gaps show at the corners. */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  background-image: url(../assets/hero-bg-pattern.svg);
+  background-repeat: repeat;
+  background-size: 340px 340px;
+  transform: rotate(-11deg);
+  z-index: 0;
+}
+
 .hero-stage {
   --scale: 1;
   position: relative;
+  z-index: 1;
   flex: none;
   width: 1280px;
   height: 782px;
