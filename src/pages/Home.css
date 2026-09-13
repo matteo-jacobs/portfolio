@@ -30,14 +30,18 @@
 
 .hero-stage img {
   display: block;
+  max-width: none;
 }
 
-/* Neutralise the template's base h1/p/a rules inside the stage */
+/* Neutralise base h1/p/a rules inside the stage */
 .hero-stage h1,
 .hero-stage p,
 .hero-stage a {
+  margin: 0;
   font-family: inherit;
   letter-spacing: 0;
+  color: inherit;
+  text-decoration: none;
 }
 
 /* Skier photo (Rectangle 1) */
@@ -65,7 +69,6 @@
   left: 95px;
   top: 66px;
   width: 123px;
-  margin: 0;
   font-size: 24px;
   font-weight: 800;
   line-height: 1.4;
@@ -83,25 +86,21 @@
   height: 60px;
 }
 
-/* Active-page plate. The hero only ever renders at "/", so the highlighted
-   item is always Home — the plate sits under the first nav link. */
 .hero-navactive {
   position: absolute;
-  left: 795px;
+  left: 1099px;
   top: 54px;
-  width: 74px;
+  width: 106px;
   height: 31.5px;
 }
 
 .hero-nav a {
   position: absolute;
   top: 58px;
-  margin: 0;
   font-size: 16px;
   font-weight: 700;
   line-height: 1.4;
   text-transform: uppercase;
-  text-decoration: none;
   white-space: nowrap;
   color: #161616;
 }
@@ -121,7 +120,6 @@
 
 .hero-title {
   position: absolute;
-  margin: 0;
   font-size: 89.856px;
   font-weight: 800;
   font-style: italic;
@@ -147,7 +145,6 @@
 /* Role stack */
 .hero-role {
   position: absolute;
-  margin: 0;
   font-size: 56px;
   font-weight: 800;
   line-height: 1.4;
@@ -186,13 +183,11 @@
   left: 912px;
   top: 701px;
   width: 155px;
-  margin: 0;
   font-size: 16px;
   font-weight: 700;
   line-height: 1.4;
   text-align: right;
   text-transform: uppercase;
-  text-decoration: none;
   white-space: nowrap;
   color: #ff0000;
 }

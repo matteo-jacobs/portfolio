@@ -11,17 +11,16 @@ import NotFound from './pages/NotFound.jsx'
 export default function App() {
   return (
     <Routes>
-      {/* Home is the full-bleed Figma hero and carries its own nav, so it
-          sits outside the shared Layout chrome. */}
+      {/* The home page is the full-bleed Figma hero — it renders outside
+          Layout so it has no shared header/footer. */}
       <Route path="/" element={<Home />} />
 
-      {/* Everything else shares the header / footer Layout.
-          AppState hub -> a course -> the course's project subpages, with the
-          course and project segments dynamic so new content only needs a data
-          entry in src/data/courses.js, not a new route. */}
       <Route element={<Layout />}>
         <Route path="about" element={<About />} />
 
+        {/* AppState hub -> a course -> the course's project subpages.
+            Both the course and the project segments are dynamic, so new
+            courses and projects only need a data entry, not a new route. */}
         <Route path="appstate">
           <Route index element={<AppState />} />
           <Route path=":courseSlug">

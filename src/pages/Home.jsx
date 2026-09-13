@@ -12,13 +12,11 @@ import arrowDown from '../assets/arrow-down.svg'
 const STAGE_W = 1280
 const STAGE_H = 782
 
-// Figma frame positions (px). `to` wires each label to a real route so the
-// hero nav actually navigates instead of pointing at "#".
 const NAV_ITEMS = [
-  { label: 'Home', to: '/', left: 809, active: true },
+  { label: 'Home', to: '/', left: 809 },
   { label: 'About me', to: '/about', left: 887 },
   { label: 'APPState', to: '/appstate', left: 1000 },
-  { label: 'Portfolio', to: '/portfolio', left: 1107 },
+  { label: 'Portfolio', to: '/portfolio', left: 1107, active: true },
 ]
 
 export default function Home() {
