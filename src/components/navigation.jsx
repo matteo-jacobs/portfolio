@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import logoMark from '../assets/logo-mark.svg'
-import hamburgerMenu from '../assets/hamburger-menu.svg'
 import './navigation.css'
 
 const TABLET_BREAKPOINT = 744
@@ -31,7 +30,18 @@ export default function Navigation() {
                 aria-label={isOpen ? 'Close menu' : 'Open menu'}
                 onClick={() => setIsOpen((open) => !open)}
             >
-                <img src={hamburgerMenu} alt="" aria-hidden="true" />
+                <svg
+                    width="37"
+                    height="27"
+                    viewBox="0 0 37 27"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                >
+                    <rect className="nav-toggle-line nav-toggle-line--top" x="0" y="0" width="37" height="5" fill="#FF0000" />
+                    <rect className="nav-toggle-line nav-toggle-line--middle" x="0" y="11" width="37" height="5" fill="#FF0000" />
+                    <rect className="nav-toggle-line nav-toggle-line--bottom" x="0" y="22" width="37" height="5" fill="#FF0000" />
+                </svg>
             </button>
 
             <div className="nav-links">

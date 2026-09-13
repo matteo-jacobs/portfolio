@@ -14,6 +14,24 @@ nav.open .nav-links {
   cursor: pointer;
 }
 
+.nav-toggle-line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+nav.open .nav-toggle-line--top {
+  transform: translateY(11px) rotate(45deg);
+}
+
+nav.open .nav-toggle-line--middle {
+  opacity: 0;
+}
+
+nav.open .nav-toggle-line--bottom {
+  transform: translateY(-11px) rotate(-45deg);
+}
+
 @media (min-width: 744px) {
   .nav-toggle {
     display: none;
