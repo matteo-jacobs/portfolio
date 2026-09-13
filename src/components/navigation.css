@@ -1,5 +1,5 @@
-body {
-  padding-top: 4rem;
+html body {
+  padding-top: 2rem;
 }
 
 nav.open,
@@ -157,6 +157,11 @@ nav.open .nav-toggle-line--bottom {
     align-items: center;
     justify-content: center;
     gap: 0;
+    pointer-events: none;
+  }
+
+  nav.open .nav-links a {
+    pointer-events: auto;
   }
 
   nav.open .nav-links a:not(:last-child) {

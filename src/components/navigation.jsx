@@ -21,10 +21,17 @@ export default function Navigation() {
         return () => mql.removeEventListener('change', syncOpen)
     }, [])
 
+    const closeMenu = () => {
+        const isDesktopLayout = window.matchMedia(`(min-width: ${TABLET_BREAKPOINT}px)`).matches
+        if (!isDesktopLayout) {
+            setIsOpen(false)
+        }
+    }
+
     return (
         <nav className={isOpen ? 'open' : 'closed'}>
             <div className="nav-bar">
-                <NavLink to="/" className="logo">
+                <NavLink to="/" className="logo" onClick={closeMenu}>
                     <span className="logo-image logo-mark" role="img" aria-label="Home">
                         <svg viewBox="0 0 32 32" width="32" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path d={LOGO_PATH} fill="#F0F0F0" />
@@ -63,9 +70,9 @@ export default function Navigation() {
             <img src={navPanelShape} alt="" aria-hidden="true" className="nav-plate" />
 
             <div className="nav-links">
-                <NavLink to="/about">About</NavLink>
-                <NavLink to="/appstate">AppState</NavLink>
-                <NavLink to="/portfolio" className="important">Portfolio</NavLink>
+                <NavLink to="/about" onClick={closeMenu}>About</NavLink>
+                <NavLink to="/appstate" onClick={closeMenu}>AppState</NavLink>
+                <NavLink to="/portfolio" className="important" onClick={closeMenu}>Portfolio</NavLink>
             </div>
         </nav>
     )
