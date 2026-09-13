@@ -1,5 +1,5 @@
 html body {
-  padding-top: 4dvh;
+  padding-top: 6rem;
 }
 
 nav.open,
@@ -11,8 +11,8 @@ nav.closed {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 1.5rem;
+  padding: 1.5rem;
   box-sizing: border-box;
   z-index: 100;
 }
@@ -71,7 +71,7 @@ nav.closed {
   position: relative;
   z-index: 1;
   align-items: center;
-  gap: 1.25rem;
+  gap: 2rem;
 }
 
 .nav-plate-desktop {
@@ -197,7 +197,7 @@ nav.open .nav-toggle-line--bottom {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1rem;
+    padding: 1.5rem;
     box-sizing: border-box;
     z-index: 1;
   }
@@ -219,7 +219,7 @@ nav.open .nav-toggle-line--bottom {
   }
 
   nav.open .nav-links a:not(:last-child) {
-    padding-bottom: 0.75rem;
+    padding-bottom: 1.5rem;
   }
 
   nav.open .nav-links a:not(:last-child)::after {
@@ -227,7 +227,7 @@ nav.open .nav-toggle-line--bottom {
     display: block;
     width: 5vw;
     height: 2px;
-    margin: 0.75rem auto 0;
+    margin: 1.5rem auto 0;
     background: #FF0000;
   }
 
