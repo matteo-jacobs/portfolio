@@ -22,40 +22,43 @@ export default function Navigation() {
 
     return (
         <nav className={isOpen ? 'open' : 'closed'}>
-            <NavLink to="/" className="logo">
-                <span className="logo-image logo-mark" role="img" aria-label="Home">
-                    <svg viewBox="0 0 32 32" width="32" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d={LOGO_PATH} fill="#F0F0F0" />
-                    </svg>
-                    <svg className="logo-mark-fill" viewBox="0 0 32 32" width="32" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d={LOGO_PATH} fill="#FF0000" />
-                    </svg>
-                </span>
-                <span className="logo-text">Home</span>
-            </NavLink>
+            <img src={hamburgerPlate} alt="" aria-hidden="true" className="nav-plate" />
 
-            <button
-                type="button"
-                className="nav-toggle"
-                aria-expanded={isOpen}
-                aria-label={isOpen ? 'Close menu' : 'Open menu'}
-                onClick={() => setIsOpen((open) => !open)}
-            >
-                <img src={hamburgerPlate} alt="" aria-hidden="true" className="nav-toggle-plate" />
-                <svg
-                    className="nav-toggle-icon"
-                    width="37"
-                    height="27"
-                    viewBox="0 0 37 27"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
+            <div className="nav-bar">
+                <NavLink to="/" className="logo">
+                    <span className="logo-image logo-mark" role="img" aria-label="Home">
+                        <svg viewBox="0 0 32 32" width="32" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d={LOGO_PATH} fill="#F0F0F0" />
+                        </svg>
+                        <svg className="logo-mark-fill" viewBox="0 0 32 32" width="32" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d={LOGO_PATH} fill="#FF0000" />
+                        </svg>
+                    </span>
+                    <span className="logo-text">Home</span>
+                </NavLink>
+
+                <button
+                    type="button"
+                    className="nav-toggle"
+                    aria-expanded={isOpen}
+                    aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                    onClick={() => setIsOpen((open) => !open)}
                 >
-                    <rect className="nav-toggle-line nav-toggle-line--top" x="0" y="0" width="37" height="5" fill="#FF0000" />
-                    <rect className="nav-toggle-line nav-toggle-line--middle" x="0" y="11" width="37" height="5" fill="#FF0000" />
-                    <rect className="nav-toggle-line nav-toggle-line--bottom" x="0" y="22" width="37" height="5" fill="#FF0000" />
-                </svg>
-            </button>
+                    <svg
+                        className="nav-toggle-icon"
+                        width="37"
+                        height="27"
+                        viewBox="0 0 37 27"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                    >
+                        <rect className="nav-toggle-line nav-toggle-line--top" x="0" y="0" width="37" height="5" fill="#FF0000" />
+                        <rect className="nav-toggle-line nav-toggle-line--middle" x="0" y="11" width="37" height="5" fill="#FF0000" />
+                        <rect className="nav-toggle-line nav-toggle-line--bottom" x="0" y="22" width="37" height="5" fill="#FF0000" />
+                    </svg>
+                </button>
+            </div>
 
             <div className="nav-links">
                 <NavLink to="/about">About</NavLink>

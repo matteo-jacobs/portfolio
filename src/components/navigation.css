@@ -1,10 +1,31 @@
 nav.open,
 nav.closed {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   margin: 1rem;
+}
+
+.nav-bar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-plate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  object-fit: fill;
+  z-index: 0;
+  pointer-events: none;
+  transition: height 0.4s ease;
 }
 
 .logo {
@@ -17,6 +38,8 @@ nav.closed {
 }
 
 .nav-links {
+  position: relative;
+  z-index: 1;
   align-items: center;
   gap: 1.25rem;
 }
@@ -64,18 +87,6 @@ nav.open .nav-links {
   cursor: pointer;
 }
 
-.nav-toggle-plate {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 58px;
-  height: 58px;
-  transform: translate(-50%, -50%);
-  transition: width 0.4s ease, height 0.4s ease;
-  z-index: 0;
-  pointer-events: none;
-}
-
 .nav-toggle-icon {
   position: relative;
   z-index: 1;
@@ -101,13 +112,35 @@ nav.open .nav-toggle-line--bottom {
 
 /* Hamburger menu (< 744px): stay right, stack links when opened */
 @media (max-width: 743.98px) {
+  .nav-bar {
+    width: 100%;
+  }
+
   nav.open {
-    flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50vh;
+    margin: 0;
+    padding: 1rem;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    z-index: 100;
+  }
+
+  nav.open .nav-bar {
+    flex: none;
   }
 
   nav.open .nav-links {
+    flex: 1;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
     gap: 0;
   }
@@ -119,15 +152,14 @@ nav.open .nav-toggle-line--bottom {
   nav.open .nav-links a:not(:last-child)::after {
     content: '';
     display: block;
-    width: 20vw;
+    width: 5vw;
     height: 2px;
     margin: 0.75rem auto 0;
     background: #FF0000;
   }
 
-  nav.open .nav-toggle-plate {
-    width: 50vmin;
-    height: 50vmin;
+  nav.open .nav-plate {
+    height: 50vh;
   }
 
   nav.open .logo-mark-fill {
