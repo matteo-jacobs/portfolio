@@ -246,7 +246,8 @@ nav.open .nav-toggle-line--bottom {
   nav.closed {
     justify-content: center;
     margin-top: 1rem;
-    margin-inline: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
   }
 
   .logo-image {
