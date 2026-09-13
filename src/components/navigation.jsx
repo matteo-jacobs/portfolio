@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import hamburgerPlate from '../assets/hamburger-plate.svg'
+import navPanelShape from '../assets/nav-panel-shape.svg'
 import './navigation.css'
 
 const LOGO_PATH =
     'M9.998 29.3275V31.9936H0V21.551L9.998 29.3275ZM31.9936 31.9936H21.9956V29.3275L31.9936 21.551V31.9936ZM9.998 21.9956V25.9948L0 18.2184V14.2192L9.998 21.9956ZM31.9936 18.2184L21.9956 25.9948V21.9956L31.9936 14.2192V18.2184ZM31.9936 10.8865L21.9956 18.6629L15.9968 23.3287L9.998 18.6629L0 10.8865V6.88729L15.9968 19.3295L31.9936 6.88729V10.8865ZM31.9936 3.55462L15.9968 15.9968L0 3.55462V0L15.9968 11.9976L31.9936 0V3.55462Z'
 
-const TABLET_BREAKPOINT = 744
+const TABLET_BREAKPOINT = 576
 
 export default function Navigation() {
     const [isOpen, setIsOpen] = useState(false)
@@ -22,8 +23,6 @@ export default function Navigation() {
 
     return (
         <nav className={isOpen ? 'open' : 'closed'}>
-            <img src={hamburgerPlate} alt="" aria-hidden="true" className="nav-plate" />
-
             <div className="nav-bar">
                 <NavLink to="/" className="logo">
                     <span className="logo-image logo-mark" role="img" aria-label="Home">
@@ -44,6 +43,7 @@ export default function Navigation() {
                     aria-label={isOpen ? 'Close menu' : 'Open menu'}
                     onClick={() => setIsOpen((open) => !open)}
                 >
+                    <img src={hamburgerPlate} alt="" aria-hidden="true" className="nav-toggle-plate" />
                     <svg
                         className="nav-toggle-icon"
                         width="37"
@@ -60,10 +60,14 @@ export default function Navigation() {
                 </button>
             </div>
 
-            <div className="nav-links">
-                <NavLink to="/about">About</NavLink>
-                <NavLink to="/appstate">AppState</NavLink>
-                <NavLink to="/portfolio" className="important">Portfolio</NavLink>
+            <div className="nav-panel">
+                <img src={navPanelShape} alt="" aria-hidden="true" className="nav-plate" />
+
+                <div className="nav-links">
+                    <NavLink to="/about">About</NavLink>
+                    <NavLink to="/appstate">AppState</NavLink>
+                    <NavLink to="/portfolio" className="important">Portfolio</NavLink>
+                </div>
             </div>
         </nav>
     )

@@ -1,31 +1,38 @@
+body {
+  padding-top: 4rem;
+}
+
 nav.open,
 nav.closed {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  z-index: 100;
 }
 
 .nav-bar {
-  position: relative;
-  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+.nav-panel {
+  display: none;
+}
+
 .nav-plate {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 0;
-  object-fit: fill;
-  z-index: 0;
+  display: block;
+  width: 576px;
+  max-width: 100%;
+  height: auto;
   pointer-events: none;
-  transition: height 0.4s ease;
 }
 
 .logo {
@@ -87,6 +94,17 @@ nav.open .nav-links {
   cursor: pointer;
 }
 
+.nav-toggle-plate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 58px;
+  height: 58px;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  pointer-events: none;
+}
+
 .nav-toggle-icon {
   position: relative;
   z-index: 1;
@@ -110,38 +128,30 @@ nav.open .nav-toggle-line--bottom {
   transform: translateY(-11px) rotate(-45deg);
 }
 
-/* Hamburger menu (< 744px): stay right, stack links when opened */
-@media (max-width: 743.98px) {
+/* Hamburger menu (< 576px): stay right, stack links when opened */
+@media (max-width: 575.98px) {
   .nav-bar {
     width: 100%;
   }
 
   nav.open {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50vh;
-    margin: 0;
-    padding: 1rem;
-    box-sizing: border-box;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    z-index: 100;
   }
 
-  nav.open .nav-bar {
-    flex: none;
+  nav.open .nav-panel {
+    display: block;
+    position: relative;
   }
 
   nav.open .nav-links {
-    flex: 1;
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
     gap: 0;
   }
 
@@ -158,18 +168,22 @@ nav.open .nav-toggle-line--bottom {
     background: #FF0000;
   }
 
-  nav.open .nav-plate {
-    height: 50vh;
-  }
-
   nav.open .logo-mark-fill {
     clip-path: inset(0 0 0 0);
   }
 }
 
 /* Tablet: center everything, logo becomes "Home" text */
-@media (min-width: 744px) {
+@media (min-width: 576px) {
   .nav-toggle {
+    display: none;
+  }
+
+  .nav-panel {
+    display: contents;
+  }
+
+  .nav-plate {
     display: none;
   }
 
@@ -188,7 +202,7 @@ nav.open .nav-toggle-line--bottom {
 }
 
 /* Desktop: back to logo on the left, everything else on the right */
-@media (min-width: 1280px) {
+@media (min-width: 992px) {
   nav.open,
   nav.closed {
     justify-content: space-between;
