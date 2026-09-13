@@ -1,0 +1,21 @@
+nav.closed .nav-links {
+  display: none;
+}
+
+nav.open .nav-links {
+  display: flex;
+}
+
+.nav-toggle {
+  display: inline-flex;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+@media (min-width: 744px) {
+  .nav-toggle {
+    display: none;
+  }
+}
