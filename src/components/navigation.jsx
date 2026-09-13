@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+// import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import logoMark from '../assets/logo-mark.svg'
-import hamburgerPlate from '../assets/hamburger-plate.svg'
+// import hamburgerPlate from '../assets/hamburger-plate.svg'
 
 export default function Navigation() {
     return (
