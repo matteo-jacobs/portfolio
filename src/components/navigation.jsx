@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import logoMark from '../assets/logo-mark.svg'
+import hamburgerPlate from '../assets/hamburger-plate.svg'
 import './navigation.css'
 
 const TABLET_BREAKPOINT = 744
@@ -20,7 +21,8 @@ export default function Navigation() {
     return (
         <nav className={isOpen ? 'open' : 'closed'}>
             <NavLink to="/" className="logo">
-                <img src={logoMark} alt="Logo" />
+                <img src={logoMark} alt="Home" className="logo-image" />
+                <span className="logo-text">Home</span>
             </NavLink>
 
             <button
@@ -30,7 +32,9 @@ export default function Navigation() {
                 aria-label={isOpen ? 'Close menu' : 'Open menu'}
                 onClick={() => setIsOpen((open) => !open)}
             >
+                <img src={hamburgerPlate} alt="" aria-hidden="true" className="nav-toggle-plate" />
                 <svg
+                    className="nav-toggle-icon"
                     width="37"
                     height="27"
                     viewBox="0 0 37 27"
