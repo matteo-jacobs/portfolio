@@ -60,14 +60,12 @@ export default function Navigation() {
                 </button>
             </div>
 
-            <div className="nav-panel">
-                <img src={navPanelShape} alt="" aria-hidden="true" className="nav-plate" />
+            <img src={navPanelShape} alt="" aria-hidden="true" className="nav-plate" />
 
-                <div className="nav-links">
-                    <NavLink to="/about">About</NavLink>
-                    <NavLink to="/appstate">AppState</NavLink>
-                    <NavLink to="/portfolio" className="important">Portfolio</NavLink>
-                </div>
+            <div className="nav-links">
+                <NavLink to="/about">About</NavLink>
+                <NavLink to="/appstate">AppState</NavLink>
+                <NavLink to="/portfolio" className="important">Portfolio</NavLink>
             </div>
         </nav>
     )

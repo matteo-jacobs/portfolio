@@ -23,12 +23,8 @@ nav.closed {
   justify-content: space-between;
 }
 
-.nav-panel {
-  display: none;
-}
-
 .nav-plate {
-  display: block;
+  display: none;
   width: 576px;
   max-width: 100%;
   height: auto;
@@ -135,19 +131,27 @@ nav.open .nav-toggle-line--bottom {
   }
 
   nav.open {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
+    padding: 0;
   }
 
-  nav.open .nav-panel {
+  nav.open .nav-plate {
     display: block;
-    position: relative;
+  }
+
+  nav.open .nav-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    z-index: 1;
   }
 
   nav.open .nav-links {
     position: absolute;
     inset: 0;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -176,14 +180,6 @@ nav.open .nav-toggle-line--bottom {
 /* Tablet: center everything, logo becomes "Home" text */
 @media (min-width: 576px) {
   .nav-toggle {
-    display: none;
-  }
-
-  .nav-panel {
-    display: contents;
-  }
-
-  .nav-plate {
     display: none;
   }
 
