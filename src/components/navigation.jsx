@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import hamburgerPlate from '../assets/hamburger-plate.svg'
 import navPanelShape from '../assets/nav-panel-shape.svg'
+import navPlateIpad from '../assets/nav-plate-ipad.svg'
+import navPlateDesktop from '../assets/nav-plate-desktop.svg'
+import logoPlate from '../assets/logo-plate.svg'
+import specialPlate from '../assets/special.svg'
 import './navigation.css'
 
 const LOGO_PATH =
@@ -30,8 +34,11 @@ export default function Navigation() {
 
     return (
         <nav className={isOpen ? 'open' : 'closed'}>
+            <img src={navPlateIpad} alt="" aria-hidden="true" className="nav-plate-ipad" />
+
             <div className="nav-bar">
                 <NavLink to="/" className="logo" onClick={closeMenu}>
+                    <img src={logoPlate} alt="" aria-hidden="true" className="logo-plate" />
                     <span className="logo-image logo-mark" role="img" aria-label="Home">
                         <svg viewBox="0 0 32 32" width="32" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path d={LOGO_PATH} fill="#F0F0F0" />
@@ -70,9 +77,14 @@ export default function Navigation() {
             <img src={navPanelShape} alt="" aria-hidden="true" className="nav-plate" />
 
             <div className="nav-links">
+                <img src={navPlateDesktop} alt="" aria-hidden="true" className="nav-plate-desktop" />
+
                 <NavLink to="/about" onClick={closeMenu}>About</NavLink>
                 <NavLink to="/appstate" onClick={closeMenu}>AppState</NavLink>
-                <NavLink to="/portfolio" className="important" onClick={closeMenu}>Portfolio</NavLink>
+                <NavLink to="/portfolio" className="important" onClick={closeMenu}>
+                    <img src={specialPlate} alt="" aria-hidden="true" className="special-plate" />
+                    Portfolio
+                </NavLink>
             </div>
         </nav>
     )

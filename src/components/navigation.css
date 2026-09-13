@@ -31,9 +31,36 @@ nav.closed {
   pointer-events: none;
 }
 
+.nav-plate-ipad {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 555px;
+  max-width: 100%;
+  height: auto;
+  z-index: -1;
+  pointer-events: none;
+}
+
 .logo {
+  position: relative;
   display: inline-flex;
   align-items: center;
+}
+
+.logo-plate {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 58px;
+  max-width: none;
+  height: auto;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .logo-text {
@@ -47,9 +74,36 @@ nav.closed {
   gap: 1.25rem;
 }
 
+.nav-plate-desktop {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 447px;
+  max-width: none;
+  height: auto;
+  z-index: -1;
+  pointer-events: none;
+}
+
 .nav-links a {
+  position: relative;
   text-decoration: none;
   color: inherit;
+}
+
+.special-plate {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  max-width: none;
+  height: auto;
+  z-index: -1;
+  pointer-events: none;
 }
 
 nav.closed .nav-links {
@@ -200,6 +254,17 @@ nav.open .nav-toggle-line--bottom {
   .logo-text {
     display: inline;
   }
+
+  .special-plate {
+    display: block;
+  }
+}
+
+/* iPad only: plate behind the whole nav (Home + About + AppState + Portfolio) */
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .nav-plate-ipad {
+    display: block;
+  }
 }
 
 /* Desktop: back to logo on the left, everything else on the right */
@@ -215,5 +280,13 @@ nav.open .nav-toggle-line--bottom {
 
   .logo-text {
     display: none;
+  }
+
+  .logo-plate {
+    display: block;
+  }
+
+  .nav-plate-desktop {
+    display: block;
   }
 }
