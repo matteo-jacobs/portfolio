@@ -21,12 +21,34 @@ nav.closed {
   gap: 1.25rem;
 }
 
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+}
+
 nav.closed .nav-links {
   display: none;
 }
 
 nav.open .nav-links {
   display: flex;
+}
+
+.logo-mark {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+}
+
+.logo-mark svg {
+  position: absolute;
+  inset: 0;
+}
+
+.logo-mark-fill {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.6s ease-in-out;
 }
 
 .nav-toggle {
@@ -44,9 +66,12 @@ nav.open .nav-links {
 
 .nav-toggle-plate {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 50%;
+  left: 50%;
+  width: 58px;
+  height: 58px;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
   z-index: 0;
   pointer-events: none;
 }
@@ -72,6 +97,42 @@ nav.open .nav-toggle-line--middle {
 
 nav.open .nav-toggle-line--bottom {
   transform: translateY(-11px) rotate(-45deg);
+}
+
+/* Hamburger menu (< 744px): stay right, stack links when opened */
+@media (max-width: 743.98px) {
+  nav.open {
+    flex-wrap: wrap;
+  }
+
+  nav.open .nav-links {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0;
+  }
+
+  nav.open .nav-links a:not(:last-child) {
+    padding-bottom: 0.75rem;
+  }
+
+  nav.open .nav-links a:not(:last-child)::after {
+    content: '';
+    display: block;
+    width: 20vw;
+    height: 2px;
+    margin: 0.75rem auto 0;
+    background: #FF0000;
+  }
+
+  nav.open .nav-toggle-plate {
+    width: 50vmin;
+    height: 50vmin;
+  }
+
+  nav.open .logo-mark-fill {
+    clip-path: inset(0 0 0 0);
+  }
 }
 
 /* Tablet: center everything, logo becomes "Home" text */
