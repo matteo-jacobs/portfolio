@@ -1,5 +1,6 @@
 html body {
   padding-top: 6rem;
+  font-family: "Open Sans", sans-serif;
 }
 
 nav.open,
@@ -238,6 +239,9 @@ nav.open .nav-toggle-line--bottom {
 
 /* Tablet: center everything, logo becomes "Home" text */
 @media (min-width: 576px) {
+  .nav{
+    color: #F0F0F0;
+  }
   .nav-toggle {
     display: none;
   }
@@ -245,9 +249,9 @@ nav.open .nav-toggle-line--bottom {
   nav.open,
   nav.closed {
     justify-content: center;
-    margin-top: 1rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    right: 0;
+    width: auto;
+    margin: 1rem 2rem;
   }
 
   .logo-image {
