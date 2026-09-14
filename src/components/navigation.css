@@ -193,9 +193,7 @@ nav.open .nav-toggle-line--bottom {
 
 /* Hamburger menu (< 576px): stay right, stack links when opened */
 @media (max-width: 575.98px) {
-    .important {
-    color: #FFFFFF;
-  }
+    
 
   .nav-bar {
     width: 100%;
@@ -255,6 +253,10 @@ nav.open .nav-toggle-line--bottom {
 
 /* Tablet: center everything, logo becomes "Home" text */
 @media (min-width: 576px) {
+
+  .important {
+    color: #FFFFFF;
+  }
   .nav-toggle {
     display: none;
   }
