@@ -73,7 +73,6 @@ nav.closed {
 .nav-panel {
   display: none;
   position: relative;
-  margin-top: 1rem;
 }
 
 nav.open .nav-panel {
@@ -213,7 +212,7 @@ nav.open .nav-toggle-line--bottom {
     top: 0;
     left: 0;
     width: 100%;
-    padding-inline: 1.5rem;
+    padding: 1.5rem;
     box-sizing: border-box;
     z-index: 1;
   }
@@ -254,6 +253,9 @@ nav.open .nav-toggle-line--bottom {
 
 /* Tablet: center everything, logo becomes "Home" text */
 @media (min-width: 576px) {
+  .nav-panel {
+    margin-top: 2rem;
+  }
 
   .important {
     color: #FFFFFF;
