@@ -253,9 +253,7 @@ nav.open .nav-toggle-line--bottom {
 
 /* Tablet: center everything, logo becomes "Home" text */
 @media (min-width: 576px) {
-  .nav-panel {
-    margin-top: 2rem;
-  }
+  
 
   .important {
     color: #FFFFFF;
@@ -285,6 +283,10 @@ nav.open .nav-toggle-line--bottom {
 
 /* iPad only: plate behind the whole nav (Home + About + AppState + Portfolio) */
 @media (min-width: 576px) and (max-width: 991.98px) {
+  .nav-panel {
+    margin-top: 2rem;
+  }
+
   .nav-plate-ipad {
     display: block;
   }
