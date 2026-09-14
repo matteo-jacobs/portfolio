@@ -74,16 +74,19 @@ export default function Navigation() {
                 </button>
             </div>
 
-            <img src={navPanelShape} alt="" aria-hidden="true" className="nav-plate" />
-            <img src={navPlateDesktop} alt="" aria-hidden="true" className="nav-plate-desktop" />
+            <div className="nav-panel">
 
-            <div className="nav-links">
-                <NavLink to="/about" onClick={closeMenu}>About</NavLink>
-                <NavLink to="/appstate" onClick={closeMenu}>AppState</NavLink>
-                <NavLink to="/portfolio" className="important" onClick={closeMenu}>
-                    <img src={specialPlate} alt="" aria-hidden="true" className="special-plate" />
-                    Portfolio
-                </NavLink>
+                <img src={navPanelShape} alt="" aria-hidden="true" className="nav-plate" />
+                <img src={navPlateDesktop} alt="" aria-hidden="true" className="nav-plate-desktop" />
+
+                <div className="nav-links">
+                    <NavLink to="/about" onClick={closeMenu}>About</NavLink>
+                    <NavLink to="/appstate" onClick={closeMenu}>AppState</NavLink>
+                    <NavLink to="/portfolio" className="important" onClick={closeMenu}>
+                        <img src={specialPlate} alt="" aria-hidden="true" className="special-plate" />
+                        Portfolio
+                    </NavLink>
+                </div>
             </div>
         </nav>
     )

@@ -70,10 +70,20 @@ nav.closed {
   display: none;
 }
 
+.nav-panel {
+  display: none;
+  position: relative;
+}
+
+nav.open .nav-panel {
+  display: block;
+}
+
 .nav-links {
   position: relative;
   z-index: 1;
   align-items: center;
+  justify-content: center;
   gap: 2.5rem;
 }
 
@@ -81,8 +91,8 @@ nav.closed {
   display: none;
   position: absolute;
   top: 50%;
-  right: 2.5rem;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 447px;
   max-width: none;
   height: auto;
@@ -94,10 +104,6 @@ nav a {
   position: relative;
   text-decoration: none;
   color: inherit;
-}
-
-.important {
-  color: #FFFFFF;
 }
 
 .special-plate {
@@ -187,6 +193,10 @@ nav.open .nav-toggle-line--bottom {
 
 /* Hamburger menu (< 576px): stay right, stack links when opened */
 @media (max-width: 575.98px) {
+    .important {
+    color: #FFFFFF;
+  }
+
   .nav-bar {
     width: 100%;
   }
@@ -296,5 +306,10 @@ nav.open .nav-toggle-line--bottom {
 
   .nav-plate-desktop {
     display: block;
+  }
+
+  .nav-panel {
+    min-width: 447px;
+    margin-right: 0.5rem;
   }
 }
