@@ -75,10 +75,9 @@ export default function Navigation() {
             </div>
 
             <img src={navPanelShape} alt="" aria-hidden="true" className="nav-plate" />
+            <img src={navPlateDesktop} alt="" aria-hidden="true" className="nav-plate-desktop" />
 
             <div className="nav-links">
-                <img src={navPlateDesktop} alt="" aria-hidden="true" className="nav-plate-desktop" />
-
                 <NavLink to="/about" onClick={closeMenu}>About</NavLink>
                 <NavLink to="/appstate" onClick={closeMenu}>AppState</NavLink>
                 <NavLink to="/portfolio" className="important" onClick={closeMenu}>
