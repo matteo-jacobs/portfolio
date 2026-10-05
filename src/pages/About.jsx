@@ -1,38 +1,26 @@
-import heroImage from '../assets/skier.jpg'
+import skier from '../assets/skier.jpg'
+import aboutme from '../assets/aboutme.jpg'
+import Navigation from '../components/navigation.jsx'
+import Footer from '../components/footer.jsx'
 
 export default function About() {
   return (
-    <section className="page about">
-      <h1>About Me</h1>
-
-      {/* TODO: swap for an actual self-portrait photo or illustration. */}
-      <img className="about-portrait" src={heroImage} alt="Matteo Jacobs" />
-
-      <p>
-        I&apos;m Matteo Jacobs, a student at Appalachian State University. Right now I&apos;m focused
-        on how stories get told through interactive and emerging media — podcasts, branching games,
-        and tabletop design — and how the tools we build shape the stories we can tell.
-      </p>
-      <p>
-        My goal after graduating is to work somewhere at the intersection of design and software,
-        building things people actually use. Outside of coursework I like [hobbies / personal
-        interests — update this].
-      </p>
-      <p>
-        I&apos;ll keep this bio current as things change: today I <em>am</em> a student; later this
-        will say I <em>was</em> one.
-      </p>
-
-      <h2>Contact</h2>
-      <ul className="contact-list">
-        <li>
-          Email: <a href="mailto:jacobsm2@appstate.edu">jacobsm2@appstate.edu</a>{' '}
-        </li>
-        <li> 
-          Phone: <a href="tel:+32474024771">+32474024771</a>
-          </li>
-        
-      </ul>
-    </section>
+    <div ClassName="aboutPage">
+          <Navigation />
+          <div className="hero">
+            <img src={skier} alt="Skier" className="hero-image" />
+            <div className="hero-title">
+              <img src={aboutme}></img>
+              <h1>About Me</h1>
+            </div>
+            <p>Hi, I'm Matteo, a passionate designer and developer with a love for creating beautiful and functional digital experiences. With a background in both design and development, I bring a unique perspective to every project I work on.</p>
+            <div className="hero-title">
+              <img src={aboutme}></img>
+              <h1>Fun Fact</h1>
+            </div>
+            <p>When I'm not designing, you'll probably find me on a mountain. I'm a ski instructor, and between my own runs and teaching kids to ski, the mountains have become my favorite place in the world.</p>
+          </div>
+          <Footer />
+    </div>
   )
 }
