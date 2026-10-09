@@ -1,14 +1,11 @@
 import skier from '../assets/skier.jpg'
 import heroTitle__background from '../assets/heroTitle__background.jpg'
-import Navigation from '../components/navigation.jsx'
-// import Footer from '../components/footer.jsx'
 
 export default function Home() {
 
   return (
-    <div ClassName="homePage">
+    <div className="homePage">
       <div className="navigationWrapper">
-      <Navigation />
       </div>
       <div className="hero">
         <img src={skier} alt="Skier" className="hero-image" />
@@ -53,7 +50,6 @@ export default function Home() {
           <a href="#">View Project</a>
         </div>     
       </div>
-      {/* <Footer /> */}
     </div>
   )
 }
