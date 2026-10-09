@@ -318,3 +318,7 @@ nav.open .nav-toggle-line--bottom {
     margin-right: 0.5rem;
   }
 }
+
+.navigationWrapper {
+  position: absolute;
+}

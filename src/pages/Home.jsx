@@ -7,7 +7,9 @@ export default function Home() {
 
   return (
     <div ClassName="homePage">
+      <div className="navigationWrapper">
       <Navigation />
+      </div>
       <div className="hero">
         <img src={skier} alt="Skier" className="hero-image" />
         <div className="hero-title">
