@@ -1,68 +1,165 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+/* ==========================================================================
+   Reset (modern, based on Josh Comeau's / Andy Bell's resets)
+   ========================================================================== */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+
+* {
+  margin: 0;
+  padding: 0;
 }
+
+html {
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
 body {
-	line-height: 1;
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
-ol, ul {
-	list-style: none;
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
 }
-blockquote, q {
-	quotes: none;
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
 }
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+#root {
+  isolation: isolate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ==========================================================================
-   Breakpoints (mobile-first)
+   Variables
 
-   Mobile:  default, no media query    (< 744px)
-   Tablet:  @media (min-width: 744px)   744px – 1279px
-   Desktop: @media (min-width: 1280px)  >= 1280px
+   Breakpoints can't be CSS variables (media queries don't read them), so
+   they're written out below:
+     Phone:   default, no media query  (< 744px)
+     Tablet:  @media (min-width: 744px)
+     Desktop: @media (min-width: 1280px)
    ========================================================================== */
 
-/* Mobile styles are just your normal, unwrapped rules — no media query needed */
+:root {
+  /* Colors */
+  --red: #ff0000;
+  --white: #f0f0f0;
+  --black: #161616;
 
-/* Tablet and up */
-@media (min-width: 744px) {
-  /* overrides for 744px+ */
+  /* Font */
+  --font: 'Open Sans', system-ui, sans-serif;
+
+  /* Fluid type sizes — they grow smoothly with the viewport width.
+     clamp(MIN, PREFERRED, MAX):
+       MIN       size on a 375px phone (never smaller)
+       MAX       size on a 1440px desktop (never bigger)
+       PREFERRED the line between those two points
+
+     To change one, pick your phone + desktop sizes in px and compute:
+       slope     = (max - min) / (1440 - 375)
+       vw        = slope * 100
+       intercept = (min - slope * 375) / 16   -> in rem
+     -> clamp(min/16 rem, intercept rem + vw vw, max/16 rem)
+
+     Placeholders below, replace with your Figma values. */
+  --title-size: clamp(3rem, 1.944rem + 4.507vw, 6rem);          /* 48px -> 96px */
+  --subtitle-size: clamp(1.5rem, 1.148rem + 1.502vw, 2.5rem);   /* 24px -> 40px */
+  --paragraph-size: clamp(1rem, 0.912rem + 0.376vw, 1.25rem);   /* 16px -> 20px */
 }
 
-/* Desktop and up */
-@media (min-width: 1280px) {
-  /* overrides for 1280px+ */
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+body {
+  font-family: var(--font);
+  color: var(--black);
+  background: var(--white);
+}
+
+/* ==========================================================================
+   Typography
+   Use the classes anywhere; h1 / h2 / p get them by default.
+   ========================================================================== */
+
+/* Title — ExtraBold, Condensed, Italic, uppercase */
+.title,
+h1 {
+  font-size: var(--title-size);
+  font-weight: 800;
+  font-stretch: 75%;
+  font-style: italic;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* Subtitle — SemiBold, Condensed, uppercase */
+.subtitle,
+h2,
+h3 {
+  font-size: var(--subtitle-size);
+  font-weight: 600;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+/* Paragraph — SemiBold */
+.paragraph,
+p {
+  font-size: var(--paragraph-size);
+  font-weight: 600;
+  line-height: 1.5;
 }

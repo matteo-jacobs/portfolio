@@ -1,19 +1,17 @@
 import { Link, useParams } from 'react-router-dom'
-import { getCourse, getProject } from '../data/courses.js'
+import { getProject } from '../data/projects.js'
 import NotFound from './NotFound.jsx'
 
 export default function Project() {
-  const { courseSlug, projectSlug } = useParams()
-  const course = getCourse(courseSlug)
-  const project = getProject(courseSlug, projectSlug)
+  const { projectSlug } = useParams()
+  const project = getProject(projectSlug)
 
-  if (!course || !project) return <NotFound />
+  if (!project) return <NotFound />
 
   return (
     <section className="page project">
       <p className="breadcrumb">
-        <Link to="/appstate">AppState</Link> /{' '}
-        <Link to={`/appstate/${course.slug}`}>{course.title}</Link> / {project.title}
+        <Link to="/portfolio">Portfolio</Link> / {project.title}
       </p>
 
       <h1>{project.title}</h1>

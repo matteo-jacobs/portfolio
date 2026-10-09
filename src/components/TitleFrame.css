@@ -1,0 +1,22 @@
+/* The shape is drawn on ::before so clip-path only cuts the background,
+   never the text inside. */
+.title-frame {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+  padding: 0.25em 0.75em;
+}
+
+.title-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--frame-color, var(--red));
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--frame-tr-x, 0px)) var(--frame-tr-y, 0px),
+    calc(100% - var(--frame-br-x, 0px)) calc(100% - var(--frame-br-y, 0px)),
+    var(--frame-bl-x, 0px) calc(100% - var(--frame-bl-y, 0px))
+  );
+}
