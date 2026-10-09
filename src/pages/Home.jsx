@@ -1,7 +1,7 @@
 import skier from '../assets/skier.jpg'
 import heroTitle__background from '../assets/heroTitle__background.jpg'
 import Navigation from '../components/navigation.jsx'
-import Footer from '../components/footer.jsx'
+// import Footer from '../components/footer.jsx'
 
 export default function Home() {
 
@@ -51,7 +51,7 @@ export default function Home() {
           <a href="#">View Project</a>
         </div>     
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   )
 }

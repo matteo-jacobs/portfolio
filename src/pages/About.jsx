@@ -1,7 +1,7 @@
 import skier from '../assets/skier.jpg'
 import aboutme from '../assets/aboutme.jpg'
 import Navigation from '../components/navigation.jsx'
-import Footer from '../components/footer.jsx'
+// import Footer from '../components/footer.jsx'
 
 export default function About() {
   return (
@@ -20,7 +20,7 @@ export default function About() {
             </div>
             <p>When I'm not designing, you'll probably find me on a mountain. I'm a ski instructor, and between my own runs and teaching kids to ski, the mountains have become my favorite place in the world.</p>
           </div>
-          <Footer />
+          {/* <Footer /> */}
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { courses } from '../data/courses.js'
 import Navigation from '../components/navigation.jsx'
-import Footer from '../components/footer.jsx'
+// import Footer from '../components/footer.jsx'
 
 // For now the portfolio is a flat view of every project across every course.
 // If this site later becomes a design portfolio, this is where projects would
@@ -28,7 +28,7 @@ export default function Portfolio() {
                   ))}
                 </ul>
               </div>
-              <Footer />
+              {/* <Footer /> */}
         </div>
   )
 }
