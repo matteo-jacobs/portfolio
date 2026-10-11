@@ -114,7 +114,12 @@ h6 {
      -> clamp(min/16 rem, intercept rem + vw vw, max/16 rem)
 
      Placeholders below, replace with your Figma values. */
-  --title-size: clamp(3rem, 1.944rem + 4.507vw, 6rem);          /* 48px -> 96px */
+
+  /* Titles scale 1:1 with the screen width, like the hero image does, so the
+     two always keep the same proportions. Figma: 52.6px on a 402px frame
+     -> 52.6 / 402 × 100 = 13.09vw. (320px -> 42px, 1440px -> 188px)
+     To cap it on huge screens: min(13.09vw, 10rem) */
+  --title-size: 13.09vw;
   --subtitle-size: clamp(1.5rem, 1.148rem + 1.502vw, 2.5rem);   /* 24px -> 40px */
   --paragraph-size: clamp(1rem, 0.912rem + 0.376vw, 1.25rem);   /* 16px -> 20px */
 }

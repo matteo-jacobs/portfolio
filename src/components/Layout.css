@@ -72,7 +72,6 @@ img {
    (.site wraps nav + content + footer) */
 .site-main {
   flex: 1;
-  padding: 2rem clamp(1rem, 4vw, 2rem);
 }
 
 /* Big screens: keep the content in a centred column.
@@ -210,4 +209,3 @@ img {
   font-size: 0.85rem;
   color: var(--muted);
 }
-

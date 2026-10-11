@@ -1,0 +1,183 @@
+/* ==========================================================================
+   Hero: titles on block-start -> image -> CTA (overlapping the image) -> scrolling bar
+   ========================================================================== */
+
+.hero {
+  display: grid;
+  justify-items: center; /* every row centred horizontally */
+
+  /* One column, exactly as wide as the hero. minmax(0, …) stops wide
+     content (like the scrolling words) from stretching the column. */
+  grid-template-columns: minmax(0, 1fr);
+
+  /* Room for the fixed navigation, so the titles aren't hidden behind it */
+  padding-block-start: 5.5rem;
+
+  /* The image is wider than the screen: cut off what sticks out instead of
+     making the page scroll sideways */
+  overflow-x: clip;
+
+  /* Geometry of the hero image, measured from the PNG. The CTA and the
+     scrolling bar line up with the image's slanted bottom edge using these,
+     so swapping the image only means changing these numbers.
+     All in vw: the image scales with the screen width, so they stay right. */
+  --image-width: 152vw;      /* how wide the image is shown */
+  --image-shift: -2.6vw;     /* nudge right (+) or left (-) */
+  --border-from-bottom: 18.38vw; /* white border's middle, above image bottom */
+  --edge-from-bottom: 16.4vw;    /* outer edge, above image bottom */
+  --edge-angle: -11.72deg;       /* slant of the bottom edge */
+  --edge-dip: 10.2vw;            /* half the screen × sin(angle) */
+
+  /* Your own spacing choices */
+  --cta-above-border: 22vw; /* CTA middle, this far above the border */
+  --bar-gap: 0.5rem;        /* bar, this far below the edge */
+}
+
+/* Phones: the screen-sized crop (hero-skier__mobile.png, 402 × 575) */
+@media (max-width: 743.98px) {
+  .hero {
+    --image-width: 100vw;
+    --image-shift: 0vw;
+    --border-from-bottom: 8.71vw;
+    --edge-from-bottom: 6.47vw;
+    --edge-angle: -4.39deg;
+    --edge-dip: 3.83vw;
+  }
+}
+
+/* picture is only a wrapper that picks the image; display: contents lets
+   the <img> inside act as the grid item */
+.hero-picture {
+  display: contents;
+}
+
+/* The two titles, stacked */
+.hero-title {
+  color: var(--red);
+
+  display: grid;
+  justify-items: start; /* titles line up on the inline-start... */
+
+  /* ...and sit ON TOP of the image: positioned + z-index puts them above it,
+     the negative bottom margin pulls the image up underneath them.
+     Bigger number = more overlap. */
+  position: relative;
+  z-index: 1;
+  margin-bottom: calc(var(--title-size) * -1.9);
+}
+
+/* Tight white frames around the title words */
+.hero-title .title-frame {
+  --frame-pad-y: 0.08em;
+  --frame-pad-x: 0.3em;
+}
+
+/* "Portfolio": shifted right, tucked slightly under "Matteo's".
+   em = relative to the title's own font size, so it scales with it. */
+.hero-title__2 {
+  margin-inline-start: 1.4em;
+  margin-block-start: -0.2em;
+}
+
+/* The image (transparent PNG with the slanted frame, from Figma).
+   Equal negative margins keep it centred while it's wider than the screen;
+   max-width: none undoes the reset's max-width: 100%. */
+.hero-image {
+  width: var(--image-width);
+  height: auto; /* keep the proportions from the width/height attributes */
+  max-width: none;
+  margin-inline: calc((100% - var(--image-width)) / 2);
+  translate: var(--image-shift) 0;
+}
+
+/* "View projects ↓": positioned from the image's white bottom border, so it
+   stays in the same spot on the image at every screen width.
+   1. margin pulls the button's TOP up to the border (+ --cta-above-border)
+   2. translate -50% moves it up by half its OWN height -> its middle sits
+      exactly there */
+.CTA {
+  --frame-pad-y: 0.6em;
+  --frame-pad-x: 1.8em;
+
+  position: relative;
+  z-index: 1;
+  margin-block-start: calc(-1 * (var(--border-from-bottom) + var(--cta-above-border)));
+  translate: 0 -50%;
+
+  /* Grid items stretch to fill their row; with a negative margin that
+     stretch makes the button taller. start = only as tall as its content. */
+  align-self: start;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25em;
+
+  color: var(--white);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Scrolling bar: a white band with words that slide endlessly to the inline-start
+   ========================================================================== */
+
+.scrolling-bar {
+  /* Same angle as the image's bottom edge (the JS fit check reads this) */
+  --bar-angle: var(--edge-angle);
+  rotate: var(--bar-angle);
+
+  /* Wider than the screen, so the tilted ends don't leave empty corners
+     (the hero's overflow-x: clip cuts off what sticks out) */
+  width: 120%;
+  margin-inline: -10%;
+
+  /* Parallel to the image edge, --bar-gap below it.
+     align-self: start stops the grid from stretching it (negative margin). */
+  margin-block-start: calc(var(--bar-gap) - var(--edge-from-bottom));
+  align-self: start;
+
+  /* Tilting doesn't change the space the bar takes up, so its low (left)
+     end would dip over the next section. Reserve that dip. */
+  margin-block-end: var(--edge-dip);
+
+  padding-block: 0.5rem; /* band thickness */
+  background: var(--white);
+  overflow-x: clip; /* only cut off sideways; vertical stays visible */
+}
+
+.scrolling-bar__track {
+  display: flex;
+  width: max-content;
+  animation: scroll-inline-start 20s linear infinite;
+}
+
+.scrolling-bar__list {
+  display: flex;
+}
+
+.scrolling-bar__list li {
+  display: flex;
+  align-items: center;
+
+  color: var(--red);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* The red dash after every word (also after the last, so the loop is seamless) */
+.scrolling-bar__list li::after {
+  content: '';
+  width: 0.6em;
+  height: 0.2em;
+  margin-inline: 1em;
+  background: var(--red);
+}
+
+/* Slide exactly one copy of the list (half the track) to the inline-start, repeat */
+@keyframes scroll-inline-start {
+  to {
+    transform: translateX(-50%);
+  }
+}
