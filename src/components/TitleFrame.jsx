@@ -9,6 +9,9 @@ import './TitleFrame.css'
 // Usage:
 //   <TitleFrame><h1>About me</h1></TitleFrame>
 //   <TitleFrame color="var(--black)" topRight={[10, 0]} bottomLeft={[0, 8]}>
+//
+// padding={[y, x]} in px sets the space around the content (default 0.5em 1em).
+// The corner offsets are added on top automatically.
 //     <h2 style={{ color: 'var(--white)' }}>Fun fact</h2>
 //   </TitleFrame>
 export default function TitleFrame({
@@ -17,6 +20,7 @@ export default function TitleFrame({
   topRight = [8, 4],
   bottomRight = [4, 6],
   bottomLeft = [6, 2],
+  padding,
   className = '',
   style,
   children,
@@ -31,6 +35,10 @@ export default function TitleFrame({
     '--frame-br-y': `${bottomRight[1]}px`,
     '--frame-bl-x': `${bottomLeft[0]}px`,
     '--frame-bl-y': `${bottomLeft[1]}px`,
+    ...(padding && {
+      '--frame-pad-y': `${padding[0]}px`,
+      '--frame-pad-x': `${padding[1]}px`,
+    }),
   }
 
   return (

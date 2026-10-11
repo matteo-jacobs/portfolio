@@ -4,7 +4,19 @@
   position: relative;
   isolation: isolate;
   display: inline-block;
-  padding: 0.25em 0.75em;
+
+  /* Space between the content and the frame. Override per element, e.g.
+     .nav-toggle { --frame-pad-x: 14px; --frame-pad-y: 14px; } */
+  --frame-pad-y: 0.5em;
+  --frame-pad-x: 1em;
+
+  /* Each side adds the corner offsets on top, so the slant never eats into
+     the padding and content can't touch the edge. */
+  padding:
+    calc(var(--frame-pad-y) + var(--frame-tr-y, 0px))
+    calc(var(--frame-pad-x) + max(var(--frame-tr-x, 0px), var(--frame-br-x, 0px)))
+    calc(var(--frame-pad-y) + max(var(--frame-br-y, 0px), var(--frame-bl-y, 0px)))
+    calc(var(--frame-pad-x) + var(--frame-bl-x, 0px));
 }
 
 .title-frame::before {

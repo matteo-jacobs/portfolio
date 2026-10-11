@@ -1,20 +1,19 @@
-nav.open,
-nav.closed {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: 1.5rem;
-  color: #161616;
-  font-weight: bold;
-}
-
-
-nav.open .nav-panel {
-  display: block;
-}
-
-nav.closed .nav-bar {
+/* Phone: no frame behind the open menu */
+.nav-open.title-frame::before {
   display: none;
 }
 
+/* Tablet and up: show the frame */
+@media (min-width: 744px) {
+  .nav-open.title-frame::before {
+    display: block;
+  }
+}
+
+/* Hamburger: a square frame with the icon centred */
+.nav-toggle {
+  --frame-pad-x: 6px;
+  display: inline-grid;
+  place-items: center;
+  aspect-ratio: 1;
+}
