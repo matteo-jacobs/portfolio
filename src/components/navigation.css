@@ -1,14 +1,21 @@
-/* Phone: no frame behind the open menu */
-.nav-open.title-frame::before {
-  display: none;
+/* ==========================================================================
+   Phone (default)
+   Base styles first — media queries go at the BOTTOM so they win.
+   ========================================================================== */
+
+nav {
+    margin: 1rem;
 }
 
-/* Tablet and up: show the frame */
-@media (min-width: 744px) {
-  .nav-open.title-frame::before {
-    display: block;
-  }
+.logo-computer {
+  display: none;
 }
+.nav-closed {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 
 /* Hamburger: a square frame with the icon centred */
 .nav-toggle {
@@ -16,4 +23,177 @@
   display: inline-grid;
   place-items: center;
   aspect-ratio: 1;
+}
+
+/* Menu is hidden until the hamburger opens it */
+.nav-open {
+  display: none;
+}
+
+nav.open .nav-open {
+  display: block;
+}
+
+/* Nav links: Open Sans Bold (font family comes from body in index.css) */
+.nav-open a {
+  font-weight: 700;
+}
+
+/* Portfolio link: red frame (the TitleFrame default) with white text */
+.important {
+  color: var(--white);
+}
+
+/* No frame behind the open menu on phone */
+.nav-open.title-frame::before {
+  display: none;
+}
+
+/* Hamburger -> X when the menu is open.
+   fill-box + center = each bar rotates around its own middle. */
+.nav-toggle-icon {
+  overflow: visible;
+}
+
+.nav-toggle-line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+nav.open .nav-toggle-line--top {
+  transform: translateY(11px) rotate(45deg);
+}
+
+nav.open .nav-toggle-line--middle {
+  opacity: 0;
+}
+
+nav.open .nav-toggle-line--bottom {
+  transform: translateY(-11px) rotate(-45deg);
+}
+
+/* ==========================================================================
+   Phone only: the open menu as a full-screen panel
+   (max-width so none of this leaks into tablet/desktop)
+   ========================================================================== */
+
+@media (max-width: 743.98px) {
+  /* Logo + X stay on top of the panel so you can close it */
+  .nav-closed {
+    position: relative;
+    z-index: 101;
+  }
+
+  nav.open .nav-open {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: var(--black);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  /* Links in the title style, big and white */
+  .nav-open a {
+    color: var(--white);
+    font-size: var(--title-size);
+    font-weight: 800;
+    font-stretch: 75%;
+    font-style: italic;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+}
+
+/* ==========================================================================
+   Tablet and up
+   ========================================================================== */
+
+@media (min-width: 744px) {
+  .nav-closed {
+    display: none;
+  }
+
+  /* Links side by side. Includes nav.open so it beats the phone rule
+     `nav.open .nav-open` above (same specificity + later = wins). */
+  .nav-open,
+  nav.open .nav-open {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 70vw;
+    margin-inline: auto;
+
+    /* Extra room before "Home". Keeps the corner slant added on top,
+       like the other sides. Change 2rem to taste. */
+    padding-inline-start: calc(2rem + var(--frame-bl-x));
+  }
+
+  .nav-open.title-frame::before {
+    display: block;
+  }
+}
+
+
+@media (min-width: 1280px) {
+
+  /* 3 columns: empty | logo | links. The outer columns are always equal
+     (1fr each), so the logo in the middle column is exactly centred. */
+  .nav-open-container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+
+  .logo-computer {
+    grid-column: 1;
+    /* justify-self = where THIS element sits in its grid column.
+       Without it, grid items stretch to fill the whole column. */
+    justify-self: start;
+    /* place-items = where its CHILDREN (the image) sit inside it */
+    display: grid;
+    place-items: center;
+  }
+
+  .home-computer {
+    display: none;
+  }
+  /* Links side by side. Includes nav.open so it beats the phone rule
+     `nav.open .nav-open` above (same specificity + later = wins). */
+  .nav-open,
+  nav.open .nav-open {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* Right column, pushed to its right edge, always 30% of the screen */
+    grid-column: 3;
+    justify-self: end;
+    width: 20vw;
+    max-width: none;
+    margin-inline: 0;
+
+    /* Space before "About". Keeps the corner slant added on top.
+       Change 1rem to taste (0 = touching the edge). */
+    padding-inline-start: calc(1rem + var(--frame-bl-x));
+  }
+
+  .nav-open.title-frame::before {
+    display: block;
+  }
+
+  
+}
+
+
+@media (min-width: 1280px) {
+    .nav-open,
+  nav.open .nav-open {
+    width: 432px;
+  }
 }

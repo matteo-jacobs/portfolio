@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import TitleFrame from '../components/TitleFrame.jsx'
 import logoMark from '../assets/navigation/logo-mark.svg'
+import logoMarkRed from '../assets/navigation/logo-mark-red.svg'
 import './navigation.css'
 
-const TABLET_BREAKPOINT = 576
+// Keep in sync with the tablet media query in navigation.css
+const TABLET_BREAKPOINT = 744
 
 export default function Navigation() {
     const [isOpen, setIsOpen] = useState(false)
@@ -18,69 +20,30 @@ export default function Navigation() {
         return () => mql.removeEventListener('change', syncOpen)
     }, [])
 
+    // Phone menu is open: stop the page behind it from scrolling, and let
+    // Escape close it. (On tablet+ isOpen is always true, so skip those.)
+    useEffect(() => {
+        const isPhone = !window.matchMedia(`(min-width: ${TABLET_BREAKPOINT}px)`).matches
+        if (!isOpen || !isPhone) return
+
+        const onKeyDown = (event) => {
+            if (event.key === 'Escape') setIsOpen(false)
+        }
+
+        document.body.style.overflow = 'hidden'
+        window.addEventListener('keydown', onKeyDown)
+        return () => {
+            document.body.style.overflow = ''
+            window.removeEventListener('keydown', onKeyDown)
+        }
+    }, [isOpen])
+
     const closeMenu = () => {
         const isDesktopLayout = window.matchMedia(`(min-width: ${TABLET_BREAKPOINT}px)`).matches
         if (!isDesktopLayout) {
             setIsOpen(false)
         }
     }
-
-    // return (
-    //     <nav className={isOpen ? 'open' : 'closed'}>
-    //         <div className="nav-bar">
-    //             <NavLink to="/" className="logo" onClick={closeMenu}>
-    //                 <img src={logoPlate} alt="" aria-hidden="true" className="logo-plate" />
-    //                 <span className="logo-image logo-mark" role="img" aria-label="Home">
-    //                     <svg viewBox="0 0 32 32" width="32" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    //                         <path d={LOGO_PATH} fill="#F0F0F0" />
-    //                     </svg>
-    //                     <svg className="logo-mark-fill" viewBox="0 0 32 32" width="32" height="32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    //                         <path d={LOGO_PATH} fill="#FF0000" />
-    //                     </svg>
-    //                 </span>
-    //                 <span className="logo-text">Home</span>
-    //             </NavLink>
-
-    //             <button
-    //                 type="button"
-    //                 className="nav-toggle"
-    //                 aria-expanded={isOpen}
-    //                 aria-label={isOpen ? 'Close menu' : 'Open menu'}
-    //                 onClick={() => setIsOpen((open) => !open)}
-    //             >
-    //                 <img src={hamburgerPlate} alt="" aria-hidden="true" className="nav-toggle-plate" />
-    //                 <svg
-    //                     className="nav-toggle-icon"
-    //                     width="37"
-    //                     height="27"
-    //                     viewBox="0 0 37 27"
-    //                     fill="none"
-    //                     xmlns="http://www.w3.org/2000/svg"
-    //                     aria-hidden="true"
-    //                 >
-    //                     <rect className="nav-toggle-line nav-toggle-line--top" x="0" y="0" width="37" height="5" fill="#FF0000" />
-    //                     <rect className="nav-toggle-line nav-toggle-line--middle" x="0" y="11" width="37" height="5" fill="#FF0000" />
-    //                     <rect className="nav-toggle-line nav-toggle-line--bottom" x="0" y="22" width="37" height="5" fill="#FF0000" />
-    //                 </svg>
-    //             </button>
-    //         </div>
-
-    //         <div className="nav-panel">
-
-    //             <img src={navPanelShape} alt="" aria-hidden="true" className="nav-plate" />
-    //             <img src={navPlateDesktop} alt="" aria-hidden="true" className="nav-plate-desktop" />
-
-    //             <div className="nav-links">
-    //                 <NavLink to="/about" onClick={closeMenu}>About</NavLink>
-    //                 <NavLink to="/appstate" onClick={closeMenu}>AppState</NavLink>
-    //                 <NavLink to="/portfolio" className="important" onClick={closeMenu}>
-    //                     <img src={specialPlate} alt="" aria-hidden="true" className="special-plate" />
-    //                     Portfolio
-    //                 </NavLink>
-    //             </div>
-    //         </div>
-    //     </nav>
-    // )
 
     return (
         <nav className={isOpen ? 'open' : 'closed'}>
@@ -114,12 +77,24 @@ export default function Navigation() {
                 </TitleFrame>
             </div>
 
-            {/* Framed on tablet + desktop only, see navigation.css */}
+
+            <div className="nav-open-container">
+            <TitleFrame as="a" href="/" className="logo-computer" color="var(--white)">
+                <img src={logoMarkRed} alt="Home" className="logo-mark-red" />
+            </TitleFrame>
             <TitleFrame as="ul" color="var(--white)" className="nav-open">
+                
+                
+                <li className="home-computer"><NavLink to="/" onClick={closeMenu}>Home</NavLink></li>
                 <li><NavLink to="/about" onClick={closeMenu}>About</NavLink></li>
                 <li><NavLink to="/appstate" onClick={closeMenu}>AppState</NavLink></li>
-                <li><NavLink to="/portfolio" className="important" onClick={closeMenu}>Portfolio</NavLink></li>
+                <li>
+                    <TitleFrame as={NavLink} to="/portfolio" className="important" onClick={closeMenu}>
+                        Portfolio
+                    </TitleFrame>
+                </li>
             </TitleFrame>
+            </div>
         
     </nav>)
 }

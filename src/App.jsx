@@ -10,11 +10,9 @@ import NotFound from './pages/NotFound.jsx'
 export default function App() {
   return (
     <Routes>
-      {/* The home page is the full-bleed Figma hero — it renders outside
-          Layout so it has no shared header/footer. */}
-      <Route path="/" element={<Home />} />
-
+      {/* Every page renders inside Layout, so they all share the navigation. */}
       <Route element={<Layout />}>
+        <Route index element={<Home />} />
         <Route path="about" element={<About />} />
 
         <Route path="appstate" element={<AppState />} />
