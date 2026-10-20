@@ -1,8 +1,11 @@
 import { useLayoutEffect, useRef, useState } from 'react'
-import skier from '../assets/skier.jpg'
+import { Link } from 'react-router-dom'
+import { latestProjects } from '../data/projects.js'
 import heroSkier from '../assets/hero-skier.png'
 import heroSkierMobile from '../assets/hero-skier__mobile.png'
 import TitleFrame from '../components/TitleFrame.jsx'
+import ProjectCarousel from '../components/ProjectCarousel.jsx'
+import BorderFrame from '../components/BorderFrame.jsx'
 import './Home.css'
 
 const roles = ['Developer', 'Designer', 'Problem solver', 'Goofball']
@@ -56,12 +59,13 @@ function useBarFitsOnScreen() {
 
 export default function Home() {
   const { imageRef, barRef, fits: barFits } = useBarFitsOnScreen()
+  const latest = latestProjects(3)
 
   return (
     <div className="homePage">
       
       <div className="hero">
-        <div className="hero-title">
+        <div className="hero-title title-stack">
           
           <TitleFrame 
           as="h1"
@@ -131,27 +135,50 @@ export default function Home() {
 
       <div className="homePage__content" id="scroll-down">
         <h2>Passed work</h2>
-        <div>
-          <div>
-            <img src={skier} alt="Skier" className="homePage__content__image" />
-            <h3>Project Title</h3>
-          </div>
-          <a href="#">View Project</a>
-        </div>
-        <div>
-          <div>
-            <img src={skier} alt="Skier" className="homePage__content__image" />
-            <h3>Project Title</h3>
-          </div>
-          <a href="#">View Project</a>
-        </div>
-        <div>
-          <div>
-            <img src={skier} alt="Skier" className="homePage__content__image" />
-            <h3>Project Title</h3>
-          </div>
-          <a href="#">View Project</a>
-        </div>     
+        <ProjectCarousel label="Passed work">
+          {latest.map((project) => (
+            // The whole card is the link to the project
+            <Link
+              key={project.slug}
+              to={`/portfolio/${project.slug}`}
+              className="project-card"
+              style={{
+                '--project-main': project.mainColor,
+                '--project-secondary': project.secondaryColor,
+              }}
+            >
+              <BorderFrame color="var(--project-main)" className="project-card__media">
+                {project.cover && (
+                  <img src={project.cover} alt="" className="project-card__image" />
+                )}
+
+                {/* The title over the image, one framed line per titleLines entry */}
+                <h3 className="project-card__title title-stack">
+                  {project.titleLines.map((line, i) => (
+                    <TitleFrame
+                      key={i}
+                      as="span"
+                      color="var(--project-main)"
+                      className="project-card__title-line"
+                    >
+                      {line}
+                    </TitleFrame>
+                  ))}
+                </h3>
+
+                {/* "Goes somewhere" arrow in the bottom-right red corner */}
+                <svg
+                  className="project-card__arrow"
+                  viewBox="0 0 20 14"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path d="M0 7H17M11 1L17 7L11 13" stroke="currentColor" strokeWidth="3" />
+                </svg>
+              </BorderFrame>
+            </Link>
+          ))}
+        </ProjectCarousel>
       </div>
     </div>
   )

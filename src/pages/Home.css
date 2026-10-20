@@ -14,8 +14,14 @@
   padding-block-start: 5.5rem;
 
   /* The image is wider than the screen: cut off what sticks out instead of
-     making the page scroll sideways */
-  overflow-x: clip;
+     making the page scroll sideways. Also cuts off the white slant below. */
+  overflow: clip;
+
+  /* For the white slant: positioned so .hero::after can sit at the bottom,
+     isolated so the slant's z-index: -1 stays behind the hero's content
+     but in front of the page's red background */
+  position: relative;
+  isolation: isolate;
 
   /* Geometry of the hero image, measured from the PNG. The CTA and the
      scrolling bar line up with the image's slanted bottom edge using these,
@@ -43,6 +49,31 @@
     --edge-angle: -4.39deg;
     --edge-dip: 3.83vw;
   }
+}
+
+/* ==========================================================================
+   White slant: the white of the next section (.homePage__content) starts
+   at the same angle as the image edge, so no red shows under the bar.
+
+   Bar shown:  .scrolling-bar::after, a white sheet hanging --bar-gap below
+               the bar. It tilts with the bar, so the angle always matches.
+   Bar hidden: .hero::after, a white wedge cut diagonally with clip-path,
+               starting at the image's outer edge.
+   The hero's overflow: clip cuts both off at the hero's bottom.
+   ========================================================================== */
+
+.hero:has(.scrolling-bar[hidden])::after {
+  content: '';
+  position: absolute;
+  z-index: -1; /* behind the image */
+  inset-inline: 0;
+  bottom: 0; /* without the bar, the hero ends at the image's bottom */
+
+  /* The edge's middle is --edge-from-bottom above the image's bottom; its
+     left end --edge-dip lower, its right end --edge-dip higher */
+  height: calc(var(--edge-from-bottom) + var(--edge-dip));
+  background: var(--white);
+  clip-path: polygon(0 calc(2 * var(--edge-dip)), 100% 0, 100% 100%, 0 100%);
 }
 
 /* picture is only a wrapper that picks the image; display: contents lets
@@ -75,8 +106,7 @@
 /* "Portfolio": shifted right, tucked slightly under "Matteo's".
    em = relative to the title's own font size, so it scales with it. */
 .hero-title__2 {
-  margin-inline-start: 1.4em;
-  margin-block-start: -0.2em;
+  margin-inline-start: 1.4em; /* the overlap comes from .title-stack */
 }
 
 /* The image (transparent PNG with the slanted frame, from Figma).
@@ -138,11 +168,25 @@
 
   /* Tilting doesn't change the space the bar takes up, so its low (left)
      end would dip over the next section. Reserve that dip. */
-  margin-block-end: var(--edge-dip);
+  /* + the gap below it, + 1rem so the gap never touches the hero's flat
+     bottom (that would make it look horizontal on the left) */
+  margin-block-end: calc(var(--edge-dip) + var(--bar-gap) + 1rem);
 
+  position: relative; /* for the white sheet (::after) */
   padding-block: 0.5rem; /* band thickness */
   background: var(--white);
   overflow-x: clip; /* only cut off sideways; vertical stays visible */
+}
+
+/* White sheet from just below the bar down (see "White slant" above) */
+.scrolling-bar::after {
+  content: '';
+  position: absolute;
+  z-index: -1; /* behind the words */
+  inset-inline: 0;
+  top: calc(100% + var(--bar-gap)); /* same red gap as above the bar */
+  height: 100vw; /* plenty: the hero's bottom cuts it off */
+  background: var(--white);
 }
 
 .scrolling-bar__track {
@@ -180,4 +224,126 @@
   to {
     transform: translateX(-50%);
   }
+}
+
+/* ==========================================================================
+   Passed work: the 3 newest projects
+   ========================================================================== */
+
+.homePage__content {
+  display: grid;
+  justify-items: center; /* title + projects centred horizontally */
+  gap: 2rem;
+
+  background: var(--white);
+  /* Tuck 1px under the hero: they meet on a fraction of a pixel, which
+     otherwise lets a thin red line through */
+  margin-block-start: -1px;
+  padding-block: 1.5rem 3rem;
+  padding-inline: 10%; /* space between the projects and the screen edge */
+}
+
+.homePage__content h2 {
+  color: var(--red);
+  font-size: calc(var(--subtitle-size) * 1.5); /* a bit bigger than other h2s */
+  text-align: center;
+}
+
+/* ==========================================================================
+   Project card: cover with red slanted corners, the title in framed lines
+   over it, and an arrow in the red corner. The whole card is the link.
+   --project-main / --project-secondary come from the project's JSON.
+   ========================================================================== */
+
+.project-card {
+  width: 100%;
+  display: grid;
+  justify-items: start;
+  gap: 1.5rem;
+}
+
+/* The image + its red corners (BorderFrame) */
+.project-card__media {
+  width: 100%;
+
+  /* The title's size follows the card's width (cqi = 1% of it) */
+  container-type: inline-size;
+}
+
+/* Fills the card's width; height: auto keeps the image's own proportions */
+.project-card__image {
+  width: 100%;
+  height: auto;
+  transition: scale 0.4s ease;
+}
+
+/* The title: lines stacked and staggered, near the image's bottom.
+   Anchored from the bottom so it never runs off the image onto the button:
+   on a portrait image like the Figma design its top lands around 70% down. */
+.project-card__title {
+  position: absolute;
+  z-index: 2; /* above the red corners */
+  bottom: 6%;
+  left: 4%;
+
+  display: grid;
+  justify-items: start;
+
+  font-size: 9cqi;
+  font-weight: 800;
+  font-style: italic;
+  font-stretch: 75%;
+  line-height: 1;
+  color: var(--white);
+}
+
+/* Same roomy frames as the hero's "Matteo's Portfolio" */
+.project-card__title-line {
+  --frame-pad-y: 0.1em;
+  --frame-pad-x: 0.35em;
+}
+
+/* Stagger: 1st line in, 2nd out, 3rd halfway (and so on) */
+.project-card__title-line:nth-child(3n + 1) {
+  margin-inline-start: 1.2em;
+}
+
+.project-card__title-line:nth-child(3n + 3) {
+  margin-inline-start: 0.6em;
+}
+
+/* Every 2nd line in the project's secondary color, like "Oostende" */
+.project-card__title-line:nth-child(2n) {
+  color: var(--project-secondary);
+}
+
+/* White arrow sitting in the bottom-right red corner.
+   cqi (% of the card's width) keeps it the same spot and size at every
+   width. These numbers keep it inside BorderFrame's bottom-right red
+   (checked against its shape: change them together). */
+.project-card__arrow {
+  position: absolute;
+  z-index: 2; /* above the red corners */
+  right: 3.5cqi;
+  bottom: 3.5cqi;
+  width: 6cqi;
+  color: var(--white);
+  transition: translate 0.3s ease;
+}
+
+/* Hover (mouse only, not on touch screens): image zooms a little inside its
+   frame, the arrow slides along */
+@media (hover: hover) {
+  .project-card:hover .project-card__image {
+    scale: 1.05;
+  }
+
+  .project-card:hover .project-card__arrow {
+    translate: 0.6cqi 0;
+  }
+}
+
+.project-card:focus-visible {
+  outline: 3px solid var(--project-main);
+  outline-offset: 4px;
 }

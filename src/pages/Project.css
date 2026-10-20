@@ -1,0 +1,91 @@
+/* Project page — --project-main / --project-secondary come from the
+   project's JSON (mainColor / secondaryColor), set inline in Project.jsx. */
+
+.project {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem 1rem;
+}
+
+.project-title {
+  color: var(--project-main);
+}
+
+.project-media {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--project-secondary);
+}
+
+.project-facts {
+  display: grid;
+  gap: 1rem;
+}
+
+.project-facts dt {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--project-main);
+}
+
+.project-facts dd {
+  font-weight: 600;
+}
+
+.project-details {
+  display: grid;
+  gap: 1rem;
+  max-width: 65ch;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.project-links a {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  background: var(--project-main);
+  color: var(--white);
+}
+
+.project-links a:hover {
+  background: var(--project-secondary);
+}
+
+.project-gallery {
+  display: grid;
+  gap: 1rem;
+}
+
+.project-gallery img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+@media (min-width: 744px) {
+  .project {
+    padding: 3rem 2rem;
+  }
+
+  .project-facts {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .project-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .project {
+    padding: 4rem;
+  }
+}

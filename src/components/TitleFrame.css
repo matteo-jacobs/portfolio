@@ -32,3 +32,17 @@
     var(--frame-bl-x, 0px) calc(100% - var(--frame-bl-y, 0px))
   );
 }
+
+/* Frames stacked as lines (put .title-stack on the parent).
+   Where two lines meet, both edges are kept straight, so they always close
+   up without a gap: the outer top/bottom edges and the sides keep their
+   own random slant. (!important: the random values are inline styles.) */
+.title-stack > .title-frame:not(:first-child) {
+  --frame-tr-y: 0px !important;
+  margin-block-start: calc(-1 * var(--stack-overlap, 0.15em));
+}
+
+.title-stack > .title-frame:not(:last-child) {
+  --frame-br-y: 0px !important;
+  --frame-bl-y: 0px !important;
+}

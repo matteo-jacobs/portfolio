@@ -1,0 +1,86 @@
+/* ==========================================================================
+   Carousel: slides side by side, one in view, snapping into place.
+
+   Meant to sit inside a section with 10% padding on each side
+   (.homePage__content). The track stretches back out to the screen edges,
+   so the next slide peeks in from the right as a hint you can swipe.
+   Percentages in margin/padding are of the section's CONTENT width
+   (80% of the section), so 10% of the section = 12.5% here.
+   ========================================================================== */
+
+.carousel {
+  width: 100%;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.carousel__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%; /* each slide = the content width */
+  gap: 1rem;
+
+  margin-inline: -12.5%;
+  padding-inline: 12.5%;
+
+  overflow-x: auto;
+  overscroll-behavior-x: contain; /* sideways swipes don't go "back" in the browser */
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 10%; /* this one is of the track itself = the screen */
+  scroll-behavior: smooth; /* the reset turns this off for reduced motion */
+
+  scrollbar-width: none; /* the dots show where you are instead */
+}
+
+.carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel__track:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+.carousel__slide {
+  scroll-snap-align: start;
+  display: grid;
+}
+
+/* ← • • • → */
+.carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.carousel__arrow {
+  --frame-pad-y: 0.3em;
+  --frame-pad-x: 0.7em;
+
+  color: var(--white);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.carousel__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.carousel__dots {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.carousel__dot {
+  width: 0.7rem;
+  aspect-ratio: 1;
+  border: 2px solid var(--red);
+  border-radius: 50%;
+}
+
+.carousel__dot[aria-current='true'] {
+  background: var(--red);
+}
