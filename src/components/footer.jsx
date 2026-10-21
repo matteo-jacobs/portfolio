@@ -90,7 +90,7 @@ export default function Footer() {
             <input
               name="email"
               type="email"
-              placeholder="Email address*"
+              placeholder="Email address"
               autoComplete="email"
               required
             />
