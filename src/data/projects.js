@@ -7,6 +7,8 @@
 //       Information.json   <- the text, links and colors (see Project 1)
 //                             optional "titleLines" splits the title on the
 //                             home page: ["Let's run", "Oostende", "Beachrun"]
+//                             "appstate": true puts it on the AppState page
+//                             instead of the Portfolio page
 //       cover.jpg          <- file named by "cover" in the JSON
 //       media.mp4          <- file named by "media" in the JSON (video or photo)
 //       images/            <- every image in here is shown, sorted by name
@@ -82,6 +84,8 @@ function toProject([infoPath, info]) {
     figmaFile: info.figmaFile || null,
     figmaPrototype: info.figmaPrototype || null,
     notion: info.notion || null,
+    // AppState projects go on the AppState page, the rest on Portfolio
+    appState: info.appstate === true,
     mainColor: info.mainColor || 'var(--red)',
     secondaryColor: info.secondaryColor || 'var(--black)',
   }
@@ -92,11 +96,21 @@ export const projects = Object.entries(infoFiles)
   .sort((a, b) => a.order - b.order || byName(a.title, b.title))
 
 // The newest projects = the last folders by name ("Project 3" comes after
-// "Project 2"; "Project 10" after "Project 9"). Returned newest first.
+// "Project 2"; "Project 10" after "Project 9"). Newest first.
+const newestFirst = (list) => [...list].sort((a, b) => byName(b.folderName, a.folderName))
+
 export function latestProjects(count = 3) {
-  return [...projects]
-    .sort((a, b) => byName(b.folderName, a.folderName))
-    .slice(0, count)
+  return newestFirst(projects).slice(0, count)
+}
+
+// The AppState page: projects with "appstate": true, newest first
+export function appStateProjects() {
+  return newestFirst(projects.filter((project) => project.appState))
+}
+
+// The Portfolio page: every other project, newest first
+export function portfolioProjects() {
+  return newestFirst(projects.filter((project) => !project.appState))
 }
 
 export function getProject(slug) {

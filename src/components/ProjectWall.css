@@ -1,0 +1,243 @@
+/* ==========================================================================
+   Project wall (Portfolio / AppState): "Hidden details, made by someone
+   who actually cares." in big black letters in the background, pinned in
+   the middle of the screen, with the projects in a grid on top of it as
+   tilted, white-bordered photos with their title.
+     Phone: 1 column · Tablet: 2 columns · Desktop: 3 columns (6 projects
+     = 2 full rows). A row that isn't full is centred, and the projects are
+     centred vertically on the screen when they fit on it.
+   Sides line up with the other sections: 10% / 8% / 6%.
+   No projects: only a "coming soon" message.
+   ========================================================================== */
+
+/* The statement and the grid share one grid cell, so they lie on top of
+   each other; the section is as tall as the taller of the two */
+.project-wall {
+  display: grid;
+  overflow-x: clip; /* tilted photos near the edges don't scroll the page */
+}
+
+.project-wall > * {
+  grid-area: 1 / 1;
+}
+
+/* --- The statement ------------------------------------------------------- */
+
+/* One screen tall and sticky: it stays in the middle of the screen while
+   the projects scroll over it, until the end of the section */
+.project-wall__statement {
+  position: sticky;
+  top: 0;
+  align-self: start; /* sticky needs room to move inside the section */
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 4%;
+
+  color: var(--black);
+  /* Phone: words wrap freely (7 lines), as big as "actually" allows, but
+     never taller than the screen */
+  font-size: min(16vw, 11.5svh);
+  font-weight: 800;
+  font-stretch: 100%;
+  font-style: normal;
+  line-height: 1.1;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* --- The grid -------------------------------------------------------------- */
+
+/* On top of the statement. At least one screen tall, with the projects
+   centred in it both ways: a row that isn't full sits in the middle */
+.project-wall__grid {
+  position: relative;
+  z-index: 1;
+  align-self: start;
+  min-height: 100svh;
+  padding: 7rem 10% 6rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  gap: 3.5rem 2rem;
+
+  --columns: 1;
+  --column-gap: 2rem;
+}
+
+/* Each card is exactly one column wide, so rows line up */
+.project-wall__card {
+  flex: 0 0 calc((100% - (var(--columns) - 1) * var(--column-gap)) / var(--columns));
+}
+
+/* Alternating tilt, so the grid feels like photos laid on a table */
+.project-wall__card {
+  --card-tilt: -3deg;
+}
+
+.project-wall__card:nth-child(2n) {
+  --card-tilt: 3deg;
+}
+
+.project-wall__link {
+  position: relative;
+  display: block;
+  rotate: var(--card-tilt);
+  transition: scale 0.3s ease;
+}
+
+@media (hover: hover) {
+  .project-wall__link:hover {
+    scale: 1.03;
+  }
+}
+
+.project-wall__link:focus-visible {
+  outline: 3px solid var(--white);
+  outline-offset: 6px;
+}
+
+/* White-bordered photo, like a print */
+.project-wall__photo {
+  aspect-ratio: 1.25;
+  border: max(6px, 1.3vw) solid var(--white);
+  background: var(--white);
+  overflow: clip;
+}
+
+.project-wall__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- The title ------------------------------------------------------------- */
+
+/* Lines in white frames, over the bottom-right of the photo and sticking out */
+.project-wall__title {
+  position: absolute;
+  right: -4%;
+  bottom: 12%;
+
+  display: grid;
+  justify-items: end;
+
+  font-size: max(1.1rem, 6vw);
+  font-weight: 800;
+  font-stretch: 75%;
+  font-style: italic;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.project-wall__line {
+  --frame-pad-y: 0.06em;
+  --frame-pad-x: 0.25em;
+}
+
+/* First line red, second black, and so on, like the design */
+.project-wall__line:nth-child(odd) {
+  color: var(--red);
+}
+
+.project-wall__line:nth-child(even) {
+  color: var(--black);
+}
+
+/* --- No projects yet ------------------------------------------------------ */
+
+.project-wall--empty {
+  display: grid;
+  place-items: center;
+  min-height: 80svh;
+  padding: 7rem 10% 5rem;
+}
+
+.project-wall__empty {
+  display: grid;
+  gap: 1rem;
+
+  color: var(--white);
+  font-size: 9vw;
+  font-weight: 800;
+  font-stretch: 75%;
+  font-style: italic;
+  line-height: 1.05;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.project-wall__empty-sub {
+  font-size: 1rem;
+  font-weight: 600;
+  font-stretch: 100%;
+  font-style: normal;
+  text-transform: none;
+}
+
+/* --- Tablet ---------------------------------------------------------------- */
+
+@media (min-width: 744px) {
+  .project-wall__grid,
+  .project-wall--empty {
+    padding: 8rem 8% 7rem;
+  }
+
+  /* Words still wrap freely, so the text can be much bigger and cover
+     most of the screen */
+  .project-wall__statement {
+    font-size: min(14vw, 11.5svh); /* also fits a landscape tablet */
+    line-height: 1.1;
+  }
+
+  .project-wall__empty {
+    font-size: 6vw;
+  }
+
+  .project-wall__grid {
+    gap: 4rem 3rem;
+    --columns: 2;
+    --column-gap: 3rem;
+  }
+
+  .project-wall__title {
+    font-size: 3vw;
+  }
+}
+
+/* --- Desktop --------------------------------------------------------------- */
+
+@media (min-width: 1280px) {
+  .project-wall__grid,
+  .project-wall--empty {
+    padding: 9rem 6% 8rem;
+  }
+
+  .project-wall__empty {
+    font-size: 4.5vw;
+  }
+
+  /* Desktop: four lines, like the design */
+  .project-wall__statement {
+    font-size: 9.2vw;
+    line-height: 1.2;
+  }
+
+  .project-wall__statement-line {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .project-wall__grid {
+    gap: 5rem 4vw;
+    --columns: 3;
+    --column-gap: 4vw;
+  }
+
+  .project-wall__title {
+    font-size: 1.9vw;
+  }
+}

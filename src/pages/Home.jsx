@@ -158,8 +158,8 @@ export default function Home() {
 
 
       <div className="homePage__content" id="scroll-down">
-        <h2>Passed work</h2>
-        <ProjectCarousel label="Passed work">
+        <h2>Latest work</h2>
+        <ProjectCarousel label="Latest work">
           {latest.map((project) => (
             // The whole card is the link to the project
             <Link

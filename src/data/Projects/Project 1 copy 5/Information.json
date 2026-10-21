@@ -1,0 +1,14 @@
+{
+  "title": "Example Project",
+  "industry": "Hospitality",
+  "scopeOfWork": ["UX research", "UI design", "Prototyping"],
+  "toolsUsed": ["Figma", "Notion", "After Effects"],
+  "details": "A short write-up of the project: the problem, what you did and the result. Blank lines start a new paragraph.\n\nThis is a second paragraph.",
+  "media": "media.mp4",
+  "cover": "cover.jpg",
+  "figmaFile": "https://www.figma.com/design/...",
+  "figmaPrototype": "https://www.figma.com/proto/...",
+  "notion": "https://www.notion.so/...",
+  "mainColor": "#ff0000",
+  "secondaryColor": "#161616"
+}

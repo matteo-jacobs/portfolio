@@ -1,22 +1,7 @@
-import { Link } from 'react-router-dom'
-import { projects } from '../data/projects.js'
+import ProjectWall from '../components/ProjectWall.jsx'
+import { appStateProjects } from '../data/projects.js'
 
+// Every project with "appstate": true in its Information.json
 export default function AppState() {
-  return (
-    <div className="appStatePage">
-      <div className="hero">
-        <p>Hidden details, made by someone who actually cares!</p>
-        <ul className="card-list">
-          {projects.map((project) => (
-            <li key={project.slug} className="card">
-              <h2>
-                <Link to={`/portfolio/${project.slug}`}>{project.title}</Link>
-              </h2>
-              <p>{project.blurb}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  )
+  return <ProjectWall pageName="AppState" projects={appStateProjects()} />
 }
