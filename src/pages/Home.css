@@ -39,8 +39,8 @@
   --bar-gap: 0.5rem;        /* bar, this far below the edge */
 }
 
-/* Phones: the screen-sized crop (hero-skier__mobile.png, 402 × 575) */
-@media (max-width: 743.98px) {
+/* Phones and tablets: the screen-sized crop (hero-skier__mobile.png, 402 × 575) */
+@media (max-width: 1279.98px) {
   .hero {
     --image-width: 100vw;
     --image-shift: 0vw;
@@ -62,16 +62,26 @@
    The hero's overflow: clip cuts both off at the hero's bottom.
    ========================================================================== */
 
+/* Without the bar: a red gap (--no-bar-gap) between the image and the
+   white. The extra room at the hero's bottom keeps the gap from touching
+   the hero's flat bottom on the left. */
+.hero:has(.scrolling-bar[hidden]) {
+  --no-bar-gap: 1.7rem;
+  --no-bar-room: calc(var(--no-bar-gap) + 1rem);
+  padding-block-end: var(--no-bar-room);
+}
+
 .hero:has(.scrolling-bar[hidden])::after {
   content: '';
   position: absolute;
   z-index: -1; /* behind the image */
   inset-inline: 0;
-  bottom: 0; /* without the bar, the hero ends at the image's bottom */
+  bottom: 0; /* the image's bottom + --no-bar-room */
 
   /* The edge's middle is --edge-from-bottom above the image's bottom; its
-     left end --edge-dip lower, its right end --edge-dip higher */
-  height: calc(var(--edge-from-bottom) + var(--edge-dip));
+     left end --edge-dip lower, its right end --edge-dip higher. The white
+     starts --no-bar-gap below it. */
+  height: calc(var(--edge-from-bottom) + var(--no-bar-room) - var(--no-bar-gap) + var(--edge-dip));
   background: var(--white);
   clip-path: polygon(0 calc(2 * var(--edge-dip)), 100% 0, 100% 100%, 0 100%);
 }
@@ -346,4 +356,166 @@
 .project-card:focus-visible {
   outline: 3px solid var(--project-main);
   outline-offset: 4px;
+}
+
+/* ==========================================================================
+   CTA wording: "View projects" on phones, "Check it out now" from tablet up
+   ========================================================================== */
+
+.CTA__label--tablet {
+  display: none;
+}
+
+@media (min-width: 744px) {
+  .CTA__label--phone {
+    display: none;
+  }
+
+  .CTA__label--tablet {
+    display: inline;
+  }
+}
+
+/* ==========================================================================
+   Tablet (744px – 1279px)
+
+   The image fills the width from the very top (behind the navigation),
+   shifted up so its white top border only shows on the right. The titles
+   (red frames, white text) and the CTA (white frame, red text) sit on its
+   bottom-left. Measured from the Figma tablet frame, in vw so it scales.
+   ========================================================================== */
+
+@media (min-width: 744px) and (max-width: 1279.98px) {
+  .hero {
+    padding-block-start: 0; /* the image goes behind the navigation */
+    --image-shift-up: 12vw; /* hides the top border on the left */
+    --bar-gap: 4vw;         /* red gap between the image and the bar */
+  }
+
+  /* Image, titles and CTA share one grid cell, so the titles and CTA can
+     be placed from the image's bottom */
+  .hero-image,
+  .hero-title,
+  .CTA {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .hero-image {
+    margin-block-start: calc(-1 * var(--image-shift-up));
+  }
+
+  .hero-title {
+    align-self: end;
+    justify-self: start;
+    margin: 0 0 20vw 8vw; /* frames' bottom, this far above the image's bottom */
+    color: var(--white);
+  }
+
+  /* A bit smaller than on phones, as in the Figma tablet frame */
+  .hero-title h1 {
+    font-size: 11.9vw;
+  }
+
+  /* Red frames instead of white (!important: the color is an inline style) */
+  .hero-title .title-frame {
+    --frame-color: var(--red) !important;
+  }
+
+  /* "Matteo's" indented, "Portfolio" on the left: the other way round
+     from phones */
+  .hero-title__1 {
+    margin-inline-start: 2.1em;
+  }
+
+  .hero-title__2 {
+    margin-inline-start: 0;
+  }
+
+  .CTA {
+    align-self: end;
+    justify-self: start;
+    margin: 0 0 14vw 3.3vw; /* moves with the titles: keep 6vw apart */
+    translate: none;
+
+    color: var(--red);
+    font-size: 0.875rem;
+  }
+
+  .CTA.title-frame {
+    --frame-color: var(--white) !important;
+  }
+
+  /* Thicker bar with bigger words */
+  .scrolling-bar {
+    padding-block: 0.85rem;
+  }
+
+  .scrolling-bar__list li {
+    font-size: 1rem;
+  }
+}
+
+/* ==========================================================================
+   Passed work on tablet: all 3 projects on one screen instead of the
+   carousel (no swiping, arrows or dots).
+     Portrait:  the newest one big on top, the other two side by side below
+     Landscape: three in a row
+   Covers are cropped to one shape (object-fit: cover) so the cards line up
+   and everything fits on one screen, whatever the cover's own size.
+   ========================================================================== */
+
+@media (min-width: 744px) and (max-width: 1279.98px) {
+  .homePage__content {
+    padding-inline: 8%;
+  }
+
+  /* Undo the carousel: a plain grid, nothing scrolls sideways */
+  .homePage__content .carousel__track {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .homePage__content .carousel__controls {
+    display: none;
+  }
+
+  .homePage__content .project-card__image {
+    object-fit: cover;
+  }
+}
+
+@media (min-width: 744px) and (max-width: 1279.98px) and (orientation: portrait) {
+  .homePage__content .carousel__track {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* The newest project (first) spans both columns */
+  .homePage__content .carousel__slide:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .homePage__content .carousel__slide:first-child .project-card__image {
+    aspect-ratio: 16 / 9;
+  }
+
+  .homePage__content .carousel__slide:not(:first-child) .project-card__image {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (min-width: 744px) and (max-width: 1279.98px) and (orientation: landscape) {
+  .homePage__content .carousel__track {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .homePage__content .project-card__image {
+    aspect-ratio: 4 / 5;
+  }
 }

@@ -11,8 +11,10 @@ import './Home.css'
 const roles = ['Developer', 'Designer', 'Problem solver', 'Goofball']
 
 // Only show the scrolling bar when the whole bar fits on the first screen
-// (above the fold). Returns a ref for the image, a ref for the bar, and
-// whether the bar fits.
+// (above the fold). On tablets it always shows. Returns a ref for the image,
+// a ref for the bar, and whether the bar should show.
+const TABLET = '(min-width: 744px) and (max-width: 1279.98px)'
+
 function useBarFitsOnScreen() {
   const imageRef = useRef(null)
   const barRef = useRef(null)
@@ -24,6 +26,11 @@ function useBarFitsOnScreen() {
       const image = imageRef.current
       const bar = barRef.current
       if (!image || !bar) return
+
+      if (window.matchMedia(TABLET).matches) {
+        setFits(true)
+        return
+      }
 
       // The bar's height never changes, so remember it while it's visible
       // (a hidden bar measures 0)
@@ -85,12 +92,12 @@ export default function Home() {
 
         </div>
 
-        {/* Phones (< 744px) get the screen-sized crop, bigger screens the
-            full image. width/height = each PNG's real size, so the browser
+        {/* Phones and tablets (< 1280px) get the screen-sized crop, desktops
+            the full image. width/height = each PNG's real size, so the browser
             reserves the right space before it loads (the bar check needs it). */}
         <picture className="hero-picture">
           <source
-            media="(max-width: 743.98px)"
+            media="(max-width: 1279.98px)"
             srcSet={heroSkierMobile}
             width="402"
             height="575"
@@ -110,7 +117,9 @@ export default function Home() {
           href="#scroll-down"
           color="var(--red)"
           className="CTA">
-          View projects
+          {/* Different wording per screen size (see .CTA__label in Home.css) */}
+          <span className="CTA__label CTA__label--phone">View projects</span>
+          <span className="CTA__label CTA__label--tablet">Check it out now</span>
           <svg className="CTA__arrow" width="14" height="20" viewBox="0 0 14 20" fill="none" aria-hidden="true">
             <path d="M7 0V17M1 11L7 17L13 11" stroke="currentColor" strokeWidth="3" />
           </svg>

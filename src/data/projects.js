@@ -92,11 +92,11 @@ export const projects = Object.entries(infoFiles)
   .sort((a, b) => a.order - b.order || byName(a.title, b.title))
 
 // The newest projects = the last folders by name ("Project 3" comes after
-// "Project 2"; "Project 10" after "Project 9"). Returned oldest -> newest.
+// "Project 2"; "Project 10" after "Project 9"). Returned newest first.
 export function latestProjects(count = 3) {
   return [...projects]
-    .sort((a, b) => byName(a.folderName, b.folderName))
-    .slice(-count)
+    .sort((a, b) => byName(b.folderName, a.folderName))
+    .slice(0, count)
 }
 
 export function getProject(slug) {
