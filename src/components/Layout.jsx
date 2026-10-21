@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import Navigation from './navigation.jsx'
+import Footer from './footer.jsx'
 import './Layout.css'
 
 export default function Layout() {
@@ -11,9 +12,7 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      <footer className="site-footer">
-        <p>&copy; {new Date().getFullYear()} Matteo Jacobs</p>
-      </footer>
+      <Footer />
     </div>
   )
 }

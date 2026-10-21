@@ -250,7 +250,7 @@
   /* Tuck 1px under the hero: they meet on a fraction of a pixel, which
      otherwise lets a thin red line through */
   margin-block-start: -1px;
-  padding-block: 1.5rem 3rem;
+  padding-block: 1.5rem 5rem; /* room before the footer's slanted edge */
   padding-inline: 10%; /* space between the projects and the screen edge */
 }
 

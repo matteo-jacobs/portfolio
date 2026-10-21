@@ -1,0 +1,318 @@
+/* ==========================================================================
+   Footer: "Contact me" title, a red slanted contact form, my contact
+   details, links to the other pages and a home button.
+     Phone:   form, then my details next to
+              the home button (no page links: the menu has them)
+     Tablet:  form on the left, my details and the home button next to it
+              (no page links either)
+     Desktop: form on the left,
+              details and links on the right, home button bottom-right
+   ========================================================================== */
+
+/* Colors: the hero's red pattern (the page background) shows through;
+   white text, a white form with red text */
+.site-footer {
+  /* Same side space as the "Passed work" section (Home.css), so the two
+     line up: 10% on phones, 8% on tablets, 6% on desktops */
+  padding: 3rem 10% 2rem;
+  color: var(--white);
+}
+
+.footer__title {
+  font-size: calc(var(--subtitle-size) * 1.5); /* same as "Passed work" */
+  margin-block-end: 1.5rem;
+}
+
+.footer__body {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'form    form'
+    'contact home';
+  gap: 2rem 1rem;
+}
+
+.footer__form    { grid-area: form; }
+.footer__contact { grid-area: contact; }
+.footer__nav     { display: none; } /* phone: only the home button */
+.footer__home    { grid-area: home; }
+
+/* --- Slanted top edge -------------------------------------------------- */
+
+/* When the page above ends in a white section (the home page's "Passed
+   work"), the white runs into the footer as a wedge, so the edge between
+   them slants: higher on the left, dropping to the right (about 1.5deg). */
+.site-main:has(.homePage) + .site-footer {
+  position: relative;
+}
+
+.site-main:has(.homePage) + .site-footer::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: -1px; /* no hairline gap with the section above */
+  height: 2.6vw;
+  background: var(--white);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+/* --- The form --------------------------------------------------------- */
+
+.footer__form {
+  --frame-pad-y: 1.75rem;
+  --frame-pad-x: 1.25rem;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 1.25rem;
+
+  color: var(--red);
+}
+
+.footer__field {
+  display: grid;
+}
+
+.footer__field--wide {
+  grid-column: 1 / -1;
+}
+
+.footer__field input,
+.footer__field textarea {
+  width: 100%;
+  padding: 0.35rem 0;
+  border: 0;
+  border-block-end: 2px solid var(--red);
+  background: none;
+  color: var(--red);
+  font-weight: 600;
+}
+
+/* The message box has a full red border */
+.footer__field textarea {
+  padding: 0.5rem 0.6rem;
+  border: 2px solid var(--red);
+  resize: vertical;
+}
+
+.footer__field input::placeholder,
+.footer__field textarea::placeholder {
+  color: var(--red);
+  opacity: 1;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.footer__field input:focus-visible,
+.footer__field textarea:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+.footer__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.footer__status {
+  font-size: 0.875rem;
+  margin-inline-end: auto; /* pushes the button to the right */
+}
+
+.footer__send {
+  --frame-pad-y: 0.5em;
+  --frame-pad-x: 0.8em;
+
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.footer__send:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* --- Contact details and page links ---------------------------------- */
+
+.footer__contact,
+.footer__nav ul {
+  display: grid;
+  gap: 0.6rem; /* phone: lines close together, read as one block */
+  align-content: start;
+
+  font-style: normal; /* <address> is italic by default */
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* My details never wrap or get cut off: each line stays on one row and
+   the text shrinks (cqi = 1% of the column's width) when the column is
+   too narrow for the email address at --detail-size */
+.footer__contact {
+  --detail-size: 0.875rem;
+  container-type: inline-size;
+}
+
+.footer__contact > * {
+  font-size: min(var(--detail-size), 5.6cqi);
+  font-weight: inherit;
+  white-space: nowrap;
+}
+
+/* navigation.css positions every <nav> at the top of the page: undo that
+   for the footer's links */
+.footer__nav {
+  position: static;
+  margin: 0;
+}
+
+.footer__contact a:hover,
+.footer__nav a:hover {
+  text-decoration: underline;
+}
+
+/* --- Home button ------------------------------------------------------ */
+
+.footer__home {
+  --frame-pad-y: 0.9rem;
+  --frame-pad-x: 0.9rem;
+
+  justify-self: end;
+  align-self: end; /* level with the last line next to it */
+}
+
+.footer__home img {
+  width: 2.25rem;
+}
+
+/* --- Phone ------------------------------------------------------------- */
+
+/* The home button sits at the bottom, level with the email address, which
+   uses the space left of it */
+@media (max-width: 743.98px) {
+  .footer__body {
+    grid-template-areas:
+      'form  form'
+      'name  home'
+      'phone home'
+      'email home';
+    row-gap: 0.6rem;
+  }
+
+  .footer__form {
+    margin-block-end: 1.4rem; /* 2rem from the details, like before */
+  }
+
+  /* Let the three lines take their own places in the footer's grid */
+  .footer__contact {
+    display: contents;
+  }
+
+  .footer__contact > :nth-child(1) { grid-area: name; }
+  .footer__contact > :nth-child(2) { grid-area: phone; }
+
+  /* Full size where it fits; on the smallest phones it shrinks just enough
+     to fit next to the home button (80vw = the space inside the footer's
+     10% sides, 5rem = the home button + the gap, 16em = the address' width) */
+  .footer__contact > :nth-child(3) {
+    grid-area: email;
+    font-size: min(0.875rem, calc((80vw - 5rem) / 16));
+  }
+
+  .footer__home {
+    --frame-pad-y: 0.7rem;
+    --frame-pad-x: 0.7rem;
+
+    align-self: end;
+  }
+
+  .footer__home img {
+    width: 1.9rem;
+  }
+}
+
+/* --- Tablet ------------------------------------------------------------ */
+
+/* Form on the left, my details and the home button next to it. Still no
+   page links (from desktop up they show again). */
+@media (min-width: 744px) {
+  .site-footer {
+    padding-block-start: 4rem;
+    padding-inline: 8%;
+  }
+
+  .footer__body {
+    grid-template-columns: 1fr 1fr; /* room for the email at full size */
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'form contact'
+      'form home';
+    column-gap: 3rem;
+  }
+
+  .footer__contact {
+    gap: 1.25rem;
+    padding-block-start: 1.75rem; /* level with the form's first fields */
+  }
+}
+
+/* --- Desktop ------------------------------------------------------------ */
+
+@media (min-width: 1280px) {
+  .site-footer {
+    padding-block: 4rem 3rem;
+    padding-inline: 6%;
+  }
+
+  .footer__title {
+    font-size: 7vw; /* same as "Passed work" */
+  }
+
+  /* form | details | links, the home button under the links */
+  .footer__body {
+    grid-template-areas: none;
+    grid-template-columns: 50fr 30fr 20fr; /* the email needs the room, the links don't */
+    grid-template-rows: auto 1fr;
+    column-gap: 3vw;
+  }
+
+  .footer__form {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    --frame-pad-y: 2.5rem;
+  }
+
+  .footer__contact {
+    grid-column: 2;
+    grid-row: 1;
+    padding-block-start: 2.5rem;
+  }
+
+  .footer__nav {
+    display: block;
+    grid-column: 3;
+    grid-row: 1;
+    padding-block-start: 2.5rem;
+  }
+
+  /* Page links aligned right, like the design */
+  .footer__nav ul {
+    gap: 1.25rem;
+    justify-items: end;
+  }
+
+  .footer__home {
+    grid-column: 3;
+    grid-row: 2;
+    align-self: end;
+    margin-block-end: 1.5rem;
+  }
+}
