@@ -229,10 +229,11 @@
   background: var(--red);
 }
 
-/* Slide exactly one copy of the list (half the track) to the inline-start, repeat */
+/* Slide exactly one copy of the list (1 / --copies of the track) to the
+   inline-start, repeat */
 @keyframes scroll-inline-start {
   to {
-    transform: translateX(-50%);
+    transform: translateX(calc(-100% / var(--copies)));
   }
 }
 
@@ -446,7 +447,10 @@
     --frame-color: var(--white) !important;
   }
 
-  /* Thicker bar with bigger words */
+}
+
+/* Tablet and desktop: thicker bar with bigger words */
+@media (min-width: 744px) {
   .scrolling-bar {
     padding-block: 0.85rem;
   }
@@ -457,15 +461,15 @@
 }
 
 /* ==========================================================================
-   Passed work on tablet: all 3 projects on one screen instead of the
-   carousel (no swiping, arrows or dots).
-     Portrait:  the newest one big on top, the other two side by side below
-     Landscape: three in a row
+   Passed work on tablet and desktop: all 3 projects on one screen instead
+   of the carousel (no swiping, arrows or dots).
+     Tablet portrait:            the newest one big on top, two below
+     Tablet landscape + desktop: three in a row
    Covers are cropped to one shape (object-fit: cover) so the cards line up
    and everything fits on one screen, whatever the cover's own size.
    ========================================================================== */
 
-@media (min-width: 744px) and (max-width: 1279.98px) {
+@media (min-width: 744px) {
   .homePage__content {
     padding-inline: 8%;
   }
@@ -510,12 +514,183 @@
   }
 }
 
-@media (min-width: 744px) and (max-width: 1279.98px) and (orientation: landscape) {
+@media (min-width: 744px) and (max-width: 1279.98px) and (orientation: landscape),
+  (min-width: 1280px) {
   .homePage__content .carousel__track {
     grid-template-columns: repeat(3, 1fr);
   }
 
   .homePage__content .project-card__image {
     aspect-ratio: 4 / 5;
+  }
+}
+
+/* ==========================================================================
+   Desktop (1280px and up)
+
+   Hero: "Matteo's / Portfolio" big and centred on the red background, with
+   two small tilted photos over the titles' ends and the CTA under them.
+   Below: the slanted scrolling bar with a red stripe, then the white
+   projects section.
+   Projects: three cards in a row, each a bit lower than the one before.
+   All in vw, measured from the Figma desktop frame, so it scales.
+   ========================================================================== */
+
+/* The photos only exist on desktop */
+.hero-photos {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .hero {
+    padding-block-start: 0;
+
+    /* The band's slant (left end lower); --edge-dip = half the width × sin(angle) */
+    --edge-angle: -3.4deg;
+    --edge-dip: 2.97vw;
+    --bar-gap: 2.2vw; /* the red stripe under the band */
+  }
+
+  /* No big image on desktop */
+  .hero-image {
+    display: none;
+  }
+
+  /* Titles, CTA and band share one grid cell and are placed in it */
+  .hero-title,
+  .CTA,
+  .scrolling-bar {
+    grid-row: 1;
+    grid-column: 1;
+    align-self: start;
+  }
+
+  /* Titles, CTA and photos are placed from the top; --hero-lift moves them
+     all up together so they sit in the middle of the space above the bar */
+  .hero {
+    --hero-lift: 4.5vw;
+  }
+
+  .hero-title {
+    justify-self: center;
+    margin: calc(15vw - var(--hero-lift)) 0 0;
+  }
+
+  .hero-title h1 {
+    font-size: 12.4vw;
+  }
+
+  /* "Matteo's" indented, "Portfolio" on the left */
+  .hero-title__1 {
+    margin-inline-start: 18.8vw;
+  }
+
+  .hero-title__2 {
+    margin-inline-start: 0;
+  }
+
+  /* Two small photos with a white border, tilted, on top of the titles */
+  .hero-photos {
+    display: block;
+  }
+
+  .hero-photo {
+    position: absolute;
+    z-index: 2; /* above the titles (z-index 1) */
+    width: 20vw;
+    aspect-ratio: 1.05;
+    border: 0.4vw solid var(--white);
+    background: var(--white);
+    overflow: clip;
+  }
+
+  /* Zoomed in a little so the image's own slanted frame is cut off */
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 55%;
+    scale: 1.08;
+  }
+
+  .hero-photo--1 {
+    top: calc(12vw - var(--hero-lift));
+    left: 15.4vw;
+    rotate: 7deg;
+  }
+
+  .hero-photo--2 {
+    top: calc(27vw - var(--hero-lift));
+    left: 70vw;
+    rotate: -6deg;
+  }
+
+  /* CTA: centred over the bottom of the "Portfolio" frame, just below its
+     letters, red with a white outline. z-index: above the titles. */
+  .CTA {
+    justify-self: center;
+    margin: calc(41.5vw - var(--hero-lift)) 0 0;
+    z-index: 2;
+    translate: none;
+    font-size: 1.5vw;
+  }
+
+  .CTA::after {
+    content: '';
+    position: absolute;
+    inset: -0.2vw;
+    z-index: -2; /* behind the red frame (::before, z-index -1) */
+    background: var(--white);
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--frame-tr-x, 0px)) var(--frame-tr-y, 0px),
+      calc(100% - var(--frame-br-x, 0px)) calc(100% - var(--frame-br-y, 0px)),
+      var(--frame-bl-x, 0px) calc(100% - var(--frame-bl-y, 0px))
+    );
+  }
+
+  /* The scrolling bar: same thickness and word size as on tablet, with a
+     red stripe under it */
+  .scrolling-bar {
+    margin-block-start: 51.7vw;
+    border-block-end: var(--bar-gap) solid var(--red);
+  }
+
+  /* More room between the words */
+  .scrolling-bar__list li::after {
+    margin-inline: 2.5em;
+  }
+
+  /* The white sheet starts right under the red stripe */
+  .scrolling-bar::after {
+    top: calc(100% + var(--bar-gap));
+  }
+
+  /* Passed work: a bit closer to the bar */
+  .homePage__content {
+    padding-block-start: 0;
+    padding-inline: 6%;
+  }
+
+  .homePage__content h2 {
+    font-size: 7vw;
+  }
+
+  .homePage__content .carousel__track {
+    gap: 5.8vw;
+    align-items: start;
+  }
+
+  .homePage__content .project-card__image {
+    aspect-ratio: 7 / 8;
+  }
+
+  /* Each card a bit lower than the one before */
+  .homePage__content .carousel__slide:nth-child(2) {
+    margin-block-start: 2.6vw;
+  }
+
+  .homePage__content .carousel__slide:nth-child(3) {
+    margin-block-start: 5.2vw;
   }
 }

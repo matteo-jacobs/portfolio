@@ -10,10 +10,14 @@ import './Home.css'
 
 const roles = ['Developer', 'Designer', 'Problem solver', 'Goofball']
 
+// How many times the words are repeated in the scrolling bar. One copy is
+// ~550–750px wide; 8 keeps the bar full on screens up to ~4000px wide.
+const BAR_COPIES = 8
+
 // Only show the scrolling bar when the whole bar fits on the first screen
-// (above the fold). On tablets it always shows. Returns a ref for the image,
-// a ref for the bar, and whether the bar should show.
-const TABLET = '(min-width: 744px) and (max-width: 1279.98px)'
+// (above the fold). On tablets and desktops it always shows. Returns a ref
+// for the image, a ref for the bar, and whether the bar should show.
+const TABLET_AND_UP = '(min-width: 744px)'
 
 function useBarFitsOnScreen() {
   const imageRef = useRef(null)
@@ -27,7 +31,7 @@ function useBarFitsOnScreen() {
       const bar = barRef.current
       if (!image || !bar) return
 
-      if (window.matchMedia(TABLET).matches) {
+      if (window.matchMedia(TABLET_AND_UP).matches) {
         setFits(true)
         return
       }
@@ -112,6 +116,16 @@ export default function Home() {
           />
         </picture>
 
+        {/* Desktop only: two small tilted photos around the titles */}
+        <div className="hero-photos" aria-hidden="true">
+          <div className="hero-photo hero-photo--1">
+            <img src={heroSkierMobile} alt="" />
+          </div>
+          <div className="hero-photo hero-photo--2">
+            <img src={heroSkierMobile} alt="" />
+          </div>
+        </div>
+
         <TitleFrame
           as="a"
           href="#scroll-down"
@@ -125,12 +139,13 @@ export default function Home() {
           </svg>
         </TitleFrame>
 
-        {/* The words are listed twice so the loop has no gap: the animation
-            slides exactly one copy to the left, then starts over. */}
+        {/* The words are listed BAR_COPIES times so the bar is always full:
+            the animation slides exactly one copy to the left, then starts
+            over, and the copies after it fill the rest of the bar. */}
         <div ref={barRef} className="scrolling-bar" hidden={!barFits}>
-          <div className="scrolling-bar__track">
-            {[false, true].map((isCopy) => (
-              <ul key={String(isCopy)} className="scrolling-bar__list" aria-hidden={isCopy}>
+          <div className="scrolling-bar__track" style={{ '--copies': BAR_COPIES }}>
+            {Array.from({ length: BAR_COPIES }, (_, copy) => (
+              <ul key={copy} className="scrolling-bar__list" aria-hidden={copy > 0}>
                 {roles.map((role) => (
                   <li key={role}>{role}</li>
                 ))}
