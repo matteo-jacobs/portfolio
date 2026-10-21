@@ -46,3 +46,79 @@
   --frame-br-y: 0px !important;
   --frame-bl-y: 0px !important;
 }
+
+/* --- "Laid on" entrance -------------------------------------------------
+   Add .title-frame--lay to a frame to have it laid onto the page like a
+   strip of tape: a cut with the same forward lean as the italic titles
+   sweeps from left to right and reveals frame + text together.
+   Stagger with --lay-delay (e.g. 120ms).
+   fill-mode backwards: before it starts the frame is hidden, after it ends
+   no clip-path is left on the element. */
+@keyframes frame-lay {
+  from {
+    clip-path: polygon(-10% -30%, -10% -30%, -30% 130%, -30% 130%);
+    transform: translateX(-0.12em);
+  }
+  to {
+    clip-path: polygon(-10% -30%, 130% -30%, 110% 130%, -30% 130%);
+    transform: none;
+  }
+}
+
+.title-frame--lay {
+  animation: frame-lay 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--lay-delay, 0ms) backwards;
+}
+
+/* data-lay-wait: keep the frame hidden, and the entrance unstarted, until
+   the attribute is removed, e.g. once it scrolls into view (see About.jsx).
+   visibility (not the clip) hides it, so an IntersectionObserver can still
+   see it. */
+.title-frame--lay[data-lay-wait] {
+  visibility: hidden;
+  animation: none;
+}
+
+/* Reduced motion: no sweep, just a quick fade, without the stagger */
+@keyframes frame-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title-frame--lay {
+    animation: frame-fade 0.3s ease-out backwards !important;
+  }
+}
+
+/* --- Framed buttons: hover, focus, pressed -------------------------------
+   Add .title-frame--press to a framed button or link. Like a sticker:
+   hovering lifts it (it leans forward with the italic and grows a little),
+   pressing slaps it down flat onto the page. Pressing is fast, letting go
+   eases back. Uses rotate/scale (not transform), so it never fights the
+   "laid on" entrance or a translate used for positioning. */
+.title-frame--press {
+  transition:
+    rotate 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    scale 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .title-frame--press:hover:not(:disabled) {
+    rotate: -2deg;
+    scale: 1.04;
+  }
+}
+
+.title-frame--press:focus-visible {
+  rotate: -2deg;
+  scale: 1.04;
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.title-frame--press:active:not(:disabled) {
+  rotate: 0deg;
+  scale: 0.94;
+  transition-duration: 80ms;
+}

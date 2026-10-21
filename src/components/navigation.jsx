@@ -56,7 +56,7 @@ export default function Navigation() {
                     as="button"
                     type="button"
                     color="var(--white)"
-                    className="nav-toggle"
+                    className="nav-toggle title-frame--press"
                     aria-expanded={isOpen}
                     aria-label={isOpen ? 'Close menu' : 'Open menu'}
                     onClick={() => setIsOpen((open) => !open)}
@@ -79,7 +79,7 @@ export default function Navigation() {
 
 
             <div className="nav-open-container">
-            <TitleFrame as="a" href="/" className="logo-computer" color="var(--white)">
+            <TitleFrame as="a" href="/" className="logo-computer title-frame--press" color="var(--white)">
                 <img src={logoMarkRed} alt="Home" className="logo-mark-red" />
             </TitleFrame>
             <TitleFrame as="ul" color="var(--white)" className="nav-open">
@@ -89,7 +89,7 @@ export default function Navigation() {
                 <li><NavLink to="/about" onClick={closeMenu}>About me</NavLink></li>
                 <li><NavLink to="/appstate" onClick={closeMenu}>AppState</NavLink></li>
                 <li>
-                    <TitleFrame as={NavLink} to="/portfolio" className="important" onClick={closeMenu}>
+                    <TitleFrame as={NavLink} to="/portfolio" className="important title-frame--press" onClick={closeMenu}>
                         Portfolio
                     </TitleFrame>
                 </li>

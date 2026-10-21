@@ -113,6 +113,27 @@
   --frame-pad-x: 0.3em;
 }
 
+/* CTA: the arrow points where it's going (down to the projects) */
+.CTA__arrow {
+  transition: translate 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .CTA:hover .CTA__arrow {
+    translate: 0 0.2em;
+  }
+}
+
+/* Entrance: the titles are laid on one after the other, then the button
+   (see .title-frame--lay in TitleFrame.css) */
+.hero-title__2 {
+  --lay-delay: 120ms;
+}
+
+.CTA {
+  --lay-delay: 300ms;
+}
+
 /* "Portfolio": shifted right, tucked slightly under "Matteo's".
    em = relative to the title's own font size, so it scales with it. */
 .hero-title__2 {
@@ -205,6 +226,11 @@
   animation: scroll-inline-start 20s linear infinite;
 }
 
+/* Off screen: stop the loop (data-paused is set from Home.jsx) */
+.scrolling-bar[data-paused] .scrolling-bar__track {
+  animation-play-state: paused;
+}
+
 .scrolling-bar__list {
   display: flex;
 }
@@ -252,6 +278,12 @@
   margin-block-start: -1px;
   padding-block: 1.5rem 5rem; /* room before the footer's slanted edge */
   padding-inline: 10%; /* space between the projects and the screen edge */
+}
+
+/* Focused by the CTA's glide (so keyboard users land on the projects):
+   no focus ring for that */
+.homePage__content:focus {
+  outline: none;
 }
 
 .homePage__content h2 {
@@ -613,16 +645,24 @@
     scale: 1.08;
   }
 
+  .hero-photo {
+    rotate: var(--photo-tilt);
+    /* Slapped on after the titles: bigger, more tilted, then pressed down */
+    animation: photo-slap 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--slap-delay) backwards;
+  }
+
   .hero-photo--1 {
+    --photo-tilt: 7deg;
+    --slap-delay: 420ms;
     top: calc(12vw - var(--hero-lift));
     left: 15.4vw;
-    rotate: 7deg;
   }
 
   .hero-photo--2 {
+    --photo-tilt: -6deg;
+    --slap-delay: 520ms;
     top: calc(27vw - var(--hero-lift));
     left: 70vw;
-    rotate: -6deg;
   }
 
   /* CTA: centred over the bottom of the "Portfolio" frame, just below its
@@ -692,5 +732,19 @@
 
   .homePage__content .carousel__slide:nth-child(3) {
     margin-block-start: 5.2vw;
+  }
+}
+
+@keyframes photo-slap {
+  from {
+    opacity: 0;
+    scale: 1.3;
+    rotate: calc(var(--photo-tilt) * 2.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo {
+    animation: frame-fade 0.3s ease-out backwards !important;
   }
 }

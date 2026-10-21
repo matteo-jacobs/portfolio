@@ -1,0 +1,269 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-21T15:41:18.331655+00:00",
+  "title": "Design System: Matteo's Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "signal-red": {
+        "role": "primary",
+        "displayName": "Signal Red",
+        "canonical": "oklch(62.8% 0.258 29.2)",
+        "tonalRamp": [
+          "oklch(15% 0.092 29.2)",
+          "oklch(25% 0.129 29.2)",
+          "oklch(35% 0.166 29.2)",
+          "oklch(45% 0.203 29.2)",
+          "oklch(55% 0.24 29.2)",
+          "oklch(65% 0.24 29.2)",
+          "oklch(80% 0.184 29.2)",
+          "oklch(95% 0.129 29.2)"
+        ]
+      },
+      "packed-snow": {
+        "role": "neutral",
+        "displayName": "Packed Snow",
+        "canonical": "oklch(95.6% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(25% 0 0)",
+          "oklch(35% 0 0)",
+          "oklch(45% 0 0)",
+          "oklch(55% 0 0)",
+          "oklch(65% 0 0)",
+          "oklch(80% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "bib-black": {
+        "role": "neutral",
+        "displayName": "Bib Black",
+        "canonical": "oklch(19.8% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(25% 0 0)",
+          "oklch(35% 0 0)",
+          "oklch(45% 0 0)",
+          "oklch(55% 0 0)",
+          "oklch(65% 0 0)",
+          "oklch(80% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page titles on TitleFrames; 800 italic, 75% width, uppercase, scales 1:1 with the viewport."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings (h2/h3); 600, 75% width, uppercase."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs; semibold so text holds up on red."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav links, buttons, placeholders, footer details, scrolling band; 700 uppercase."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "frame-nudge",
+        "value": "translate 0.3s ease",
+        "purpose": "Arrows inside cards and buttons slide forward on hover."
+      },
+      {
+        "name": "print-lift",
+        "value": "scale + rotate 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Wall prints are picked up on hover/focus: 1.03 scale, tilt eased to 30%."
+      },
+      {
+        "name": "cover-zoom",
+        "value": "scale 0.4s ease",
+        "purpose": "Latest-work cover image zooms inside its frame on hover."
+      },
+      {
+        "name": "menu-morph",
+        "value": "transform 0.25s ease, opacity 0.2s ease",
+        "purpose": "Hamburger bars morph into an X."
+      },
+      {
+        "name": "band-loop",
+        "value": "20s linear infinite",
+        "purpose": "Scrolling roles band; paused off screen, stopped by prefers-reduced-motion."
+      },
+      {
+        "name": "frame-lay",
+        "value": "0.6s cubic-bezier(0.16, 1, 0.3, 1), staggered via --lay-delay",
+        "purpose": "Page titles laid on like tape: a slanted cut sweeps left to right."
+      },
+      {
+        "name": "photo-slap",
+        "value": "0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Desktop hero photos slapped on: from 1.3x scale and 2.5x tilt."
+      },
+      {
+        "name": "menu-sweep",
+        "value": "0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Phone menu panel sweeps down at the hero slant; links follow 50ms apart."
+      },
+      {
+        "name": "frame-press",
+        "value": "rotate + scale 0.25s cubic-bezier(0.16, 1, 0.3, 1); pressed 80ms",
+        "purpose": "Framed buttons lift on hover/focus (-2deg, 1.04) and are slapped flat when pressed (0deg, 0.94)."
+      },
+      {
+        "name": "link-tape",
+        "value": "scale 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Text links lay a slanted tape strip on from the left on hover and peel it off to the right; current page keeps it. Portfolio's frame turns Bib Black on its own pages."
+      },
+      {
+        "name": "cta-glide",
+        "value": "900ms ease-out quart (JS scroll)",
+        "purpose": "CTA glides down to Latest work; interruptible; jump under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "0px"
+      },
+      {
+        "name": "tablet",
+        "value": "744px"
+      },
+      {
+        "name": "desktop",
+        "value": "1280px"
+      },
+      {
+        "name": "wide",
+        "value": "2160px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Title Frame",
+      "kind": "custom",
+      "refersTo": "title-frame",
+      "description": "Signature slanted label behind every display title; seeded crooked corners, no radius.",
+      "html": "<div style=\"background:var(--red,#ff0000);padding:24px\"><h1 class=\"ds-title-frame\">About me</h1></div>",
+      "css": ".ds-title-frame{position:relative;isolation:isolate;display:inline-block;font-family:var(--font,'Open Sans',system-ui,sans-serif);margin:0;padding:0.1em 0.45em 0.16em 0.32em;color:var(--red,#ff0000);font-size:56px;font-weight:800;font-stretch:75%;font-style:italic;text-transform:uppercase;line-height:1;}.ds-title-frame::before{content:'';position:absolute;inset:0;z-index:-1;clip-path:polygon(0 0,calc(100% - 8px) 3px,calc(100% - 4px) calc(100% - 5px),3px calc(100% - 2px));background:var(--white,#f0f0f0);}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Signal Red frame with Packed Snow label; CTA, Send message, carousel arrows.",
+      "html": "<button class=\"ds-btn-primary\">Send message <span class=\"ds-btn-arrow\" aria-hidden=\"true\">→</span></button>",
+      "css": ".ds-btn-primary{position:relative;isolation:isolate;display:inline-block;font-family:var(--font,'Open Sans',system-ui,sans-serif);border:0;cursor:pointer;padding:0.6em 1.3em 0.8em 1em;background:none;color:var(--white,#f0f0f0);font-size:0.875rem;font-weight:700;text-transform:uppercase;}.ds-btn-primary::before{content:'';position:absolute;inset:0;z-index:-1;clip-path:polygon(0 0,calc(100% - 8px) 3px,calc(100% - 4px) calc(100% - 5px),3px calc(100% - 2px));background:var(--red,#ff0000);}.ds-btn-arrow{display:inline-block;transition:translate .3s ease;}.ds-btn-primary:hover .ds-btn-arrow{translate:4px 0;}.ds-btn-primary:focus-visible{outline:2px solid var(--red,#ff0000);outline-offset:4px;}.ds-btn-primary:disabled{opacity:.6;cursor:progress;}"
+    },
+    {
+      "name": "Inverse Button",
+      "kind": "button",
+      "refersTo": "button-inverse",
+      "description": "Packed Snow frame with Signal Red label, used on red ground.",
+      "html": "<div style=\"background:var(--red,#ff0000);padding:24px\"><button class=\"ds-btn-inverse\">View projects ↓</button></div>",
+      "css": ".ds-btn-inverse{position:relative;isolation:isolate;display:inline-block;font-family:var(--font,'Open Sans',system-ui,sans-serif);border:0;cursor:pointer;padding:0.6em 1.3em 0.8em 1em;background:none;color:var(--red,#ff0000);font-size:0.875rem;font-weight:700;text-transform:uppercase;}.ds-btn-inverse::before{content:'';position:absolute;inset:0;z-index:-1;clip-path:polygon(0 0,calc(100% - 8px) 3px,calc(100% - 4px) calc(100% - 5px),3px calc(100% - 2px));background:var(--white,#f0f0f0);}.ds-btn-inverse:focus-visible{outline:2px solid var(--white,#f0f0f0);outline-offset:4px;}"
+    },
+    {
+      "name": "Underline Input",
+      "kind": "input",
+      "refersTo": "input-underline",
+      "description": "Transparent field with a 2px bottom rule; uppercase placeholder doubles as label.",
+      "html": "<div style=\"background:var(--white,#f0f0f0);padding:24px\"><label><span style=\"position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)\">Email address</span><input class=\"ds-input\" placeholder=\"Email address\"></label></div>",
+      "css": ".ds-input{font-family:var(--font,'Open Sans',system-ui,sans-serif);width:100%;padding:0.35rem 0;border:0;border-bottom:2px solid var(--red,#ff0000);background:none;color:var(--red,#ff0000);font-weight:600;}.ds-input::placeholder{color:var(--red,#ff0000);opacity:1;font-size:0.875rem;font-weight:700;text-transform:uppercase;}.ds-input:focus-visible{outline:2px solid var(--red,#ff0000);outline-offset:3px;}"
+    },
+    {
+      "name": "Navigation Bar",
+      "kind": "nav",
+      "refersTo": "nav-bar",
+      "description": "Tablet/desktop link bar on a Packed Snow frame; active page in a red frame.",
+      "html": "<div style=\"background:var(--red,#ff0000);padding:16px\"><nav class=\"ds-nav\"><a href=\"#\">Home</a><a href=\"#\">About me</a><a href=\"#\">AppState</a><a href=\"#\" class=\"ds-nav-active\">Portfolio</a></nav></div>",
+      "css": ".ds-nav{position:relative;isolation:isolate;display:inline-block;font-family:var(--font,'Open Sans',system-ui,sans-serif);display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding:6px 14px 10px 2rem;}.ds-nav::before{content:'';position:absolute;inset:0;z-index:-1;clip-path:polygon(0 0,calc(100% - 8px) 3px,calc(100% - 4px) calc(100% - 5px),3px calc(100% - 2px));background:var(--white,#f0f0f0);}.ds-nav a{position:relative;isolation:isolate;color:var(--black,#161616);font-size:0.875rem;font-weight:700;text-decoration:none;padding:0.4em 0.8em;}.ds-nav a:hover{text-decoration:underline;}.ds-nav a:focus-visible{outline:2px solid var(--red,#ff0000);outline-offset:2px;}.ds-nav .ds-nav-active{color:var(--white,#f0f0f0);}.ds-nav .ds-nav-active::before{content:'';position:absolute;inset:0;z-index:-1;clip-path:polygon(0 0,calc(100% - 8px) 3px,calc(100% - 4px) calc(100% - 5px),3px calc(100% - 2px));background:var(--red,#ff0000);}"
+    },
+    {
+      "name": "Wall Print",
+      "kind": "card",
+      "refersTo": "wall-print",
+      "description": "Project as a tilted print: thick Packed Snow border, two-tone framed title hanging off the edge.",
+      "html": "<div style=\"background:var(--red,#ff0000);padding:40px\"><a href=\"#\" class=\"ds-print\"><div class=\"ds-print-photo\"></div><span class=\"ds-print-title\"><span class=\"ds-print-line ds-red\">Example</span><span class=\"ds-print-line ds-black\">Project</span></span></a></div>",
+      "css": ".ds-print{position:relative;display:block;width:260px;rotate:-3deg;transition:scale .3s ease;font-family:var(--font,'Open Sans',system-ui,sans-serif);}.ds-print:hover{scale:1.03;}.ds-print:focus-visible{outline:3px solid var(--white,#f0f0f0);outline-offset:6px;}.ds-print-photo{aspect-ratio:1.25;border:10px solid var(--white,#f0f0f0);background:linear-gradient(135deg,#6b1e5a,#c2367a);}.ds-print-title{position:absolute;right:-4%;bottom:12%;display:grid;justify-items:end;font-size:28px;font-weight:800;font-stretch:75%;font-style:italic;text-transform:uppercase;line-height:1;}.ds-print-line{position:relative;isolation:isolate;padding:0.06em 0.3em;}.ds-print-line::before{content:'';position:absolute;inset:0;z-index:-1;clip-path:polygon(0 0,calc(100% - 8px) 3px,calc(100% - 4px) calc(100% - 5px),3px calc(100% - 2px));background:var(--white,#f0f0f0);}.ds-red{color:var(--red,#ff0000);}.ds-black{color:var(--black,#161616);}"
+    },
+    {
+      "name": "Scrolling Roles Band",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Tilted Packed Snow strip looping the roles in red label type with dash separators.",
+      "html": "<div style=\"background:var(--red,#ff0000);padding:32px 0;overflow:hidden\"><div class=\"ds-band\"><div class=\"ds-band-track\"><span>Developer</span><span>Designer</span><span>Problem solver</span><span>Goofball</span><span>Developer</span><span>Designer</span><span>Problem solver</span><span>Goofball</span></div></div></div>",
+      "css": ".ds-band{rotate:-3.4deg;margin-inline:-5%;padding:0.5rem 0;background:var(--white,#f0f0f0);overflow:hidden;font-family:var(--font,'Open Sans',system-ui,sans-serif);}.ds-band-track{display:flex;width:max-content;animation:ds-band 12s linear infinite;}.ds-band-track span{display:flex;align-items:center;color:var(--red,#ff0000);font-size:0.875rem;font-weight:700;text-transform:uppercase;white-space:nowrap;}.ds-band-track span::after{content:'';width:0.6em;height:0.2em;margin-inline:1em;background:var(--red,#ff0000);}@keyframes ds-band{to{transform:translateX(-50%);}}@media (prefers-reduced-motion:reduce){.ds-band-track{animation:none;}}"
+    },
+    {
+      "name": "Carousel Dots",
+      "kind": "chip",
+      "refersTo": "carousel-dot",
+      "description": "Outlined red circles, filled for the current slide.",
+      "html": "<div class=\"ds-dots\"><button class=\"ds-dot\" aria-current=\"true\" aria-label=\"Slide 1\"></button><button class=\"ds-dot\" aria-label=\"Slide 2\"></button><button class=\"ds-dot\" aria-label=\"Slide 3\"></button></div>",
+      "css": ".ds-dots{display:flex;gap:0.6rem;padding:16px;background:var(--white,#f0f0f0);}.ds-dot{width:0.7rem;aspect-ratio:1;padding:0;border:2px solid var(--red,#ff0000);border-radius:50%;background:none;cursor:pointer;}.ds-dot[aria-current='true']{background:var(--red,#ff0000);}.ds-dot:focus-visible{outline:2px solid var(--red,#ff0000);outline-offset:2px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Race Bib",
+    "overview": "The site dresses like a ski racer on start day: Signal Red and Packed Snow, numbers and names printed huge, labels slapped on at an angle. Every title sits on its own off-white or red frame, cut slightly crooked like a sticker or a bib, and the type is shouted in extra-bold, condensed, italic capitals that lean forward like they're already moving. Photos get the same treatment: tilted prints with thick white borders, or framed with slanted red corner wedges.\n\nIt is playful but precise. The crookedness is generated, not sloppy: each frame's corners are seeded per element so no two frames on a page match, yet each one renders the same every time. Slants are measured to the degree, stacked frames close up without gaps, and the hero's diagonal edges are computed so the scrolling band never breaks the fold. The goofiness is on top; the engineering underneath is exact, which is the point of a designer who also develops.\n\nDensity is low and loud: one big statement per screen, plenty of red field, and content panels in Packed Snow. The system is flat. Depth comes from overlap, tilt and color contrast, never from shadow.",
+    "keyCharacteristics": [
+      "Two-color world: Signal Red and Packed Snow, with Bib Black reserved for body text and big background statements.",
+      "Every heading, button and nav bar lives on a slanted four-point frame (TitleFrame), never a rounded box.",
+      "Display type: Open Sans at 800 weight, 75% width, italic, uppercase, line-height 1.",
+      "Tilted elements (±3° prints, −3° to −12° hero edges and band) create forward motion.",
+      "A red zigzag pattern (`src/assets/custom/pattern.jpg`) is the page ground; Packed Snow sheets slide over it.",
+      "Each project brings its own `mainColor` / `secondaryColor`, which replace Signal Red only inside that project's card and page."
+    ],
+    "rules": [
+      {
+        "name": "The Two-Flag Rule",
+        "body": "Every surface is either red with Packed Snow on top, or Packed Snow with red on top. A third color only appears as Bib Black text or as a project's own scoped accent.",
+        "section": "colors"
+      },
+      {
+        "name": "The Pure Red Rule",
+        "body": "Signal Red is the literal `#ff0000`. Don't tame it toward a brick or crimson; its rawness is the race-bib signal.",
+        "section": "colors"
+      },
+      {
+        "name": "The Leaning Shout Rule",
+        "body": "Display type is always italic, condensed and uppercase, and always sits on a frame. Never set a display title as bare text on the page.",
+        "section": "typography"
+      },
+      {
+        "name": "The Semibold Floor Rule",
+        "body": "Nothing on the site is lighter than 600. Regular weight disappears against Signal Red.",
+        "section": "typography"
+      },
+      {
+        "name": "The Sticker Rule",
+        "body": "Things sit on top of each other like stickers on a bib: by overlap, tilt and contrast. If something needs to feel raised, tilt it or frame it; never add a shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** put every display title and button on a TitleFrame and let it pick its own seeded slant; pass fixed corners only when an edge must line up.",
+      "**Do** keep surfaces to the Two-Flag pairing: Packed Snow on Signal Red, or Signal Red on Packed Snow.",
+      "**Do** use diagonals and tilt (±3° prints, hero-slope edges) to join and energize sections.",
+      "**Do** scope project colors to that project's card and page through `--project-main` / `--project-secondary`.",
+      "**Do** keep text at 600 weight or heavier.",
+      "**Do** honor `prefers-reduced-motion`: the global reset stops the band and transitions, and entrances become short fades instead of disappearing.",
+      "**Do** keep motion to the race-bib vocabulary (laid on, slapped on, picked up) with `cubic-bezier(0.16, 1, 0.3, 1)`; no bounce, no generic fade-and-rise on every section."
+    ],
+    "donts": [
+      "**Don't** add box-shadows, gradients or glows; the system is flat.",
+      "**Don't** round corners. Zero radius everywhere except the carousel dots.",
+      "**Don't** set display titles as bare text, in sentence case, or upright.",
+      "**Don't** introduce extra accent colors into the site chrome.",
+      "**Don't** copy the current Project page styling (8px rounded media, pill links) or the leftover template variables in `Layout.css` (`--accent: #2a5db0`, `--muted`, system-ui body font). They are unthemed scaffolding, not part of the system."
+    ]
+  }
+}

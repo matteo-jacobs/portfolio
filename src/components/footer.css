@@ -199,9 +199,74 @@
   margin: 0;
 }
 
-.footer__contact a:hover,
-.footer__nav a:hover {
-  text-decoration: underline;
+/* Links: the nav's strip of tape (in the footer's text color) under the
+   words, laid on from the left and peeled off to the right. Page links
+   also nudge their arrow forward. */
+.footer__contact a,
+.footer__nav a {
+  position: relative;
+  justify-self: start;
+}
+
+.footer__contact a::after,
+.footer__nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.2em;
+  height: 2px;
+  background: currentColor;
+  clip-path: polygon(0.2em 0, 100% 0, calc(100% - 0.2em) 100%, 0 100%);
+  scale: 0 1;
+  transform-origin: right;
+  transition: scale 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer__nav a span {
+  display: inline-block;
+  transition: translate 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .footer__contact a:hover::after,
+  .footer__nav a:hover::after {
+    scale: 1 1;
+    transform-origin: left;
+  }
+
+  .footer__nav a:hover span {
+    translate: 0.25em 0;
+  }
+}
+
+.footer__contact a:focus-visible::after,
+.footer__nav a:focus-visible::after {
+  scale: 1 1;
+  transform-origin: left;
+}
+
+.footer__contact a:focus-visible,
+.footer__nav a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.footer__nav a:active span {
+  translate: 0.4em 0;
+  transition-duration: 80ms;
+}
+
+/* "Send message →": the arrow nudges toward where the message goes */
+.footer__send span {
+  display: inline-block;
+  transition: translate 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .footer__send:hover:not(:disabled) span {
+    translate: 0.25em 0;
+  }
 }
 
 /* --- Home button ------------------------------------------------------ */

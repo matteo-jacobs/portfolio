@@ -86,13 +86,21 @@
   position: relative;
   display: block;
   rotate: var(--card-tilt);
-  transition: scale 0.3s ease;
+  transition:
+    scale 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    rotate 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Picked up off the table: a little bigger and almost straight */
 @media (hover: hover) {
   .project-wall__link:hover {
     scale: 1.03;
+    rotate: calc(var(--card-tilt) * 0.3);
   }
+}
+
+.project-wall__link:focus-visible {
+  rotate: calc(var(--card-tilt) * 0.3);
 }
 
 .project-wall__link:focus-visible {

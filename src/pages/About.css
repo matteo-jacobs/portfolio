@@ -53,6 +53,10 @@
 .about__title--about { grid-area: about; }
 .about__title--fun   { grid-area: fun; }
 
+/* Desktop: "Fun fact" is already on screen at load, so it's laid on just
+   after "About me". Elsewhere it waits until you scroll to it. */
+.about__title--fun { --lay-delay: 150ms; }
+
 /* --- Text ------------------------------------------------------------------ */
 
 .about__text {

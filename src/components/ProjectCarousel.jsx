@@ -55,7 +55,7 @@ export default function ProjectCarousel({ label, children }) {
             as="button"
             type="button"
             color="var(--red)"
-            className="carousel__arrow"
+            className="carousel__arrow title-frame--press"
             onClick={() => goTo(active - 1)}
             disabled={active === 0}
             aria-label="Previous project"
@@ -80,7 +80,7 @@ export default function ProjectCarousel({ label, children }) {
             as="button"
             type="button"
             color="var(--red)"
-            className="carousel__arrow"
+            className="carousel__arrow title-frame--press"
             onClick={() => goTo(active + 1)}
             disabled={active === slides.length - 1}
             aria-label="Next project"

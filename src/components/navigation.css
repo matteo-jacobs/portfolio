@@ -49,6 +49,59 @@ nav.open .nav-open {
   font-weight: 700;
 }
 
+/* Text links: a strip of red tape under the word. Hover or focus lays it
+   on from the left; moving away peels it off to the right. The current
+   page keeps its strip. Pressing pushes the word down a pixel. */
+.nav-open a:not(.important) {
+  position: relative;
+  display: inline-block;
+  transition: translate 80ms ease-out;
+}
+
+.nav-open a:not(.important)::after {
+  content: '';
+  position: absolute;
+  left: -0.1em;
+  right: -0.1em;
+  bottom: -0.15em;
+  height: max(3px, 0.18em);
+  background: var(--red);
+  /* Leans forward like the italic */
+  clip-path: polygon(0.25em 0, 100% 0, calc(100% - 0.25em) 100%, 0 100%);
+  scale: 0 1;
+  transform-origin: right;
+  transition: scale 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .nav-open a:not(.important):hover::after {
+    scale: 1 1;
+    transform-origin: left;
+  }
+}
+
+.nav-open a:not(.important):focus-visible::after,
+.nav-open a.active:not(.important)::after {
+  scale: 1 1;
+  transform-origin: left;
+}
+
+.nav-open a:not(.important):focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 4px;
+}
+
+.nav-open a:not(.important):active {
+  translate: 0 1px;
+}
+
+/* Portfolio on its own pages: the red frame turns black (tablet and up,
+   see below; on the phone's black panel it turns white instead).
+   !important: the frame color is an inline style. */
+.important::before {
+  transition: background-color 0.25s ease-out;
+}
+
 /* Portfolio link: red frame (the TitleFrame default) with white text */
 .important {
   color: var(--white);
@@ -106,6 +159,25 @@ nav.open .nav-toggle-line--bottom {
     align-items: center;
     justify-content: center;
     gap: 3rem;
+
+    /* Opening: the black panel sweeps down with the same slant as the
+       home page's edges, then the links are laid on one by one */
+    animation: menu-sweep 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  nav.open .nav-open li {
+    animation: menu-link 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+
+  nav.open .nav-open li:nth-child(2) { animation-delay: 100ms; }
+  nav.open .nav-open li:nth-child(3) { animation-delay: 150ms; }
+  nav.open .nav-open li:nth-child(4) { animation-delay: 200ms; }
+
+  /* Portfolio on its own pages: white frame, red text (black would
+     disappear on the black panel) */
+  .important.active {
+    --frame-color: var(--white) !important;
+    color: var(--red);
   }
 
   /* Links in the title style, big and white */
@@ -120,6 +192,22 @@ nav.open .nav-toggle-line--bottom {
   }
 }
 
+@keyframes menu-sweep {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 12%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 112%);
+  }
+}
+
+@keyframes menu-link {
+  from {
+    opacity: 0;
+    transform: translateX(-0.3em);
+  }
+}
+
 /* ==========================================================================
    Tablet and up
    ========================================================================== */
@@ -127,6 +215,10 @@ nav.open .nav-toggle-line--bottom {
 @media (min-width: 744px) {
   nav {
     margin-inline: 8%;
+  }
+
+  .important.active {
+    --frame-color: var(--black) !important;
   }
 
   .nav-closed {

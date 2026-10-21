@@ -116,7 +116,7 @@ export default function Footer() {
               as="button"
               type="submit"
               color="var(--footer-panel-text)"
-              className="footer__send"
+              className="footer__send title-frame--press"
               disabled={status === 'sending'}
             >
               Send message <span aria-hidden="true">→</span>
@@ -146,7 +146,7 @@ export default function Footer() {
           as={Link}
           to="/"
           color="var(--footer-text)"
-          className="footer__home"
+          className="footer__home title-frame--press"
           aria-label="Home"
         >
           {/* The logo, colored by CSS (mask), so it can follow the theme */}

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { latestProjects } from '../data/projects.js'
 import heroSkier from '../assets/hero-skier.png'
@@ -68,8 +68,79 @@ function useBarFitsOnScreen() {
   return { imageRef, barRef, fits }
 }
 
+// Pause the scrolling bar's loop while it's off screen: nobody sees it
+// there, so it shouldn't keep using the CPU.
+function usePauseWhenOffScreen(ref) {
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+    const observer = new IntersectionObserver(([entry]) => {
+      element.toggleAttribute('data-paused', !entry.isIntersecting)
+    })
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [ref])
+}
+
+// "Check it out now": glide down to the projects instead of jumping.
+// Pushes off quickly and settles gently (ease-out quart), like carving
+// down the slope rather than being dragged. Scrolling or touching during the
+// glide hands control straight back to the visitor.
+const SCROLL_DURATION = 900
+
+function easeOutQuart(t) {
+  return 1 - (1 - t) ** 4
+}
+
+function glideTo(target) {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const start = window.scrollY
+  const distance = target.getBoundingClientRect().top
+
+  // Move keyboard / screen reader focus to the projects as well
+  const focusTarget = () => target.focus({ preventScroll: true })
+
+  if (reduceMotion || Math.abs(distance) < 2) {
+    window.scrollTo(0, start + distance)
+    focusTarget()
+    return
+  }
+
+  let frame
+  const stop = () => {
+    cancelAnimationFrame(frame)
+    window.removeEventListener('wheel', stop)
+    window.removeEventListener('touchstart', stop)
+    window.removeEventListener('keydown', stop)
+  }
+  window.addEventListener('wheel', stop, { passive: true })
+  window.addEventListener('touchstart', stop, { passive: true })
+  window.addEventListener('keydown', stop)
+
+  const startTime = performance.now()
+  const step = (now) => {
+    const t = Math.min((now - startTime) / SCROLL_DURATION, 1)
+    window.scrollTo(0, start + distance * easeOutQuart(t))
+    if (t < 1) {
+      frame = requestAnimationFrame(step)
+    } else {
+      stop()
+      focusTarget()
+    }
+  }
+  frame = requestAnimationFrame(step)
+}
+
+function handleScrollDown(event) {
+  const target = document.getElementById('scroll-down')
+  if (!target) return
+  event.preventDefault()
+  glideTo(target)
+}
+
 export default function Home() {
   const { imageRef, barRef, fits: barFits } = useBarFitsOnScreen()
+  usePauseWhenOffScreen(barRef)
   const latest = latestProjects(3)
 
   return (
@@ -81,14 +152,14 @@ export default function Home() {
           <TitleFrame 
           as="h1"
           color="var(--white)"
-          className="hero-title__1">
+          className="hero-title__1 title-frame--lay">
           Matteo's
           </TitleFrame>
 
           <TitleFrame 
           as="h1"
           color="var(--white)"
-          className="hero-title__2">
+          className="hero-title__2 title-frame--lay">
           Portfolio
           </TitleFrame>
 
@@ -130,7 +201,8 @@ export default function Home() {
           as="a"
           href="#scroll-down"
           color="var(--red)"
-          className="CTA">
+          className="CTA title-frame--lay title-frame--press"
+          onClick={handleScrollDown}>
           {/* Different wording per screen size (see .CTA__label in Home.css) */}
           <span className="CTA__label CTA__label--phone">View projects</span>
           <span className="CTA__label CTA__label--tablet">Check it out now</span>
@@ -157,7 +229,7 @@ export default function Home() {
 
 
 
-      <div className="homePage__content" id="scroll-down">
+      <div className="homePage__content" id="scroll-down" tabIndex={-1}>
         <h2>Latest work</h2>
         <ProjectCarousel label="Latest work">
           {latest.map((project) => (
