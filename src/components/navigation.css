@@ -4,7 +4,9 @@
    ========================================================================== */
 
 /* Fixed to the top of the screen: stays put while the page scrolls.
-   left + right 0 = full width; the margin keeps it 1rem off the edges.
+   left + right 0 = full width; the margin keeps it 1rem from the top and,
+   on the sides, the same space as the page sections ("Passed work", the
+   footer): 10% on phones, 8% on tablets, 6% on desktops.
    z-index keeps it above the page content. */
 nav {
   position: absolute;
@@ -12,7 +14,7 @@ nav {
   left: 0;
   right: 0;
   z-index: 100;
-  margin: 1rem;
+  margin: 1rem 10%;
 }
 
 .logo-computer {
@@ -123,6 +125,10 @@ nav.open .nav-toggle-line--bottom {
    ========================================================================== */
 
 @media (min-width: 744px) {
+  nav {
+    margin-inline: 8%;
+  }
+
   .nav-closed {
     display: none;
   }
@@ -134,8 +140,7 @@ nav.open .nav-toggle-line--bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 70vw;
-    margin-inline: auto;
+    /* Fills the space between the side margins */
 
     /* Extra room before "Home". Keeps the corner slant added on top,
        like the other sides. Change 2rem to taste. */
@@ -149,6 +154,9 @@ nav.open .nav-toggle-line--bottom {
 
 
 @media (min-width: 1280px) {
+  nav {
+    margin-inline: 6%;
+  }
 
   /* 3 columns: empty | logo | links. The outer columns are always equal
      (1fr each), so the logo in the middle column is exactly centred. */
