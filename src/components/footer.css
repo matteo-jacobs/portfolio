@@ -9,13 +9,38 @@
               details and links on the right, home button bottom-right
    ========================================================================== */
 
-/* Colors: the hero's red pattern (the page background) shows through;
-   white text, a white form with red text */
+/* --- Colors ------------------------------------------------------------ */
+
+/* Two themes, picked in footer.jsx:
+     red   (home page): the red pattern shows through, white text, a white
+                        form with red text
+     white (all other pages): white background, red text, a red form with
+                        white text
+   Every color below uses these variables, so a theme is just 4 values. */
+.site-footer--red {
+  --footer-bg: transparent;
+  --footer-text: var(--white);
+  --footer-panel: var(--white);
+  --footer-panel-text: var(--red);
+}
+
+.site-footer--white {
+  --footer-bg: var(--white);
+  --footer-text: var(--red);
+  --footer-panel: var(--red);
+  --footer-panel-text: var(--white);
+
+  /* Slanted top edge: the red page above shows in the top-left corner
+     (lower on the left, rising to the right, about 1.5deg) */
+  clip-path: polygon(0 min(2.6vw, 3rem), 100% 0, 100% 100%, 0 100%);
+}
+
 .site-footer {
+  background: var(--footer-bg);
   /* Same side space as the "Passed work" section (Home.css), so the two
      line up: 10% on phones, 8% on tablets, 6% on desktops */
   padding: 3rem 10% 2rem;
-  color: var(--white);
+  color: var(--footer-text);
 }
 
 .footer__title {
@@ -66,7 +91,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem 1.25rem;
 
-  color: var(--red);
+  color: var(--footer-panel-text);
 }
 
 .footer__field {
@@ -82,22 +107,22 @@
   width: 100%;
   padding: 0.35rem 0;
   border: 0;
-  border-block-end: 2px solid var(--red);
+  border-block-end: 2px solid var(--footer-panel-text);
   background: none;
-  color: var(--red);
+  color: var(--footer-panel-text);
   font-weight: 600;
 }
 
 /* The message box has a full red border */
 .footer__field textarea {
   padding: 0.5rem 0.6rem;
-  border: 2px solid var(--red);
+  border: 2px solid var(--footer-panel-text);
   resize: vertical;
 }
 
 .footer__field input::placeholder,
 .footer__field textarea::placeholder {
-  color: var(--red);
+  color: var(--footer-panel-text);
   opacity: 1;
   font-size: 0.875rem;
   font-weight: 700;
@@ -106,7 +131,7 @@
 
 .footer__field input:focus-visible,
 .footer__field textarea:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--footer-panel-text);
   outline-offset: 3px;
 }
 
@@ -128,7 +153,7 @@
   --frame-pad-y: 0.5em;
   --frame-pad-x: 0.8em;
 
-  color: var(--white);
+  color: var(--footer-panel);
   font-size: 0.875rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -189,8 +214,13 @@
   align-self: end; /* level with the last line next to it */
 }
 
-.footer__home img {
+/* The logo as a mask: its color comes from the theme */
+.footer__home-logo {
+  display: block;
   width: 2.25rem;
+  aspect-ratio: 1;
+  background: var(--footer-panel-text);
+  mask: url('../assets/navigation/logo-mark.svg') center / contain no-repeat;
 }
 
 /* --- Phone ------------------------------------------------------------- */
@@ -234,7 +264,7 @@
     align-self: end;
   }
 
-  .footer__home img {
+  .footer__home-logo {
     width: 1.9rem;
   }
 }

@@ -86,7 +86,7 @@ export default function Navigation() {
                 
                 
                 <li className="home-computer"><NavLink to="/" onClick={closeMenu}>Home</NavLink></li>
-                <li><NavLink to="/about" onClick={closeMenu}>About</NavLink></li>
+                <li><NavLink to="/about" onClick={closeMenu}>About me</NavLink></li>
                 <li><NavLink to="/appstate" onClick={closeMenu}>AppState</NavLink></li>
                 <li>
                     <TitleFrame as={NavLink} to="/portfolio" className="important" onClick={closeMenu}>

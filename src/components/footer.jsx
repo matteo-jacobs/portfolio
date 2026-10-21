@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import TitleFrame from './TitleFrame.jsx'
-import logoMarkRed from '../assets/navigation/logo-mark-red.svg'
 import './footer.css'
 
 const CONTACT = {
@@ -32,6 +31,10 @@ const STATUS_TEXT = {
 export default function Footer() {
   const [status, setStatus] = useState('idle')
 
+  // Two color themes (footer.css): red on the home page, whose last section
+  // is white; white with red text everywhere else, under the red pages
+  const theme = useLocation().pathname === '/' ? 'red' : 'white'
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     const form = event.currentTarget
@@ -61,13 +64,13 @@ export default function Footer() {
   }
 
   return (
-    <footer className="site-footer" id="contact">
+    <footer className={`site-footer site-footer--${theme}`} id="contact">
       <h2 className="footer__title">Contact me</h2>
 
       <div className="footer__body">
         <TitleFrame
           as="form"
-          color="var(--white)"
+          color="var(--footer-panel)"
           className="footer__form"
           onSubmit={handleSubmit}
           topRight={[0, 0]}
@@ -94,7 +97,7 @@ export default function Footer() {
               autoComplete="email"
               required
             />
-          </label>
+          </label> 
 
           <label className="footer__field footer__field--wide footer__field--message">
             <span className="visually-hidden">Message</span>
@@ -112,7 +115,7 @@ export default function Footer() {
             <TitleFrame
               as="button"
               type="submit"
-              color="var(--red)"
+              color="var(--footer-panel-text)"
               className="footer__send"
               disabled={status === 'sending'}
             >
@@ -139,8 +142,15 @@ export default function Footer() {
           </ul>
         </nav>
 
-        <TitleFrame as={Link} to="/" color="var(--white)" className="footer__home">
-          <img src={logoMarkRed} alt="Home" />
+        <TitleFrame
+          as={Link}
+          to="/"
+          color="var(--footer-text)"
+          className="footer__home"
+          aria-label="Home"
+        >
+          {/* The logo, colored by CSS (mask), so it can follow the theme */}
+          <span className="footer__home-logo" aria-hidden="true" />
         </TitleFrame>
       </div>
     </footer>

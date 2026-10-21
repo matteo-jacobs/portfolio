@@ -1,0 +1,226 @@
+/* ==========================================================================
+   About page: "About me" and "Fun fact" titles (white frames, red text)
+   with white text on the red pattern, plus a photo of me skiing.
+     Phone:   stacked; a small tilted photo on the right, overlapped by
+              "Fun fact"
+     Tablet:  "About me" left with the text indented under it; the photo
+              runs into the left edge, "Fun fact" and its text next to it
+     Desktop: the big framed photo top-left (partly under the navigation),
+              all text in the right column, "Fun fact" overlapping the photo
+   Sides line up with the other sections: 10% / 8% / 6%.
+   Measured from the Figma frames, in vw so it scales.
+   ========================================================================== */
+
+.aboutPage {
+  position: relative;
+  padding: 25vw 10% 4rem;
+  color: var(--white);
+  overflow-x: clip; /* photos that run off the sides don't scroll the page */
+}
+
+.about__content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'about    about'
+    'text     text'
+    '.        photo'
+    'fun      fun'
+    'funtext  funtext';
+  align-items: start;
+}
+
+/* --- Titles ---------------------------------------------------------------- */
+
+.about__title {
+  --frame-pad-y: 0.08em;
+  --frame-pad-x: 0.3em;
+
+  justify-self: start;
+  position: relative;
+  z-index: 1; /* above the photo */
+
+  color: var(--red);
+  font-size: 17.5vw; /* phone: the titles fill the width */
+  font-weight: 800;
+  font-stretch: 75%;
+  font-style: italic;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap; /* "Fun fact" stays on one line */
+}
+
+.about__title--about { grid-area: about; }
+.about__title--fun   { grid-area: fun; }
+
+/* --- Text ------------------------------------------------------------------ */
+
+.about__text {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.about__text--about {
+  grid-area: text;
+  margin-block-start: 1.25rem;
+}
+
+.about__text--fun {
+  grid-area: funtext;
+  margin-block-start: 1.75rem;
+}
+
+/* --- Photos ---------------------------------------------------------------- */
+
+/* The big framed photo: desktop only */
+.about__big-photo {
+  display: none;
+}
+
+/* Small photo with a white border, tilted. Phone: on the right, over the
+   end of the text, with "Fun fact" overlapping its bottom-left */
+.about__photo {
+  grid-area: photo;
+  width: 30vw;
+  aspect-ratio: 1.05;
+  margin-block: -3vw -9vw;
+  margin-inline-end: -6vw; /* sticks out a little to the right */
+  border: 1vw solid var(--white);
+  background: var(--white);
+  overflow: clip;
+  rotate: 6deg;
+}
+
+/* Zoomed in a little so the image's own slanted frame is cut off */
+.about__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 55%;
+  scale: 1.08;
+}
+
+/* --- Tablet ---------------------------------------------------------------- */
+
+@media (min-width: 744px) {
+  .aboutPage {
+    padding: 26vw 8% 6rem;
+  }
+
+  .about__content {
+    grid-template-columns: 40% 1fr;
+    grid-template-areas:
+      'about about'
+      'text  text'
+      'photo fun'
+      'photo funtext';
+  }
+
+  .about__title {
+    font-size: 11vw;
+  }
+
+  .about__text {
+    font-size: clamp(1rem, 2.1vw, 1.25rem);
+  }
+
+  /* The text is indented a little under "About me" */
+  .about__text--about {
+    margin-inline-start: 10%;
+    margin-block: 1.5rem 2rem;
+  }
+
+  /* Runs into the left edge of the screen, "Fun fact" next to it */
+  .about__photo {
+    width: auto;
+    margin: 0 0 0 -8vw;
+    border-width: 0.8vw;
+    rotate: 6deg;
+  }
+
+  .about__title--fun {
+    margin-block-start: 2vw;
+    margin-inline-start: 2vw;
+  }
+
+  .about__text--fun {
+    margin-inline-start: 4vw;
+  }
+}
+
+/* --- Desktop --------------------------------------------------------------- */
+
+/* Positions measured from the Figma desktop frame (1487px wide), as % of
+   the width. The text fits on the first screen: every vertical size is
+   min(X vw, Y vh), where Y = X × 1.455 (the frame's width / height). On a
+   screen wider than the frame, the vh value wins and the text squeezes
+   vertically to stay above the fold. The photo (and the footer under it)
+   may run below the fold. */
+@media (min-width: 1280px) {
+  /* As tall as the photo, whatever the screen height, so the footer is
+     always right under it: the photo's lowest point (bottom-left) is at
+     72.1vw, and the footer's slanted top drops another 2.6vw on the left,
+     leaving a small red gap under the photo. */
+  .aboutPage {
+    min-height: 72vw;
+    padding: min(11.4vw, 16.6vh) 2.5% min(3vw, 2.5vh) 0;
+    overflow: clip; /* only the photo's transparent corners stick out */
+  }
+
+  /* The framed photo, partly off the top-left of the screen: its top-right
+     corner at 59.7% of the width, big enough to fill the section's height */
+  .about__big-photo {
+    display: block;
+    position: absolute;
+    top: -8vw;
+    left: -20vw;
+    width: 80vw;
+    max-width: none;
+    height: auto;
+  }
+
+  /* The right column: 59.6% - 97.5% of the width */
+  .about__content {
+    margin-inline-start: 59.6vw;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'about'
+      'text'
+      'fun'
+      'funtext';
+  }
+
+  .about__photo {
+    display: none;
+  }
+
+  .about__title {
+    font-size: min(6.3vw, 9.2vh);
+  }
+
+  /* "About me": 68.6% - 99% of the width */
+  .about__title--about {
+    justify-self: end;
+    margin-inline-end: -1.5vw;
+  }
+
+  .about__text {
+    font-size: clamp(0.95rem, min(1.21vw, 1.76vh), 1.5rem);
+    line-height: 1.42;
+  }
+
+  .about__text--about {
+    margin: min(3.2vw, 4.7vh) 0 0;
+  }
+
+  /* "Fun fact": starts at 45.4%, sticking out over the photo */
+  .about__title--fun {
+    margin: min(3.6vw, 5.2vh) 0 0 -14.2vw;
+  }
+
+  /* Its text: 62.7% - 97.5% */
+  .about__text--fun {
+    margin: min(1.1vw, 1.6vh) 0 0 3.1vw;
+  }
+}
