@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import TitleFrame from '../components/TitleFrame.jsx'
 import logoMark from '../assets/navigation/logo-mark.svg'
 import logoMarkRed from '../assets/navigation/logo-mark-red.svg'
@@ -10,6 +10,8 @@ const TABLET_BREAKPOINT = 744
 
 export default function Navigation() {
     const [isOpen, setIsOpen] = useState(false)
+    const navRef = useRef(null)
+    const toggleRef = useRef(null)
 
     useEffect(() => {
         const mql = window.matchMedia(`(min-width: ${TABLET_BREAKPOINT}px)`)
@@ -20,20 +22,32 @@ export default function Navigation() {
         return () => mql.removeEventListener('change', syncOpen)
     }, [])
 
-    // Phone menu is open: stop the page behind it from scrolling, and let
-    // Escape close it. (On tablet+ isOpen is always true, so skip those.)
+    // Phone menu is open: stop the page behind it from scrolling, let Escape
+    // close it, and keep keyboard / screen reader users inside it: the page
+    // behind becomes inert and focus moves to the first link. Escape puts
+    // focus back on the menu button. (On tablet+ isOpen is always true, so
+    // skip those.)
     useEffect(() => {
         const isPhone = !window.matchMedia(`(min-width: ${TABLET_BREAKPOINT}px)`).matches
         if (!isOpen || !isPhone) return
 
         const onKeyDown = (event) => {
-            if (event.key === 'Escape') setIsOpen(false)
+            if (event.key !== 'Escape') return
+            setIsOpen(false)
+            toggleRef.current?.focus()
         }
 
+        // Everything in the site except the navigation (main + footer)
+        const nav = navRef.current
+        const pageBehind = [...nav.parentElement.children].filter((el) => el !== nav)
+
         document.body.style.overflow = 'hidden'
+        pageBehind.forEach((el) => { el.inert = true })
+        nav.querySelector('.nav-open a')?.focus()
         window.addEventListener('keydown', onKeyDown)
         return () => {
             document.body.style.overflow = ''
+            pageBehind.forEach((el) => { el.inert = false })
             window.removeEventListener('keydown', onKeyDown)
         }
     }, [isOpen])
@@ -46,7 +60,7 @@ export default function Navigation() {
     }
 
     return (
-        <nav className={isOpen ? 'open' : 'closed'}>
+        <nav ref={navRef} className={isOpen ? 'open' : 'closed'}>
             <div className="nav-closed">
                 <NavLink to="/" className="logo" onClick={closeMenu}>
                     <img src={logoMark} alt="Home" className="logo-plate" />
@@ -56,6 +70,7 @@ export default function Navigation() {
                     as="button"
                     type="button"
                     color="var(--white)"
+                    ref={toggleRef}
                     className="nav-toggle title-frame--press"
                     aria-expanded={isOpen}
                     aria-label={isOpen ? 'Close menu' : 'Open menu'}
@@ -79,7 +94,7 @@ export default function Navigation() {
 
 
             <div className="nav-open-container">
-            <TitleFrame as="a" href="/" className="logo-computer title-frame--press" color="var(--white)">
+            <TitleFrame as={Link} to="/" className="logo-computer title-frame--press" color="var(--white)">
                 <img src={logoMarkRed} alt="Home" className="logo-mark-red" />
             </TitleFrame>
             <TitleFrame as="ul" color="var(--white)" className="nav-open">

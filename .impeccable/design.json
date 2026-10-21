@@ -230,7 +230,7 @@
       },
       {
         "name": "The Pure Red Rule",
-        "body": "Signal Red is the literal `#ff0000`. Don't tame it toward a brick or crimson; its rawness is the race-bib signal.",
+        "body": "Signal Red is the literal `#ff0000`, everywhere, including small text. Don't tame it toward a brick or crimson, not even for contrast; its rawness is the race-bib signal. (Pure red with Packed Snow is 3.5:1: a deliberate choice that keeps white text on the red pattern at 19px bold.)",
         "section": "colors"
       },
       {
@@ -263,7 +263,8 @@
       "**Don't** round corners. Zero radius everywhere except the carousel dots.",
       "**Don't** set display titles as bare text, in sentence case, or upright.",
       "**Don't** introduce extra accent colors into the site chrome.",
-      "**Don't** copy the current Project page styling (8px rounded media, pill links) or the leftover template variables in `Layout.css` (`--accent: #2a5db0`, `--muted`, system-ui body font). They are unthemed scaffolding, not part of the system."
+      "**Don't** introduce a darker \"accessible\" red; Signal Red stays `#ff0000`.",
+      "**Don't** put a label or chip above a page title; back links go at the end of the content."
     ]
   }
 }

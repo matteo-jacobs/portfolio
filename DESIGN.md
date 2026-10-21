@@ -119,7 +119,7 @@ A deliberately narrow, sign-painted palette: one saturated red, one warm-neutral
 ### Named Rules
 **The Two-Flag Rule.** Every surface is either red with Packed Snow on top, or Packed Snow with red on top. A third color only appears as Bib Black text or as a project's own scoped accent.
 
-**The Pure Red Rule.** Signal Red is the literal `#ff0000`. Don't tame it toward a brick or crimson; its rawness is the race-bib signal.
+**The Pure Red Rule.** Signal Red is the literal `#ff0000`, everywhere, including small text. Don't tame it toward a brick or crimson, not even for contrast; its rawness is the race-bib signal. (Pure red with Packed Snow is 3.5:1: a deliberate choice that keeps white text on the red pattern at 19px bold.)
 
 ## Typography
 
@@ -199,10 +199,13 @@ Playful but precise: a label cut by hand, placed by machine.
 - **Footer links:** the same tape in the footer's text color; page links also nudge their → forward.
 
 ### Scrolling Roles Band (signature)
-A Packed Snow strip tilted to the hero's slope, looping "Developer — Designer — Problem solver — Goofball" in Signal Red label type with red dash separators, 20s linear. It pauses while off screen. On phones it only shows when it fits above the fold.
+A Packed Snow strip tilted to the hero's slope, looping "Developer — Designer — Problem solver — Goofball" in Signal Red label type with red dash separators, 20s linear. It pauses while off screen and while the mouse is on it; a tap or click toggles it, and keyboard users get a "Pause scrolling text" button that appears on focus. On phones it only shows when it fits above the fold.
 
 ### Home Hero Entrance (focal motion)
 The one authored sequence on the site: "Matteo's" then "Portfolio" are laid on (0 / 120ms), the CTA follows (300ms), and on desktop the two tilted photos are slapped on last (420 / 520ms): they arrive 1.3× larger and 2.5× more tilted, then press down to their resting angle in 0.5s. Everything has settled by about 1s. Clicking the CTA glides the page down to Latest work (0.9s, ease-out quart, cancelled by any wheel, touch or key) and moves focus there; reduced motion jumps instead.
+
+### Project Page
+On the red pattern: the title in Packed Snow frames (lines in the project's main / secondary colors, laid on), then the video or image inside a BorderFrame with the project's corners. A video loops muted unless reduced motion is on, and always has a framed Play / Pause button. Below, a Packed Snow sheet with a slanted top edge: facts (Signal Red labels), the write-up (65ch), framed Signal Red link buttons (↗, open in a new tab), the gallery in project-colored BorderFrames, and "← All Portfolio projects" at the end.
 
 ### Carousel Controls
 Signal Red Title Frame arrows (← →) around 0.7rem dots: outlined red circles, filled when current (0.2s fill). Dots grow to 1.3 on hover and shrink to 0.85 when pressed.
@@ -223,4 +226,5 @@ Signal Red Title Frame arrows (← →) around 0.7rem dots: outlined red circles
 - **Don't** round corners. Zero radius everywhere except the carousel dots.
 - **Don't** set display titles as bare text, in sentence case, or upright.
 - **Don't** introduce extra accent colors into the site chrome.
-- **Don't** copy the current Project page styling (8px rounded media, pill links) or the leftover template variables in `Layout.css` (`--accent: #2a5db0`, `--muted`, system-ui body font). They are unthemed scaffolding, not part of the system.
+- **Don't** introduce a darker "accessible" red; Signal Red stays `#ff0000`.
+- **Don't** put a label or chip above a page title; back links go at the end of the content.

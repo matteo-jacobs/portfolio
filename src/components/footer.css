@@ -192,6 +192,21 @@
   white-space: nowrap;
 }
 
+/* Red theme: white text sits on the red pattern, which only reaches 3.5:1.
+   19px bold counts as large text (WCAG), which needs just 3:1. */
+.site-footer--red .footer__contact {
+  --detail-size: 1.1875rem;
+}
+
+.site-footer--red .footer__nav ul {
+  font-size: 1.1875rem;
+}
+
+/* An email address reads best (and runs narrower) in lowercase */
+.footer__contact a[href^='mailto:'] {
+  text-transform: none;
+}
+
 /* navigation.css positions every <nav> at the top of the page: undo that
    for the footer's links */
 .footer__nav {
@@ -331,6 +346,21 @@
 
   .footer__home-logo {
     width: 1.9rem;
+  }
+
+  /* Red theme: the details are large text (see above), so the email gets
+     its own full-width row under the home button instead of squeezing
+     next to it. 13.5em = the lowercase address' width. */
+  .site-footer--red .footer__body {
+    grid-template-areas:
+      'form  form'
+      'name  home'
+      'phone home'
+      'email email';
+  }
+
+  .site-footer--red .footer__contact > :nth-child(3) {
+    font-size: min(var(--detail-size), calc(80vw / 13.5));
   }
 }
 

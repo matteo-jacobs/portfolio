@@ -69,19 +69,18 @@
   cursor: default;
 }
 
+/* Gap + each dot's invisible padding (::before) = 24px+ to tap per dot */
 .carousel__dots {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.9rem;
 }
 
 .carousel__dot {
+  position: relative;
   width: 0.7rem;
   aspect-ratio: 1;
   border: 2px solid var(--red);
   border-radius: 50%;
-}
-
-.carousel__dot {
   transition:
     background-color 0.2s ease-out,
     scale 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -101,6 +100,14 @@
 .carousel__dot:focus-visible {
   outline: 2px solid var(--red);
   outline-offset: 3px;
+}
+
+/* The dot stays small, but the area you can tap is 25px around it
+   (WCAG 2.5.8 asks for at least 24px): -9px from inside the 2px border */
+.carousel__dot::before {
+  content: '';
+  position: absolute;
+  inset: -9px;
 }
 
 .carousel__dot[aria-current='true'] {

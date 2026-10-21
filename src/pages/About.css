@@ -59,9 +59,11 @@
 
 /* --- Text ------------------------------------------------------------------ */
 
+/* White on the red pattern only reaches 3.5:1, so the text is large text
+   in WCAG terms: bold (700) and at least 19px */
 .about__text {
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 1.1875rem;
+  font-weight: 700;
   line-height: 1.5;
 }
 
@@ -78,6 +80,12 @@
 /* --- Photos ---------------------------------------------------------------- */
 
 /* The big framed photo: desktop only */
+/* Only a wrapper that picks the file: the <img> inside is laid out as if
+   the <picture> weren't there */
+.about__big-picture {
+  display: contents;
+}
+
 .about__big-photo {
   display: none;
 }
@@ -126,7 +134,7 @@
   }
 
   .about__text {
-    font-size: clamp(1rem, 2.1vw, 1.25rem);
+    font-size: clamp(1.1875rem, 2.1vw, 1.25rem);
   }
 
   /* The text is indented a little under "About me" */
@@ -210,7 +218,7 @@
   }
 
   .about__text {
-    font-size: clamp(0.95rem, min(1.21vw, 1.76vh), 1.5rem);
+    font-size: clamp(1.1875rem, min(1.21vw, 1.76vh), 1.5rem);
     line-height: 1.42;
   }
 

@@ -86,12 +86,6 @@
   clip-path: polygon(0 calc(2 * var(--edge-dip)), 100% 0, 100% 100%, 0 100%);
 }
 
-/* picture is only a wrapper that picks the image; display: contents lets
-   the <img> inside act as the grid item */
-.hero-picture {
-  display: contents;
-}
-
 /* The two titles, stacked */
 .hero-title {
   color: var(--red);
@@ -226,9 +220,45 @@
   animation: scroll-inline-start 20s linear infinite;
 }
 
-/* Off screen: stop the loop (data-paused is set from Home.jsx) */
-.scrolling-bar[data-paused] .scrolling-bar__track {
+/* Stop the loop when it's off screen (data-paused), when the visitor
+   paused it (data-held, see Home.jsx) or while the mouse is on it */
+.scrolling-bar[data-paused] .scrolling-bar__track,
+.scrolling-bar[data-held] .scrolling-bar__track {
   animation-play-state: paused;
+}
+
+@media (hover: hover) {
+  .scrolling-bar:hover .scrolling-bar__track {
+    animation-play-state: paused;
+  }
+}
+
+.scrolling-bar {
+  cursor: pointer;
+}
+
+/* Pause / play button for keyboard users: hidden until you Tab to it,
+   then shown as a small red frame over the start of the bar */
+.scrolling-bar__toggle {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 10%;
+  translate: 0 -50%;
+  padding: 0.3em 0.7em;
+  background: var(--red);
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.scrolling-bar__toggle:focus-visible {
+  clip-path: none;
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
 }
 
 .scrolling-bar__list {
@@ -252,7 +282,7 @@
   width: 0.6em;
   height: 0.2em;
   margin-inline: 1em;
-  background: var(--red);
+  background: currentColor;
 }
 
 /* Slide exactly one copy of the list (1 / --copies of the track) to the
@@ -443,11 +473,7 @@
     justify-self: start;
     margin: 0 0 20vw 8vw; /* frames' bottom, this far above the image's bottom */
     color: var(--white);
-  }
-
-  /* A bit smaller than on phones, as in the Figma tablet frame */
-  .hero-title h1 {
-    font-size: 11.9vw;
+    font-size: 11.9vw; /* a bit smaller than on phones, as in the Figma tablet frame */
   }
 
   /* Red frames instead of white (!important: the color is an inline style) */
@@ -606,9 +632,6 @@
   .hero-title {
     justify-self: center;
     margin: calc(15vw - var(--hero-lift)) 0 0;
-  }
-
-  .hero-title h1 {
     font-size: 12.4vw;
   }
 

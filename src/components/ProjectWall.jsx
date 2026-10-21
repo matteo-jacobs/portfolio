@@ -49,7 +49,7 @@ export default function ProjectWall({ pageName, projects }) {
               </div>
 
               {/* The title in framed lines, over the photo's bottom-right */}
-              <h2 className="project-wall__title title-stack">
+              <h2 className="project-wall__title title-stack" aria-label={project.title}>
                 {project.titleLines.map((line, i) => (
                   <TitleFrame key={i} as="span" color="var(--white)" className="project-wall__line">
                     {line}

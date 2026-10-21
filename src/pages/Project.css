@@ -1,91 +1,182 @@
-/* Project page — --project-main / --project-secondary come from the
-   project's JSON (mainColor / secondaryColor), set inline in Project.jsx. */
+/* ==========================================================================
+   Project page: on the red pattern the title in framed lines
+   and the main video / image (with the project's colored corners); then a
+   white sheet with a slanted top edge holding the facts, the write-up, the
+   links, the images and a way back to the list.
+   --project-main / --project-secondary come from the project's JSON
+   (mainColor / secondaryColor), set inline in Project.jsx.
+   Sides line up with the other sections: 10% / 8% / 6%.
+   ========================================================================== */
 
 .project {
-  display: grid;
-  gap: 2rem;
-  padding: 2rem 1rem;
+  --side: 10%;
 }
 
-.project-title {
+/* --- On the red ------------------------------------------------------------ */
+
+.project__head {
+  display: grid;
+  justify-items: start;
+  gap: 1.5rem;
+  padding: 6.5rem var(--side) 3rem; /* top: room for the navigation */
+}
+
+.project__title {
+  display: grid;
+  justify-items: start;
+  font-size: min(15vw, 7rem);
+}
+
+.project__title-line {
+  --frame-pad-y: 0.08em;
+  --frame-pad-x: 0.3em;
+
   color: var(--project-main);
 }
 
-.project-media {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: 8px;
+/* Every 2nd line in the project's secondary color, like the wall */
+.project__title-line:nth-child(2n) {
+  color: var(--project-secondary);
+  margin-inline-start: 0.6em;
+}
+
+.project__media {
+  justify-self: stretch;
   background: var(--project-secondary);
 }
 
-.project-facts {
-  display: grid;
-  gap: 1rem;
+.project__media-item {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
-.project-facts dt {
-  font-size: 0.9rem;
+/* Above the corners (BorderFrame puts them at z-index 1) */
+.project__video-toggle {
+  --frame-pad-y: 0.45em;
+  --frame-pad-x: 0.8em;
+
+  position: absolute;
+  z-index: 2;
+  left: 1rem;
+  bottom: 1rem;
+
+  color: var(--red);
+  font-size: 0.875rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--project-main);
 }
 
-.project-facts dd {
+/* --- The white sheet ----------------------------------------------------- */
+
+.project__sheet {
+  display: grid;
+  gap: 2.5rem;
+  padding: calc(2.6vw + 2.5rem) var(--side) 5rem;
+  background: var(--white);
+  color: var(--black);
+  /* Slanted top edge, like the footer's */
+  clip-path: polygon(0 min(2.6vw, 3rem), 100% 0, 100% 100%, 0 100%);
+}
+
+.project__facts {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.project__facts dt {
+  color: var(--red);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.project__facts dd {
+  font-size: var(--paragraph-size);
   font-weight: 600;
 }
 
-.project-details {
+.project__details {
   display: grid;
   gap: 1rem;
   max-width: 65ch;
 }
 
-.project-links {
+.project__links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.project-links a {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  font-weight: 700;
-  background: var(--project-main);
-  color: var(--white);
-}
-
-.project-links a:hover {
-  background: var(--project-secondary);
-}
-
-.project-gallery {
-  display: grid;
   gap: 1rem;
 }
 
-.project-gallery img {
-  width: 100%;
-  border-radius: 8px;
+.project__link {
+  --frame-pad-y: 0.5em;
+  --frame-pad-x: 0.9em;
+
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
+
+/* Images with the project's colored corners, like its card */
+.project__gallery {
+  display: grid;
+  gap: 2rem;
+}
+
+.project__gallery-image {
+  width: 100%;
+  height: auto;
+}
+
+.project__back {
+  --frame-pad-y: 0.5em;
+  --frame-pad-x: 0.9em;
+
+  justify-self: start;
+  grid-column: 1 / -1;
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* --- Tablet ------------------------------------------------------------ */
 
 @media (min-width: 744px) {
   .project {
-    padding: 3rem 2rem;
+    --side: 8%;
   }
 
-  .project-facts {
-    grid-template-columns: repeat(3, 1fr);
+  .project__head {
+    padding-block-start: 8rem;
   }
 
-  .project-gallery {
-    grid-template-columns: repeat(2, 1fr);
+  .project__sheet {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    column-gap: 3rem;
+    align-items: start;
+  }
+
+  /* Facts on the left, write-up and links on the right, images below */
+  .project__facts {
+    grid-row: 1 / span 2;
+  }
+
+  .project__gallery {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
+/* --- Desktop ----------------------------------------------------------- */
+
 @media (min-width: 1280px) {
   .project {
-    padding: 4rem;
+    --side: 6%;
+  }
+
+  .project__head {
+    padding-block-start: 9rem;
   }
 }

@@ -4,6 +4,9 @@ import heroSkierMobile from '../assets/hero-skier__mobile.png'
 import TitleFrame from '../components/TitleFrame.jsx'
 import './About.css'
 
+// A transparent 1×1 GIF: what phones and tablets load for the desktop photo
+const EMPTY_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+
 // True once the element has been (mostly) on screen. Used to lay "Fun fact"
 // on when you scroll to it, instead of on page load where you'd miss it.
 function useSeenOnScreen() {
@@ -33,14 +36,18 @@ export default function About() {
 
   return (
     <section className="aboutPage">
-      {/* Desktop: the big framed photo in the top-left */}
-      <img
-        src={heroSkier}
-        width="1220"
-        height="1287"
-        alt="Matteo skiing"
-        className="about__big-photo"
-      />
+      {/* Desktop: the big framed photo in the top-left. Smaller screens hide
+          it, so they get an empty 1px image instead of downloading 1.5MB. */}
+      <picture className="about__big-picture">
+        <source media="(max-width: 1279.98px)" srcSet={EMPTY_IMAGE} />
+        <img
+          src={heroSkier}
+          width="1220"
+          height="1287"
+          alt="Matteo skiing"
+          className="about__big-photo"
+        />
+      </picture>
 
       <div className="about__content">
         <TitleFrame as="h1" color="var(--white)" className="about__title about__title--about title-frame--lay">

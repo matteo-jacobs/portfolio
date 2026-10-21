@@ -105,7 +105,7 @@ export default function Footer() {
           </label>
 
           {/* Honeypot: hidden from people, bots fill it in and get ignored */}
-          <input type="text" name="_honey" className="visually-hidden" tabIndex={-1} autoComplete="off" />
+          <input type="text" name="_honey" className="visually-hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
           <div className="footer__actions">
             <p className="footer__status" aria-live="polite">

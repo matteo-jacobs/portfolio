@@ -1,7 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { latestProjects } from '../data/projects.js'
-import heroSkier from '../assets/hero-skier.png'
 import heroSkierMobile from '../assets/hero-skier__mobile.png'
 import TitleFrame from '../components/TitleFrame.jsx'
 import ProjectCarousel from '../components/ProjectCarousel.jsx'
@@ -141,51 +140,40 @@ function handleScrollDown(event) {
 export default function Home() {
   const { imageRef, barRef, fits: barFits } = useBarFitsOnScreen()
   usePauseWhenOffScreen(barRef)
+  // The visitor can stop the moving words (WCAG 2.2.2): tap or click the
+  // bar, or use the button that appears when you Tab to it
+  const [barHeld, setBarHeld] = useState(false)
+  const toggleBar = () => setBarHeld((held) => !held)
   const latest = latestProjects(3)
 
   return (
     <div className="homePage">
       
       <div className="hero">
-        <div className="hero-title title-stack">
-          
-          <TitleFrame 
-          as="h1"
-          color="var(--white)"
-          className="hero-title__1 title-frame--lay">
-          Matteo's
+        {/* One heading in two framed lines. aria-label: screen readers would
+            otherwise read the two lines run together ("Matteo'sPortfolio"). */}
+        <h1 className="hero-title title-stack" aria-label="Matteo's Portfolio">
+          <TitleFrame as="span" color="var(--white)" className="hero-title__1 title-frame--lay">
+            Matteo's
           </TitleFrame>
-
-          <TitleFrame 
-          as="h1"
-          color="var(--white)"
-          className="hero-title__2 title-frame--lay">
-          Portfolio
+          <TitleFrame as="span" color="var(--white)" className="hero-title__2 title-frame--lay">
+            Portfolio
           </TitleFrame>
+        </h1>
 
-
-
-        </div>
-
-        {/* Phones and tablets (< 1280px) get the screen-sized crop, desktops
-            the full image. width/height = each PNG's real size, so the browser
-            reserves the right space before it loads (the bar check needs it). */}
-        <picture className="hero-picture">
-          <source
-            media="(max-width: 1279.98px)"
-            srcSet={heroSkierMobile}
-            width="402"
-            height="575"
-          />
-          <img
-            ref={imageRef}
-            src={heroSkier}
-            width="1220"
-            height="1287"
-            alt="Matteo skiing"
-            className="hero-image"
-          />
-        </picture>
+        {/* Phones and tablets only: desktops hide this image (they show the
+            two small photos instead), so it's the screen-sized crop, the same
+            file as those photos, and the 1.5MB full image is never fetched.
+            width/height = the PNG's real size, so the browser reserves the
+            right space before it loads (the bar check needs it). */}
+        <img
+          ref={imageRef}
+          src={heroSkierMobile}
+          width="402"
+          height="575"
+          alt="Matteo skiing"
+          className="hero-image"
+        />
 
         {/* Desktop only: two small tilted photos around the titles */}
         <div className="hero-photos" aria-hidden="true">
@@ -214,7 +202,24 @@ export default function Home() {
         {/* The words are listed BAR_COPIES times so the bar is always full:
             the animation slides exactly one copy to the left, then starts
             over, and the copies after it fill the rest of the bar. */}
-        <div ref={barRef} className="scrolling-bar" hidden={!barFits}>
+        <div
+          ref={barRef}
+          className="scrolling-bar"
+          hidden={!barFits}
+          data-held={barHeld || undefined}
+          onClick={toggleBar}
+        >
+          <button
+            type="button"
+            className="scrolling-bar__toggle"
+            aria-pressed={barHeld}
+            onClick={(event) => {
+              event.stopPropagation() // the bar's own click would undo it
+              toggleBar()
+            }}
+          >
+            {barHeld ? 'Play' : 'Pause'} scrolling text
+          </button>
           <div className="scrolling-bar__track" style={{ '--copies': BAR_COPIES }}>
             {Array.from({ length: BAR_COPIES }, (_, copy) => (
               <ul key={copy} className="scrolling-bar__list" aria-hidden={copy > 0}>
@@ -249,7 +254,7 @@ export default function Home() {
                 )}
 
                 {/* The title over the image, one framed line per titleLines entry */}
-                <h3 className="project-card__title title-stack">
+                <h3 className="project-card__title title-stack" aria-label={project.title}>
                   {project.titleLines.map((line, i) => (
                     <TitleFrame
                       key={i}
