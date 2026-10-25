@@ -1,0 +1,31 @@
+/* The site's frame: navigation, the page, the footer. Colors, fonts and the
+   base reset live in index.css. */
+
+.site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* The page between the navigation and the footer fills the leftover
+   height, so the footer stays at the bottom on short pages */
+.site-main {
+  flex: 1;
+}
+
+/* Big screens: keep the content in a centred column.
+   3 columns: empty | content | empty. The outer two share the leftover
+   space equally, so the middle one is always centred. */
+@media (min-width: 2160px) {
+  .site {
+    --content-width: 2160px; /* width of the centred column */
+
+    display: grid;
+    grid-template-columns: 1fr min(var(--content-width), 100%) 1fr;
+  }
+
+  /* Everything a page renders goes into the middle column */
+  .site > * {
+    grid-column: 2;
+  }
+}

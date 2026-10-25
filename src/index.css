@@ -1,199 +1,181 @@
-:root {
-  --bg: #ffffff;
-  --fg: #1a1a1a;
-  --muted: #666666;
-  --accent: #2a5db0;
-  --border: #e2e2e2;
-  --maxw: 44rem;
-}
+/* ==========================================================================
+   Reset (modern, based on Josh Comeau's / Andy Bell's resets)
+   ========================================================================== */
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-body {
+* {
   margin: 0;
-  color: var(--fg);
-  background: var(--bg);
-  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
 }
 
 a {
-  color: var(--accent);
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-.site {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* Header / nav */
-.site-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem clamp(1rem, 4vw, 2rem);
-  border-bottom: 1px solid var(--border);
-}
-
-.brand {
-  font-weight: 700;
+  color: inherit;
   text-decoration: none;
-  color: var(--fg);
 }
 
-.site-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.25rem;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: var(--muted);
-}
-
-.nav-link:hover {
-  color: var(--fg);
-}
-
-.nav-link.is-active {
-  color: var(--fg);
-  font-weight: 600;
-}
-
-/* Main */
-.site-main {
-  flex: 1;
-  width: 100%;
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding: 2rem clamp(1rem, 4vw, 2rem);
-}
-
-.page h1 {
-  margin-top: 0;
-}
-
-.lede {
-  font-size: 1.15rem;
-  color: var(--muted);
-}
-
-.breadcrumb {
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-
-.card-meta {
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin: 0.25rem 0;
-}
-
-.catalog-description {
-  padding-left: 1rem;
-  border-left: 3px solid var(--border);
-  color: var(--muted);
-}
-
-/* Home / About images */
-.home {
-  text-align: center;
-}
-
-.home-image {
-  width: 220px;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.about-portrait {
-  width: 200px;
-  border-radius: 8px;
-  float: right;
-  margin: 0 0 1rem 1.5rem;
-}
-
-.contact-list {
-  padding-left: 1.1rem;
-}
-
-/* Cards */
-.card-list {
+ul,
+ol {
   list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 1rem;
 }
 
-.card {
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1rem 1.25rem;
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
 }
 
-.card h2,
-.card h3 {
-  margin: 0 0 0.25rem;
+#root {
+  isolation: isolate;
 }
 
-.card a {
-  text-decoration: none;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
-.card a:hover {
-  text-decoration: underline;
+/* ==========================================================================
+   Variables
+
+   Breakpoints can't be CSS variables (media queries don't read them), so
+   they're written out below:
+     Phone:   default, no media query  (< 744px)
+     Tablet:  @media (min-width: 744px)
+     Desktop: @media (min-width: 1280px)
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --red: #ff0000;
+  --white: #f0f0f0;
+  --black: #161616;
+
+  /* Font */
+  --font: 'Open Sans', system-ui, sans-serif;
+
+  /* Fluid type sizes — they grow smoothly with the viewport width.
+     clamp(MIN, PREFERRED, MAX):
+       MIN       size on a 375px phone (never smaller)
+       MAX       size on a 1440px desktop (never bigger)
+       PREFERRED the line between those two points
+
+     To change one, pick your phone + desktop sizes in px and compute:
+       slope     = (max - min) / (1440 - 375)
+       vw        = slope * 100
+       intercept = (min - slope * 375) / 16   -> in rem
+     -> clamp(min/16 rem, intercept rem + vw vw, max/16 rem)
+
+     Placeholders below, replace with your Figma values. */
+
+  /* Titles scale 1:1 with the screen width, like the hero image does, so the
+     two always keep the same proportions. Figma: 52.6px on a 402px frame
+     -> 52.6 / 402 × 100 = 13.09vw. (320px -> 42px, 1440px -> 188px)
+     To cap it on huge screens: min(13.09vw, 10rem) */
+  --title-size: 13.09vw;
+  --subtitle-size: clamp(1.5rem, 1.148rem + 1.502vw, 2.5rem);   /* 24px -> 40px */
+  --paragraph-size: clamp(1rem, 0.912rem + 0.376vw, 1.25rem);   /* 16px -> 20px */
 }
 
-/* Image placeholder */
-.image-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 16 / 9;
-  background: repeating-linear-gradient(45deg, #f3f3f3, #f3f3f3 12px, #ececec 12px, #ececec 24px);
-  color: var(--muted);
-  border-radius: 8px;
-  font-size: 0.9rem;
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+body {
+  font-family: var(--font);
+  color: var(--black);
+  /* White shows while the pattern loads, or if it ever fails */
+  background: var(--white) url('./assets/custom/pattern.jpg');
 }
 
-/* 404 */
-.not-found {
-  text-align: center;
-}
+/* ==========================================================================
+   Typography
+   Use the classes anywhere; h1 / h2 / p get them by default.
+   ========================================================================== */
 
-.error-code {
-  font-size: 4rem;
+/* Title — ExtraBold, Condensed, Italic, uppercase */
+.title,
+h1 {
+  font-size: var(--title-size);
   font-weight: 800;
-  color: var(--border);
-  margin: 0;
+  font-stretch: 75%;
+  font-style: italic;
+  text-transform: uppercase;
+  line-height: 1;
 }
 
-.button {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background: var(--accent);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
+/* Subtitle — SemiBold, Condensed, uppercase */
+.subtitle,
+h2,
+h3 {
+  font-size: var(--subtitle-size);
+  font-weight: 600;
+  font-stretch: 75%;
+  text-transform: uppercase;
+  line-height: 1.1;
 }
 
-/* Footer */
-.site-footer {
-  border-top: 1px solid var(--border);
-  padding: 1.5rem;
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--muted);
+/* Paragraph — SemiBold */
+.paragraph,
+p {
+  font-size: var(--paragraph-size);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* Hidden on screen, still read by screen readers (e.g. form labels) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

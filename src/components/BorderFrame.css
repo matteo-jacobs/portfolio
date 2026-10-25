@@ -1,0 +1,45 @@
+/* The two corners are drawn on ::before (top-left) and ::after
+   (bottom-right). Each is a box in its corner:
+     width        = --*-length (% of the frame's width)
+     aspect-ratio = --*-ratio, so its height is width ÷ ratio: with a ratio
+                    above 1 the horizontal side is always the longer one
+   clip-path then cuts that box down to a slanted wedge. */
+.border-frame {
+  position: relative;
+  isolation: isolate; /* the corners' z-index stays inside the frame */
+  overflow: clip; /* e.g. a zoomed image stays inside the frame */
+}
+
+.border-frame::before,
+.border-frame::after {
+  content: '';
+  position: absolute;
+
+  /* Above the content: an image that zooms on hover gets its own layer,
+     which would otherwise cover the top-left corner (it comes first) */
+  z-index: 1;
+
+  max-height: 80%; /* never runs the whole height, even on wide images */
+  background: var(--border-frame-color, var(--red));
+  pointer-events: none;
+}
+
+/* Top-left: along the top edge, down the left edge */
+.border-frame::before {
+  top: 0;
+  left: 0;
+  width: var(--tl-length);
+  aspect-ratio: var(--tl-ratio);
+  clip-path: polygon(0 0, 100% 0, var(--tl-inner-x) var(--tl-inner-y), 0 100%);
+}
+
+/* Bottom-right: along the bottom edge, up the right edge */
+.border-frame::after {
+  right: 0;
+  bottom: 0;
+  width: var(--br-length);
+  aspect-ratio: var(--br-ratio);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%, var(--br-inner-x) var(--br-inner-y));
+}
+
+/* Put content above the corners (titles, icons) with z-index: 2 */

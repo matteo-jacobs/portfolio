@@ -1,0 +1,55 @@
+/* 404: a big framed title on the red pattern, a line of text and a way
+   back home. Sides line up with the other sections: 10% / 8% / 6%. */
+
+.not-found {
+  display: grid;
+  justify-items: start;
+  align-content: center;
+  gap: 1.5rem;
+  min-height: 80svh;
+  padding: 7rem 10% 5rem;
+  color: var(--white);
+}
+
+.not-found__title {
+  display: grid;
+  justify-items: start;
+  color: var(--red);
+}
+
+.not-found__line {
+  --frame-pad-y: 0.08em;
+  --frame-pad-x: 0.3em;
+}
+
+.not-found__line + .not-found__line {
+  margin-inline-start: 0.6em;
+}
+
+/* White on the red pattern: large text (bold, 19px+) for contrast */
+.not-found__text {
+  font-size: 1.1875rem;
+  font-weight: 700;
+}
+
+.not-found__home {
+  --frame-pad-y: 0.5em;
+  --frame-pad-x: 0.9em;
+
+  color: var(--red);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+@media (min-width: 744px) {
+  .not-found {
+    padding-inline: 8%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .not-found {
+    padding-inline: 6%;
+  }
+}

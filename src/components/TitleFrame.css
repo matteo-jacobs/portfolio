@@ -1,0 +1,124 @@
+/* The shape is drawn on ::before so clip-path only cuts the background,
+   never the text inside. */
+.title-frame {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+
+  /* Space between the content and the frame. Override per element, e.g.
+     .nav-toggle { --frame-pad-x: 14px; --frame-pad-y: 14px; } */
+  --frame-pad-y: 0.5em;
+  --frame-pad-x: 1em;
+
+  /* Each side adds the corner offsets on top, so the slant never eats into
+     the padding and content can't touch the edge. */
+  padding:
+    calc(var(--frame-pad-y) + var(--frame-tr-y, 0px))
+    calc(var(--frame-pad-x) + max(var(--frame-tr-x, 0px), var(--frame-br-x, 0px)))
+    calc(var(--frame-pad-y) + max(var(--frame-br-y, 0px), var(--frame-bl-y, 0px)))
+    calc(var(--frame-pad-x) + var(--frame-bl-x, 0px));
+}
+
+.title-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--frame-color, var(--red));
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--frame-tr-x, 0px)) var(--frame-tr-y, 0px),
+    calc(100% - var(--frame-br-x, 0px)) calc(100% - var(--frame-br-y, 0px)),
+    var(--frame-bl-x, 0px) calc(100% - var(--frame-bl-y, 0px))
+  );
+}
+
+/* Frames stacked as lines (put .title-stack on the parent).
+   Where two lines meet, both edges are kept straight, so they always close
+   up without a gap: the outer top/bottom edges and the sides keep their
+   own random slant. (!important: the random values are inline styles.) */
+.title-stack > .title-frame:not(:first-child) {
+  --frame-tr-y: 0px !important;
+  margin-block-start: calc(-1 * var(--stack-overlap, 0.15em));
+}
+
+.title-stack > .title-frame:not(:last-child) {
+  --frame-br-y: 0px !important;
+  --frame-bl-y: 0px !important;
+}
+
+/* --- "Laid on" entrance -------------------------------------------------
+   Add .title-frame--lay to a frame to have it laid onto the page like a
+   strip of tape: a cut with the same forward lean as the italic titles
+   sweeps from left to right and reveals frame + text together.
+   Stagger with --lay-delay (e.g. 120ms).
+   fill-mode backwards: before it starts the frame is hidden, after it ends
+   no clip-path is left on the element. */
+@keyframes frame-lay {
+  from {
+    clip-path: polygon(-10% -30%, -10% -30%, -30% 130%, -30% 130%);
+    transform: translateX(-0.12em);
+  }
+  to {
+    clip-path: polygon(-10% -30%, 130% -30%, 110% 130%, -30% 130%);
+    transform: none;
+  }
+}
+
+.title-frame--lay {
+  animation: frame-lay 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--lay-delay, 0ms) backwards;
+}
+
+/* data-lay-wait: keep the frame hidden, and the entrance unstarted, until
+   the attribute is removed, e.g. once it scrolls into view (see About.jsx).
+   visibility (not the clip) hides it, so an IntersectionObserver can still
+   see it. */
+.title-frame--lay[data-lay-wait] {
+  visibility: hidden;
+  animation: none;
+}
+
+/* Reduced motion: no sweep, just a quick fade, without the stagger */
+@keyframes frame-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title-frame--lay {
+    animation: frame-fade 0.3s ease-out backwards !important;
+  }
+}
+
+/* --- Framed buttons: hover, focus, pressed -------------------------------
+   Add .title-frame--press to a framed button or link. Like a sticker:
+   hovering lifts it (it leans forward with the italic and grows a little),
+   pressing slaps it down flat onto the page. Pressing is fast, letting go
+   eases back. Uses rotate/scale (not transform), so it never fights the
+   "laid on" entrance or a translate used for positioning. */
+.title-frame--press {
+  transition:
+    rotate 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    scale 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .title-frame--press:hover:not(:disabled) {
+    rotate: -2deg;
+    scale: 1.04;
+  }
+}
+
+.title-frame--press:focus-visible {
+  rotate: -2deg;
+  scale: 1.04;
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.title-frame--press:active:not(:disabled) {
+  rotate: 0deg;
+  scale: 0.94;
+  transition-duration: 80ms;
+}

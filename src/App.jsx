@@ -3,34 +3,26 @@ import Layout from './components/Layout.jsx'
 import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import AppState from './pages/AppState.jsx'
-import Course from './pages/Course.jsx'
-import Project from './pages/Project.jsx'
 import Portfolio from './pages/Portfolio.jsx'
+import Project from './pages/Project.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 export default function App() {
   return (
     <Routes>
-      {/* Home is the full-bleed Figma hero and carries its own nav, so it
-          sits outside the shared Layout chrome. */}
-      <Route path="/" element={<Home />} />
-
-      {/* Everything else shares the header / footer Layout.
-          AppState hub -> a course -> the course's project subpages, with the
-          course and project segments dynamic so new content only needs a data
-          entry in src/data/courses.js, not a new route. */}
+      {/* Every page renders inside Layout, so they all share the navigation. */}
       <Route element={<Layout />}>
+        <Route index element={<Home />} />
         <Route path="about" element={<About />} />
 
-        <Route path="appstate">
-          <Route index element={<AppState />} />
-          <Route path=":courseSlug">
-            <Route index element={<Course />} />
-            <Route path=":projectSlug" element={<Project />} />
-          </Route>
-        </Route>
+        <Route path="appstate" element={<AppState />} />
 
-        <Route path="portfolio" element={<Portfolio />} />
+        {/* Portfolio overview -> one page per project. The project segment is
+            dynamic, so a new project only needs an entry in data/projects.js. */}
+        <Route path="portfolio">
+          <Route index element={<Portfolio />} />
+          <Route path=":projectSlug" element={<Project />} />
+        </Route>
 
         {/* Catch-all 404 */}
         <Route path="*" element={<NotFound />} />

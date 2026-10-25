@@ -1,0 +1,772 @@
+/* ==========================================================================
+   Hero: titles on block-start -> image -> CTA (overlapping the image) -> scrolling bar
+   ========================================================================== */
+
+.hero {
+  display: grid;
+  justify-items: center; /* every row centred horizontally */
+
+  /* One column, exactly as wide as the hero. minmax(0, …) stops wide
+     content (like the scrolling words) from stretching the column. */
+  grid-template-columns: minmax(0, 1fr);
+
+  /* Room for the fixed navigation, so the titles aren't hidden behind it */
+  padding-block-start: 5.5rem;
+
+  /* The image is wider than the screen: cut off what sticks out instead of
+     making the page scroll sideways. Also cuts off the white slant below. */
+  overflow: clip;
+
+  /* For the white slant: positioned so .hero::after can sit at the bottom,
+     isolated so the slant's z-index: -1 stays behind the hero's content
+     but in front of the page's red background */
+  position: relative;
+  isolation: isolate;
+
+  /* Geometry of the hero image, measured from the PNG. The CTA and the
+     scrolling bar line up with the image's slanted bottom edge using these,
+     so swapping the image only means changing these numbers.
+     All in vw: the image scales with the screen width, so they stay right. */
+  --image-width: 152vw;      /* how wide the image is shown */
+  --image-shift: -2.6vw;     /* nudge right (+) or left (-) */
+  --border-from-bottom: 18.38vw; /* white border's middle, above image bottom */
+  --edge-from-bottom: 16.4vw;    /* outer edge, above image bottom */
+  --edge-angle: -11.72deg;       /* slant of the bottom edge */
+  --edge-dip: 10.2vw;            /* half the screen × sin(angle) */
+
+  /* Your own spacing choices */
+  --cta-above-border: 22vw; /* CTA middle, this far above the border */
+  --bar-gap: 0.5rem;        /* bar, this far below the edge */
+}
+
+/* Phones and tablets: the screen-sized crop (hero__mobile.png,
+   538 × 575). Measured from the PNG: outer bottom edge 22px above the
+   image's bottom in the middle, the white border 15px thick, slope -4.27deg.
+   ÷ 5.38 (538px shown at 100vw) = the vw values. */
+@media (max-width: 1279.98px) {
+  .hero {
+    --image-width: 100vw;
+    --image-shift: 0vw;
+    --border-from-bottom: 5.51vw;
+    --edge-from-bottom: 4.14vw;
+    --edge-angle: -4.27deg;
+    --edge-dip: 3.72vw;
+  }
+}
+
+/* ==========================================================================
+   White slant: the white of the next section (.homePage__content) starts
+   at the same angle as the image edge, so no red shows under the bar.
+
+   Bar shown:  .scrolling-bar::after, a white sheet hanging --bar-gap below
+               the bar. It tilts with the bar, so the angle always matches.
+   Bar hidden: .hero::after, a white wedge cut diagonally with clip-path,
+               starting at the image's outer edge.
+   The hero's overflow: clip cuts both off at the hero's bottom.
+   ========================================================================== */
+
+/* Without the bar: a red gap (--no-bar-gap) between the image and the
+   white. The extra room at the hero's bottom keeps the gap from touching
+   the hero's flat bottom on the left. */
+.hero:has(.scrolling-bar[hidden]) {
+  --no-bar-gap: 1.7rem;
+  --no-bar-room: calc(var(--no-bar-gap) + 1rem);
+  padding-block-end: var(--no-bar-room);
+}
+
+.hero:has(.scrolling-bar[hidden])::after {
+  content: '';
+  position: absolute;
+  z-index: -1; /* behind the image */
+  inset-inline: 0;
+  bottom: 0; /* the image's bottom + --no-bar-room */
+
+  /* The edge's middle is --edge-from-bottom above the image's bottom; its
+     left end --edge-dip lower, its right end --edge-dip higher. The white
+     starts --no-bar-gap below it. */
+  height: calc(var(--edge-from-bottom) + var(--no-bar-room) - var(--no-bar-gap) + var(--edge-dip));
+  background: var(--white);
+  clip-path: polygon(0 calc(2 * var(--edge-dip)), 100% 0, 100% 100%, 0 100%);
+}
+
+/* Only a wrapper that picks the file (see Home.jsx): the <img> inside is
+   laid out as if the <picture> weren't there */
+.hero-picture {
+  display: contents;
+}
+
+/* The two titles, stacked */
+.hero-title {
+  color: var(--red);
+
+  display: grid;
+  justify-items: start; /* titles line up on the inline-start... */
+
+  /* ...and sit ON TOP of the image: positioned + z-index puts them above it,
+     the negative bottom margin pulls the image up underneath them.
+     Bigger number = more overlap. */
+  position: relative;
+  z-index: 1;
+  margin-bottom: calc(var(--title-size) * -1.9);
+}
+
+/* Tight white frames around the title words */
+.hero-title .title-frame {
+  --frame-pad-y: 0.08em;
+  --frame-pad-x: 0.3em;
+}
+
+/* CTA: the arrow points where it's going (down to the projects) */
+.CTA__arrow {
+  transition: translate 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+  .CTA:hover .CTA__arrow {
+    translate: 0 0.2em;
+  }
+}
+
+/* Entrance: the titles are laid on one after the other, then the button
+   (see .title-frame--lay in TitleFrame.css) */
+.hero-title__2 {
+  --lay-delay: 120ms;
+}
+
+.CTA {
+  --lay-delay: 300ms;
+}
+
+/* "Portfolio": shifted right, tucked slightly under "Matteo's".
+   em = relative to the title's own font size, so it scales with it. */
+.hero-title__2 {
+  margin-inline-start: 1.4em; /* the overlap comes from .title-stack */
+}
+
+/* The image (transparent PNG with the slanted frame, from Figma).
+   Equal negative margins keep it centred while it's wider than the screen;
+   max-width: none undoes the reset's max-width: 100%. */
+.hero-image {
+  width: var(--image-width);
+  height: auto; /* keep the proportions from the width/height attributes */
+  max-width: none;
+  margin-inline: calc((100% - var(--image-width)) / 2);
+  translate: var(--image-shift) 0;
+}
+
+/* "View projects ↓": positioned from the image's white bottom border, so it
+   stays in the same spot on the image at every screen width.
+   1. margin pulls the button's TOP up to the border (+ --cta-above-border)
+   2. translate -50% moves it up by half its OWN height -> its middle sits
+      exactly there */
+.CTA {
+  --frame-pad-y: 0.6em;
+  --frame-pad-x: 1.8em;
+
+  position: relative;
+  z-index: 1;
+  margin-block-start: calc(-1 * (var(--border-from-bottom) + var(--cta-above-border)));
+  translate: 0 -50%;
+
+  /* Grid items stretch to fill their row; with a negative margin that
+     stretch makes the button taller. start = only as tall as its content. */
+  align-self: start;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25em;
+
+  color: var(--white);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Scrolling bar: a white band with words that slide endlessly to the inline-start
+   ========================================================================== */
+
+.scrolling-bar {
+  /* Same angle as the image's bottom edge (the JS fit check reads this) */
+  --bar-angle: var(--edge-angle);
+  rotate: var(--bar-angle);
+
+  /* Wider than the screen, so the tilted ends don't leave empty corners
+     (the hero's overflow-x: clip cuts off what sticks out) */
+  width: 120%;
+  margin-inline: -10%;
+
+  /* Parallel to the image edge, --bar-gap below it.
+     align-self: start stops the grid from stretching it (negative margin). */
+  margin-block-start: calc(var(--bar-gap) - var(--edge-from-bottom));
+  align-self: start;
+
+  /* Tilting doesn't change the space the bar takes up, so its low (left)
+     end would dip over the next section. Reserve that dip. */
+  /* + the gap below it, + 1rem so the gap never touches the hero's flat
+     bottom (that would make it look horizontal on the left) */
+  margin-block-end: calc(var(--edge-dip) + var(--bar-gap) + 1rem);
+
+  position: relative; /* for the white sheet (::after) */
+  padding-block: 0.5rem; /* band thickness */
+  background: var(--white);
+  overflow-x: clip; /* only cut off sideways; vertical stays visible */
+}
+
+/* White sheet from just below the bar down (see "White slant" above) */
+.scrolling-bar::after {
+  content: '';
+  position: absolute;
+  z-index: -1; /* behind the words */
+  inset-inline: 0;
+  top: calc(100% + var(--bar-gap)); /* same red gap as above the bar */
+  height: 100vw; /* plenty: the hero's bottom cuts it off */
+  background: var(--white);
+}
+
+.scrolling-bar__track {
+  display: flex;
+  width: max-content;
+  animation: scroll-inline-start 20s linear infinite;
+}
+
+/* Stop the loop when it's off screen (data-paused), when the visitor
+   paused it (data-held, see Home.jsx) or while the mouse is on it */
+.scrolling-bar[data-paused] .scrolling-bar__track,
+.scrolling-bar[data-held] .scrolling-bar__track {
+  animation-play-state: paused;
+}
+
+@media (hover: hover) {
+  .scrolling-bar:hover .scrolling-bar__track {
+    animation-play-state: paused;
+  }
+}
+
+.scrolling-bar {
+  cursor: pointer;
+}
+
+/* Pause / play button for keyboard users: hidden until you Tab to it,
+   then shown as a small red frame over the start of the bar */
+.scrolling-bar__toggle {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 10%;
+  translate: 0 -50%;
+  padding: 0.3em 0.7em;
+  background: var(--red);
+  color: var(--white);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.scrolling-bar__toggle:focus-visible {
+  clip-path: none;
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.scrolling-bar__list {
+  display: flex;
+}
+
+.scrolling-bar__list li {
+  display: flex;
+  align-items: center;
+
+  color: var(--red);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* The red dash after every word (also after the last, so the loop is seamless) */
+.scrolling-bar__list li::after {
+  content: '';
+  width: 0.6em;
+  height: 0.2em;
+  margin-inline: 1em;
+  background: currentColor;
+}
+
+/* Slide exactly one copy of the list (1 / --copies of the track) to the
+   inline-start, repeat */
+@keyframes scroll-inline-start {
+  to {
+    transform: translateX(calc(-100% / var(--copies)));
+  }
+}
+
+/* ==========================================================================
+   Passed work: the 3 newest projects
+   ========================================================================== */
+
+.homePage__content {
+  display: grid;
+  justify-items: center; /* title + projects centred horizontally */
+  gap: 2rem;
+
+  background: var(--white);
+  /* Tuck 1px under the hero: they meet on a fraction of a pixel, which
+     otherwise lets a thin red line through */
+  margin-block-start: -1px;
+  padding-block: 1.5rem 5rem; /* room before the footer's slanted edge */
+  padding-inline: 10%; /* space between the projects and the screen edge */
+}
+
+/* Focused by the CTA's glide (so keyboard users land on the projects):
+   no focus ring for that */
+.homePage__content:focus {
+  outline: none;
+}
+
+.homePage__content h2 {
+  color: var(--red);
+  font-size: calc(var(--subtitle-size) * 1.5); /* a bit bigger than other h2s */
+  text-align: center;
+}
+
+/* ==========================================================================
+   Project card: cover with red slanted corners, the title in framed lines
+   over it, and an arrow in the red corner. The whole card is the link.
+   --project-main / --project-secondary come from the project's JSON.
+   ========================================================================== */
+
+.project-card {
+  width: 100%;
+  display: grid;
+  justify-items: start;
+  gap: 1.5rem;
+}
+
+/* The image + its red corners (BorderFrame) */
+.project-card__media {
+  width: 100%;
+
+  /* The title's size follows the card's width (cqi = 1% of it) */
+  container-type: inline-size;
+}
+
+/* Fills the card's width; height: auto keeps the image's own proportions */
+.project-card__image {
+  width: 100%;
+  height: auto;
+  transition: scale 0.4s ease;
+}
+
+/* The title: lines stacked and staggered, near the image's bottom.
+   Anchored from the bottom so it never runs off the image onto the button:
+   on a portrait image like the Figma design its top lands around 70% down. */
+.project-card__title {
+  position: absolute;
+  z-index: 2; /* above the red corners */
+  bottom: 6%;
+  left: 4%;
+
+  display: grid;
+  justify-items: start;
+
+  font-size: 9cqi;
+  font-weight: 800;
+  font-style: italic;
+  font-stretch: 75%;
+  line-height: 1;
+  color: var(--white);
+}
+
+/* Same roomy frames as the hero's "Matteo's Portfolio" */
+.project-card__title-line {
+  --frame-pad-y: 0.1em;
+  --frame-pad-x: 0.35em;
+}
+
+/* Stagger: 1st line in, 2nd out, 3rd halfway (and so on) */
+.project-card__title-line:nth-child(3n + 1) {
+  margin-inline-start: 1.2em;
+}
+
+.project-card__title-line:nth-child(3n + 3) {
+  margin-inline-start: 0.6em;
+}
+
+/* Every 2nd line in the project's secondary color, like "Oostende" */
+.project-card__title-line:nth-child(2n) {
+  color: var(--project-secondary);
+}
+
+/* White arrow sitting in the bottom-right red corner.
+   cqi (% of the card's width) keeps it the same spot and size at every
+   width. These numbers keep it inside BorderFrame's bottom-right red
+   (checked against its shape: change them together). */
+.project-card__arrow {
+  position: absolute;
+  z-index: 2; /* above the red corners */
+  right: 3.5cqi;
+  bottom: 3.5cqi;
+  width: 6cqi;
+  color: var(--white);
+  transition: translate 0.3s ease;
+}
+
+/* Hover (mouse only, not on touch screens): image zooms a little inside its
+   frame, the arrow slides along */
+@media (hover: hover) {
+  .project-card:hover .project-card__image {
+    scale: 1.05;
+  }
+
+  .project-card:hover .project-card__arrow {
+    translate: 0.6cqi 0;
+  }
+}
+
+.project-card:focus-visible {
+  outline: 3px solid var(--project-main);
+  outline-offset: 4px;
+}
+
+/* ==========================================================================
+   CTA wording: "View projects" on phones, "Check it out now" from tablet up
+   ========================================================================== */
+
+.CTA__label--tablet {
+  display: none;
+}
+
+@media (min-width: 744px) {
+  .CTA__label--phone {
+    display: none;
+  }
+
+  .CTA__label--tablet {
+    display: inline;
+  }
+}
+
+/* ==========================================================================
+   Tablet (744px – 1279px)
+
+   The image fills the width from the very top (behind the navigation),
+   shifted up so its white top border only shows on the right. The titles
+   (red frames, white text) and the CTA (white frame, red text) sit on its
+   bottom-left. Measured from the Figma tablet frame, in vw so it scales.
+   ========================================================================== */
+
+@media (min-width: 744px) and (max-width: 1279.98px) {
+  .hero {
+    padding-block-start: 0; /* the image goes behind the navigation */
+    --image-shift-up: 12vw; /* hides the top border on the left */
+    --bar-gap: 4vw;         /* red gap between the image and the bar */
+  }
+
+  /* Image, titles and CTA share one grid cell, so the titles and CTA can
+     be placed from the image's bottom */
+  .hero-image,
+  .hero-title,
+  .CTA {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .hero-image {
+    margin-block-start: calc(-1 * var(--image-shift-up));
+  }
+
+  .hero-title {
+    align-self: end;
+    justify-self: start;
+    margin: 0 0 20vw 8vw; /* frames' bottom, this far above the image's bottom */
+    color: var(--white);
+    font-size: 11.9vw; /* a bit smaller than on phones, as in the Figma tablet frame */
+  }
+
+  /* Red frames instead of white (!important: the color is an inline style) */
+  .hero-title .title-frame {
+    --frame-color: var(--red) !important;
+  }
+
+  /* "Matteo's" indented, "Portfolio" on the left: the other way round
+     from phones */
+  .hero-title__1 {
+    margin-inline-start: 2.1em;
+  }
+
+  .hero-title__2 {
+    margin-inline-start: 0;
+  }
+
+  /* Its middle sits on the bottom edge of the "Portfolio" frame (20vw above
+     the image's bottom, like the titles), so it always overlaps it, at
+     every tablet width */
+  .CTA {
+    align-self: end;
+    justify-self: start;
+    margin: 0 0 20vw 3.3vw;
+    translate: 0 50%;
+
+    color: var(--red);
+    font-size: 0.875rem;
+  }
+
+  .CTA.title-frame {
+    --frame-color: var(--white) !important;
+  }
+
+}
+
+/* Tablet and desktop: thicker bar with bigger words */
+@media (min-width: 744px) {
+  .scrolling-bar {
+    padding-block: 0.85rem;
+  }
+
+  .scrolling-bar__list li {
+    font-size: 1rem;
+  }
+}
+
+/* ==========================================================================
+   Passed work on tablet and desktop: all 3 projects on one screen instead
+   of the carousel (no swiping, arrows or dots).
+     Tablet portrait:            the newest one big on top, two below
+     Tablet landscape + desktop: three in a row
+   Covers are cropped to one shape (object-fit: cover) so the cards line up
+   and everything fits on one screen, whatever the cover's own size.
+   ========================================================================== */
+
+@media (min-width: 744px) {
+  .homePage__content {
+    padding-inline: 8%;
+  }
+
+  /* Undo the carousel: a plain grid, nothing scrolls sideways */
+  .homePage__content .carousel__track {
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .homePage__content .carousel__controls {
+    display: none;
+  }
+
+  .homePage__content .project-card__image {
+    object-fit: cover;
+  }
+}
+
+@media (min-width: 744px) and (max-width: 1279.98px) and (orientation: portrait) {
+  .homePage__content .carousel__track {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* The newest project (first) spans both columns */
+  .homePage__content .carousel__slide:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .homePage__content .carousel__slide:first-child .project-card__image {
+    aspect-ratio: 16 / 9;
+  }
+
+  .homePage__content .carousel__slide:not(:first-child) .project-card__image {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (min-width: 744px) and (max-width: 1279.98px) and (orientation: landscape),
+  (min-width: 1280px) {
+  .homePage__content .carousel__track {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .homePage__content .project-card__image {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* ==========================================================================
+   Desktop (1280px and up)
+
+   Hero: "Matteo's / Portfolio" big and centred on the red background, with
+   two small tilted photos over the titles' ends and the CTA under them.
+   Below: the slanted scrolling bar with a red stripe, then the white
+   projects section.
+   Projects: three cards in a row, each a bit lower than the one before.
+   All in vw, measured from the Figma desktop frame, so it scales.
+   ========================================================================== */
+
+/* The photos only exist on desktop */
+.hero-photos {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  .hero {
+    padding-block-start: 0;
+
+    /* The band's slant (left end lower); --edge-dip = half the width × sin(angle) */
+    --edge-angle: -3.4deg;
+    --edge-dip: 2.97vw;
+    --bar-gap: 2.2vw; /* the red stripe under the band */
+  }
+
+  /* No big image on desktop */
+  .hero-image {
+    display: none;
+  }
+
+  /* Titles, CTA and band share one grid cell and are placed in it */
+  .hero-title,
+  .CTA,
+  .scrolling-bar {
+    grid-row: 1;
+    grid-column: 1;
+    align-self: start;
+  }
+
+  /* Titles, CTA and photos are placed from the top; --hero-lift moves them
+     all up together so they sit in the middle of the space above the bar */
+  .hero {
+    --hero-lift: 4.5vw;
+  }
+
+  .hero-title {
+    justify-self: center;
+    margin: calc(15vw - var(--hero-lift)) 0 0;
+    font-size: 12.4vw;
+  }
+
+  /* "Matteo's" indented, "Portfolio" on the left */
+  .hero-title__1 {
+    margin-inline-start: 18.8vw;
+  }
+
+  .hero-title__2 {
+    margin-inline-start: 0;
+  }
+
+  /* Two small photos with a white border, tilted, on top of the titles */
+  .hero-photos {
+    display: block;
+  }
+
+  /* Desktop hero 1 / 2 .png: the white slanted frame is part of the
+     image, so no border, crop or extra tilt here */
+  .hero-photo {
+    position: absolute;
+    z-index: 2; /* above the titles (z-index 1) */
+    width: 20vw;
+    height: auto;
+
+    /* Slapped on after the titles: bigger and tilted, then pressed down */
+    animation: photo-slap 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--slap-delay) backwards;
+  }
+
+  .hero-photo--1 {
+    --photo-tilt: 7deg; /* only the tilt it's slapped on with */
+    --slap-delay: 420ms;
+    top: calc(12vw - var(--hero-lift));
+    left: 15.4vw;
+  }
+
+  .hero-photo--2 {
+    --photo-tilt: -6deg; /* only the tilt it's slapped on with */
+    --slap-delay: 520ms;
+    top: calc(27vw - var(--hero-lift));
+    left: 70vw;
+  }
+
+  /* CTA: centred over the bottom of the "Portfolio" frame, just below its
+     letters, red with a white outline. z-index: above the titles. */
+  .CTA {
+    justify-self: center;
+    margin: calc(41.5vw - var(--hero-lift)) 0 0;
+    z-index: 2;
+    translate: none;
+    font-size: 1.5vw;
+  }
+
+  .CTA::after {
+    content: '';
+    position: absolute;
+    inset: -0.2vw;
+    z-index: -2; /* behind the red frame (::before, z-index -1) */
+    background: var(--white);
+    clip-path: polygon(
+      0 0,
+      calc(100% - var(--frame-tr-x, 0px)) var(--frame-tr-y, 0px),
+      calc(100% - var(--frame-br-x, 0px)) calc(100% - var(--frame-br-y, 0px)),
+      var(--frame-bl-x, 0px) calc(100% - var(--frame-bl-y, 0px))
+    );
+  }
+
+  /* The scrolling bar: same thickness and word size as on tablet, with a
+     red stripe under it */
+  .scrolling-bar {
+    margin-block-start: 51.7vw;
+    border-block-end: var(--bar-gap) solid var(--red);
+  }
+
+  /* More room between the words */
+  .scrolling-bar__list li::after {
+    margin-inline: 2.5em;
+  }
+
+  /* The white sheet starts right under the red stripe */
+  .scrolling-bar::after {
+    top: calc(100% + var(--bar-gap));
+  }
+
+  /* Passed work: a bit closer to the bar */
+  .homePage__content {
+    padding-block-start: 0;
+    padding-inline: 6%;
+  }
+
+  .homePage__content h2 {
+    font-size: 7vw;
+  }
+
+  .homePage__content .carousel__track {
+    gap: 5.8vw;
+    align-items: start;
+  }
+
+  .homePage__content .project-card__image {
+    aspect-ratio: 7 / 8;
+  }
+
+  /* Each card a bit lower than the one before */
+  .homePage__content .carousel__slide:nth-child(2) {
+    margin-block-start: 2.6vw;
+  }
+
+  .homePage__content .carousel__slide:nth-child(3) {
+    margin-block-start: 5.2vw;
+  }
+}
+
+@keyframes photo-slap {
+  from {
+    opacity: 0;
+    scale: 1.3;
+    rotate: var(--photo-tilt);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo {
+    animation: frame-fade 0.3s ease-out backwards !important;
+  }
+}
