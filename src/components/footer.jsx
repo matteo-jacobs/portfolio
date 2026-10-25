@@ -31,9 +31,12 @@ const STATUS_TEXT = {
 export default function Footer() {
   const [status, setStatus] = useState('idle')
 
-  // Two color themes (footer.css): red on the home page, whose last section
-  // is white; white with red text everywhere else, under the red pages
-  const theme = useLocation().pathname === '/' ? 'red' : 'white'
+  // Two color themes (footer.css): red (the pattern shows through) under
+  // pages whose last section is white: the home page and project pages.
+  // White with red text everywhere else, under the red pages.
+  const { pathname } = useLocation()
+  const endsWhite = pathname === '/' || /^\/portfolio\/[^/]+/.test(pathname)
+  const theme = endsWhite ? 'red' : 'white'
 
   const handleSubmit = async (event) => {
     event.preventDefault()

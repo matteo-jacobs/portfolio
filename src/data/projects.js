@@ -10,6 +10,8 @@
 //                             "appstate": true puts it on the AppState page
 //                             instead of the Portfolio page
 //       cover.jpg          <- file named by "cover" in the JSON
+//       background.jpg     <- optional: the pattern behind the project page's
+//                             hero and footer (in the project's colors)
 //       media.mp4          <- file named by "media" in the JSON (video or photo)
 //       images/            <- every image in here is shown, sorted by name
 //         01.jpg
@@ -42,8 +44,11 @@ const slugify = (text) =>
 
 const byName = (a, b) => a.localeCompare(b, undefined, { numeric: true })
 
+// "/" or "" in the JSON means "none" (e.g. "notion": "/")
+const isEmpty = (value) => !value || value.trim() === '/'
+
 function asset(folder, fileName) {
-  if (!fileName) return null
+  if (isEmpty(fileName)) return null
   const url = assetFiles[`${folder}/${fileName}`]
   if (!url) console.warn(`[projects] "${fileName}" not found in ${folder}`)
   return url ?? null
@@ -66,11 +71,18 @@ function toProject([infoPath, info]) {
     .sort(byName)
     .map((path) => assetFiles[path])
 
+  // background.jpg / Background.png / ...: any case, any image type
+  const backgroundPath = Object.keys(assetFiles).find((path) =>
+    /^background\.(jpe?g|png|webp|avif)$/i.test(path.slice(folder.length + 1)),
+  )
+
   return {
     slug: info.slug || slugify(folderName),
     folderName,
     order: info.order ?? Infinity,
     title: info.title || folderName,
+    // Shown under the hero on the project page, e.g. "Mixbox Branding + app design"
+    subtitle: info.subtitle || '',
     // How the title is split over lines on the home page cards, e.g.
     // ["Let's run", "Oostende", "Beachrun"]. Default: one word per line.
     titleLines: info.titleLines ?? (info.title || folderName).split(/\s+/),
@@ -80,10 +92,11 @@ function toProject([infoPath, info]) {
     details: info.details ?? '',
     media: media(folder, info.media),
     cover: asset(folder, info.cover ?? 'cover.jpg'),
+    background: backgroundPath ? assetFiles[backgroundPath] : null,
     images,
-    figmaFile: info.figmaFile || null,
-    figmaPrototype: info.figmaPrototype || null,
-    notion: info.notion || null,
+    figmaFile: isEmpty(info.figmaFile) ? null : info.figmaFile,
+    figmaPrototype: isEmpty(info.figmaPrototype) ? null : info.figmaPrototype,
+    notion: isEmpty(info.notion) ? null : info.notion,
     // AppState projects go on the AppState page, the rest on Portfolio
     appState: info.appstate === true,
     mainColor: info.mainColor || 'var(--red)',

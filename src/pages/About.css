@@ -105,6 +105,10 @@
 }
 
 /* Zoomed in a little so the image's own slanted frame is cut off */
+.about__photo picture {
+  display: contents; /* the <img> sizes against .about__photo directly */
+}
+
 .about__photo img {
   width: 100%;
   height: 100%;

@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import heroSkier from '../assets/hero-skier.png'
-import heroSkierMobile from '../assets/hero-skier__mobile.png'
+import hero from '../assets/hero.png'
+import heroMobile from '../assets/hero__mobile.png'
 import TitleFrame from '../components/TitleFrame.jsx'
+import { EMPTY_IMAGE } from '../utils/emptyImage.js'
 import './About.css'
-
-// A transparent 1×1 GIF: what phones and tablets load for the desktop photo
-const EMPTY_IMAGE = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
 
 // True once the element has been (mostly) on screen. Used to lay "Fun fact"
 // on when you scroll to it, instead of on page load where you'd miss it.
@@ -41,9 +39,9 @@ export default function About() {
       <picture className="about__big-picture">
         <source media="(max-width: 1279.98px)" srcSet={EMPTY_IMAGE} />
         <img
-          src={heroSkier}
-          width="1220"
-          height="1287"
+          src={hero}
+          width="1124"
+          height="1083"
           alt="Matteo skiing"
           className="about__big-photo"
         />
@@ -67,7 +65,11 @@ export default function About() {
 
         {/* Phone and tablet: a small tilted photo next to "Fun fact" */}
         <div className="about__photo">
-          <img src={heroSkierMobile} alt="" />
+          {/* Desktop hides this photo: an empty 1px image instead */}
+          <picture>
+            <source media="(min-width: 1280px)" srcSet={EMPTY_IMAGE} />
+            <img src={heroMobile} alt="" />
+          </picture>
         </div>
 
         <TitleFrame

@@ -65,13 +65,14 @@
 /* --- Slanted top edge -------------------------------------------------- */
 
 /* When the page above ends in a white section (the home page's "Passed
-   work"), the white runs into the footer as a wedge, so the edge between
-   them slants: higher on the left, dropping to the right (about 1.5deg). */
-.site-main:has(.homePage) + .site-footer {
+   work", a project page's sheet), the white runs into the footer as a
+   wedge, so the edge between them slants: higher on the left, dropping to
+   the right (about 1.5deg). */
+.site-main:has(.homePage, .project) + .site-footer {
   position: relative;
 }
 
-.site-main:has(.homePage) + .site-footer::before {
+.site-main:has(.homePage, .project) + .site-footer::before {
   content: '';
   position: absolute;
   inset-inline: 0;

@@ -1,10 +1,11 @@
 /* ==========================================================================
-   Project page: on the red pattern the title in framed lines
-   and the main video / image (with the project's colored corners); then a
-   white sheet with a slanted top edge holding the facts, the write-up, the
-   links, the images and a way back to the list.
-   --project-main / --project-secondary come from the project's JSON
-   (mainColor / secondaryColor), set inline in Project.jsx.
+   Project page: on the project's pattern the cover in a white slanted frame,
+   with the title tagged on its top-left corner; then a white sheet with a
+   slanted top edge: the subtitle, the facts next to the write-up and the
+   links, and all images full width, without frames. The sheet runs into the
+   footer the same way the home page does (footer.css).
+   The project's colors are applied site-wide by useProjectTheme
+   (Project.jsx): --red = the project's main color.
    Sides line up with the other sections: 10% / 8% / 6%.
    ========================================================================== */
 
@@ -12,59 +13,63 @@
   --side: 10%;
 }
 
-/* --- On the red ------------------------------------------------------------ */
+/* --- Hero: the framed cover ---------------------------------------------- */
 
 .project__head {
-  display: grid;
-  justify-items: start;
-  gap: 1.5rem;
-  padding: 6.5rem var(--side) 3rem; /* top: room for the navigation */
+  padding: 7rem var(--side) 4rem; /* top: room for the navigation */
 }
 
+/* The title sits on top of the cover's top-left corner */
+.project__cover {
+  position: relative;
+}
+
+/* Framed lines, the 2nd, 4th... indented, hanging over the cover's
+   top-left corner. Phone: just past its left edge (the side space is
+   small); tablet and up: sticking out further (below). */
 .project__title {
+  position: absolute;
+  z-index: 1;
+  top: 0.2em;
+  left: -0.35em;
+
   display: grid;
   justify-items: start;
-  font-size: min(15vw, 7rem);
+  font-size: clamp(1.6rem, 5.4vw, 5rem);
+  color: var(--red);
 }
 
 .project__title-line {
-  --frame-pad-y: 0.08em;
+  --frame-pad-y: 0.06em;
   --frame-pad-x: 0.3em;
-
-  color: var(--project-main);
 }
 
-/* Every 2nd line in the project's secondary color, like the wall */
 .project__title-line:nth-child(2n) {
-  color: var(--project-secondary);
-  margin-inline-start: 0.6em;
+  margin-inline-start: 1.3em;
 }
 
-.project__media {
-  justify-self: stretch;
-  background: var(--project-secondary);
+/* The cover's shape: a slanted four-sided frame, like a sticker cut by
+   hand (the top edge drops to the right, the right edge leans out). The
+   white border and the image are cut to the same shape. */
+.project__cover-frame {
+  --cover-shape: polygon(0 0, 87% 7.5%, 100% 100%, 4.5% 100%);
+
+  padding: max(8px, 1.6%);
+  background: var(--white);
+  clip-path: var(--cover-shape);
+  container-type: inline-size; /* for the cover's max-height below */
 }
 
-.project__media-item {
+/* Never taller than two-thirds of its width (cqi = 1% of the frame's inner
+   width): a taller cover is cropped to 3:2 from the middle, a wider one
+   keeps its own shape */
+.project__cover-image {
+  display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: auto;
+  max-height: 66.667cqi;
   object-fit: cover;
-}
-
-/* Above the corners (BorderFrame puts them at z-index 1) */
-.project__video-toggle {
-  --frame-pad-y: 0.45em;
-  --frame-pad-x: 0.8em;
-
-  position: absolute;
-  z-index: 2;
-  left: 1rem;
-  bottom: 1rem;
-
-  color: var(--red);
-  font-size: 0.875rem;
-  font-weight: 700;
-  text-transform: uppercase;
+  clip-path: var(--cover-shape);
 }
 
 /* --- The white sheet ----------------------------------------------------- */
@@ -79,26 +84,48 @@
   clip-path: polygon(0 min(2.6vw, 3rem), 100% 0, 100% 100%, 0 100%);
 }
 
-.project__facts {
-  display: grid;
-  gap: 1.25rem;
+/* Like the titles: ExtraBold, condensed, italic, uppercase */
+.project__subtitle {
+  color: var(--red);
+  font-size: calc(var(--subtitle-size) * 1.25);
+  font-weight: 800;
+  font-style: italic;
+  line-height: 1;
 }
 
-.project__facts dt {
+.project__info {
+  display: grid;
+  gap: 2rem;
+}
+
+.project__label {
+  margin-block-end: 0.35rem;
   color: var(--red);
   font-size: 0.875rem;
   font-weight: 700;
+  font-stretch: 100%;
+  line-height: 1.3;
   text-transform: uppercase;
 }
 
-.project__facts dd {
-  font-size: var(--paragraph-size);
+.project__facts {
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+
+/* "Appdesign  Branding  Logo design": side by side, wrapping when needed */
+.project__values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
   font-weight: 600;
 }
 
-.project__details {
+.project__about {
   display: grid;
   gap: 1rem;
+  align-content: start;
   max-width: 65ch;
 }
 
@@ -106,6 +133,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  margin-block-start: 0.5rem;
 }
 
 .project__link {
@@ -118,30 +146,51 @@
   text-transform: uppercase;
 }
 
-/* Images with the project's colored corners, like its card */
-.project__gallery {
+/* --- Images: one under the other, the full width, no frames ------------- */
+
+.project__images {
   display: grid;
-  gap: 2rem;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
 }
 
-.project__gallery-image {
+.project__image {
+  display: block;
   width: 100%;
   height: auto;
 }
 
-.project__back {
-  --frame-pad-y: 0.5em;
-  --frame-pad-x: 0.9em;
+.project__video {
+  position: relative;
+}
 
-  justify-self: start;
-  grid-column: 1 / -1;
-  color: var(--white);
+.project__video-toggle {
+  --frame-pad-y: 0.45em;
+  --frame-pad-x: 0.8em;
+
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+
+  color: var(--red);
   font-size: 0.875rem;
   font-weight: 700;
   text-transform: uppercase;
 }
 
-/* --- Tablet ------------------------------------------------------------ */
+/* At the end of the page, in the middle */
+.project__more {
+  --frame-pad-y: 0.55em;
+  --frame-pad-x: 1.2em;
+
+  justify-self: center;
+  margin-block-start: 1rem;
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* --- Tablet -------------------------------------------------------------- */
 
 @media (min-width: 744px) {
   .project {
@@ -152,24 +201,25 @@
     padding-block-start: 8rem;
   }
 
-  .project__sheet {
+  /* The cover narrower than the page, in the middle, with room on the
+     left for the title to stick out */
+  .project__cover {
+    width: 70%;
+    margin-inline: auto;
+  }
+
+  .project__title {
+    left: -1.6em;
+  }
+
+  /* Facts on the left, the write-up and the links on the right */
+  .project__info {
     grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     column-gap: 3rem;
-    align-items: start;
-  }
-
-  /* Facts on the left, write-up and links on the right, images below */
-  .project__facts {
-    grid-row: 1 / span 2;
-  }
-
-  .project__gallery {
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* --- Desktop ----------------------------------------------------------- */
+/* --- Desktop ------------------------------------------------------------- */
 
 @media (min-width: 1280px) {
   .project {

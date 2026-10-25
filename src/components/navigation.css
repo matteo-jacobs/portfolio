@@ -20,6 +20,15 @@ nav {
 .logo-computer {
   display: none;
 }
+
+/* Desktop logo: the mark as a mask, colored by --red (32px, like the SVG) */
+.logo-mark-red {
+  display: block;
+  width: 32px;
+  aspect-ratio: 1;
+  background: var(--red);
+  mask: url('../assets/navigation/logo-mark.svg') center / contain no-repeat;
+}
 .nav-closed {
   display: flex;
   justify-content: space-between;
@@ -119,6 +128,7 @@ nav.open .nav-open {
 }
 
 .nav-toggle-line {
+  fill: var(--red);
   transform-box: fill-box;
   transform-origin: center;
   transition: transform 0.25s ease, opacity 0.2s ease;
@@ -219,6 +229,12 @@ nav.open .nav-toggle-line--bottom {
 
   .important.active {
     --frame-color: var(--black) !important;
+  }
+
+  /* ...but on a project page (Project.jsx) it stays in the project's
+     color, so the navigation matches the project */
+  [data-project-theme] .important.active {
+    --frame-color: var(--red) !important;
   }
 
   .nav-closed {

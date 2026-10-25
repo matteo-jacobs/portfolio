@@ -1,8 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { latestProjects } from '../data/projects.js'
-import heroSkierMobile from '../assets/hero-skier__mobile.png'
+import heroMobile from '../assets/hero__mobile.png'
+import desktopHero1 from '../assets/Desktop hero 1.png'
+import desktopHero2 from '../assets/Desktop Hero 2.png'
 import TitleFrame from '../components/TitleFrame.jsx'
+import { EMPTY_IMAGE } from '../utils/emptyImage.js'
 import ProjectCarousel from '../components/ProjectCarousel.jsx'
 import BorderFrame from '../components/BorderFrame.jsx'
 import './Home.css'
@@ -162,27 +165,28 @@ export default function Home() {
         </h1>
 
         {/* Phones and tablets only: desktops hide this image (they show the
-            two small photos instead), so it's the screen-sized crop, the same
-            file as those photos, and the 1.5MB full image is never fetched.
-            width/height = the PNG's real size, so the browser reserves the
-            right space before it loads (the bar check needs it). */}
-        <img
-          ref={imageRef}
-          src={heroSkierMobile}
-          width="402"
-          height="575"
-          alt="Matteo skiing"
-          className="hero-image"
-        />
+            two photos below instead), so they get an empty 1px image rather
+            than downloading it. width/height = the PNG's real size, so the
+            browser reserves the right space before it loads (the bar check
+            needs it). display: contents (.hero-picture) lets the <img> act
+            as the grid item. */}
+        <picture className="hero-picture">
+          <source media="(min-width: 1280px)" srcSet={EMPTY_IMAGE} />
+          <img
+            ref={imageRef}
+            src={heroMobile}
+            width="538"
+            height="575"
+            alt="Matteo"
+            className="hero-image"
+          />
+        </picture>
 
-        {/* Desktop only: two small tilted photos around the titles */}
+        {/* Desktop only: two photos around the titles. Their white slanted
+            frames are part of the PNGs. width/height = each PNG's size. */}
         <div className="hero-photos" aria-hidden="true">
-          <div className="hero-photo hero-photo--1">
-            <img src={heroSkierMobile} alt="" />
-          </div>
-          <div className="hero-photo hero-photo--2">
-            <img src={heroSkierMobile} alt="" />
-          </div>
+          <img src={desktopHero1} width="569" height="637" alt="" className="hero-photo hero-photo--1" />
+          <img src={desktopHero2} width="585" height="556" alt="" className="hero-photo hero-photo--2" />
         </div>
 
         <TitleFrame

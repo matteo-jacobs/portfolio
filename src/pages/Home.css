@@ -39,15 +39,18 @@
   --bar-gap: 0.5rem;        /* bar, this far below the edge */
 }
 
-/* Phones and tablets: the screen-sized crop (hero-skier__mobile.png, 402 × 575) */
+/* Phones and tablets: the screen-sized crop (hero__mobile.png,
+   538 × 575). Measured from the PNG: outer bottom edge 22px above the
+   image's bottom in the middle, the white border 15px thick, slope -4.27deg.
+   ÷ 5.38 (538px shown at 100vw) = the vw values. */
 @media (max-width: 1279.98px) {
   .hero {
     --image-width: 100vw;
     --image-shift: 0vw;
-    --border-from-bottom: 8.71vw;
-    --edge-from-bottom: 6.47vw;
-    --edge-angle: -4.39deg;
-    --edge-dip: 3.83vw;
+    --border-from-bottom: 5.51vw;
+    --edge-from-bottom: 4.14vw;
+    --edge-angle: -4.27deg;
+    --edge-dip: 3.72vw;
   }
 }
 
@@ -84,6 +87,12 @@
   height: calc(var(--edge-from-bottom) + var(--no-bar-room) - var(--no-bar-gap) + var(--edge-dip));
   background: var(--white);
   clip-path: polygon(0 calc(2 * var(--edge-dip)), 100% 0, 100% 100%, 0 100%);
+}
+
+/* Only a wrapper that picks the file (see Home.jsx): the <img> inside is
+   laid out as if the <picture> weren't there */
+.hero-picture {
+  display: contents;
 }
 
 /* The two titles, stacked */
@@ -491,11 +500,14 @@
     margin-inline-start: 0;
   }
 
+  /* Its middle sits on the bottom edge of the "Portfolio" frame (20vw above
+     the image's bottom, like the titles), so it always overlaps it, at
+     every tablet width */
   .CTA {
     align-self: end;
     justify-self: start;
-    margin: 0 0 14vw 3.3vw; /* moves with the titles: keep 6vw apart */
-    translate: none;
+    margin: 0 0 20vw 3.3vw;
+    translate: 0 50%;
 
     color: var(--red);
     font-size: 0.875rem;
@@ -649,40 +661,27 @@
     display: block;
   }
 
+  /* Desktop hero 1 / 2 .png: the white slanted frame is part of the
+     image, so no border, crop or extra tilt here */
   .hero-photo {
     position: absolute;
     z-index: 2; /* above the titles (z-index 1) */
     width: 20vw;
-    aspect-ratio: 1.05;
-    border: 0.4vw solid var(--white);
-    background: var(--white);
-    overflow: clip;
-  }
+    height: auto;
 
-  /* Zoomed in a little so the image's own slanted frame is cut off */
-  .hero-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 55%;
-    scale: 1.08;
-  }
-
-  .hero-photo {
-    rotate: var(--photo-tilt);
-    /* Slapped on after the titles: bigger, more tilted, then pressed down */
+    /* Slapped on after the titles: bigger and tilted, then pressed down */
     animation: photo-slap 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--slap-delay) backwards;
   }
 
   .hero-photo--1 {
-    --photo-tilt: 7deg;
+    --photo-tilt: 7deg; /* only the tilt it's slapped on with */
     --slap-delay: 420ms;
     top: calc(12vw - var(--hero-lift));
     left: 15.4vw;
   }
 
   .hero-photo--2 {
-    --photo-tilt: -6deg;
+    --photo-tilt: -6deg; /* only the tilt it's slapped on with */
     --slap-delay: 520ms;
     top: calc(27vw - var(--hero-lift));
     left: 70vw;
@@ -762,7 +761,7 @@
   from {
     opacity: 0;
     scale: 1.3;
-    rotate: calc(var(--photo-tilt) * 2.5);
+    rotate: var(--photo-tilt);
   }
 }
 

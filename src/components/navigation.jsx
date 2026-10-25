@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import TitleFrame from '../components/TitleFrame.jsx'
 import logoMark from '../assets/navigation/logo-mark.svg'
-import logoMarkRed from '../assets/navigation/logo-mark-red.svg'
 import './navigation.css'
 
 // Keep in sync with the tablet media query in navigation.css
@@ -85,17 +84,19 @@ export default function Navigation() {
                         xmlns="http://www.w3.org/2000/svg"
                         aria-hidden="true"
                     >
-                        <rect className="nav-toggle-line nav-toggle-line--top" x="0" y="0" width="37" height="5" fill="#FF0000" />
-                        <rect className="nav-toggle-line nav-toggle-line--middle" x="0" y="11" width="37" height="5" fill="#FF0000" />
-                        <rect className="nav-toggle-line nav-toggle-line--bottom" x="0" y="22" width="37" height="5" fill="#FF0000" />
+                        <rect className="nav-toggle-line nav-toggle-line--top" x="0" y="0" width="37" height="5" />
+                        <rect className="nav-toggle-line nav-toggle-line--middle" x="0" y="11" width="37" height="5" />
+                        <rect className="nav-toggle-line nav-toggle-line--bottom" x="0" y="22" width="37" height="5" />
                     </svg>
                 </TitleFrame>
             </div>
 
 
             <div className="nav-open-container">
-            <TitleFrame as={Link} to="/" className="logo-computer title-frame--press" color="var(--white)">
-                <img src={logoMarkRed} alt="Home" className="logo-mark-red" />
+            <TitleFrame as={Link} to="/" className="logo-computer title-frame--press" color="var(--white)" aria-label="Home">
+                {/* The logo as a mask, so its color follows --red (a project
+                    page swaps in the project's main color) */}
+                <span className="logo-mark-red" aria-hidden="true" />
             </TitleFrame>
             <TitleFrame as="ul" color="var(--white)" className="nav-open">
                 
