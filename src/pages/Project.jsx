@@ -30,12 +30,15 @@ function useProjectTheme(project) {
   }, [project])
 }
 
-// The project's video loops on its own, like a showreel, unless the visitor
-// asked for less motion. Either way there's a pause / play button (WCAG
-// 2.2.2: anything that moves for more than 5 seconds needs one).
+// The project's video takes the cover's place in the hero and loops on its
+// own, like a showreel, unless the visitor asked for less motion. Either way
+// there's a pause / play button (WCAG 2.2.2: anything that moves for more than
+// 5 seconds needs one). It starts muted, because browsers block autoplay with
+// sound; the sound button turns it on.
 function ProjectVideo({ src, poster, title }) {
   const videoRef = useRef(null)
   const [playing, setPlaying] = useState(false)
+  const [muted, setMuted] = useState(true)
 
   useEffect(() => {
     const video = videoRef.current
@@ -51,30 +54,51 @@ function ProjectVideo({ src, poster, title }) {
     else video.pause()
   }
 
+  // Turning the sound on also starts a paused video, or nothing would be heard
+  const toggleSound = () => {
+    const video = videoRef.current
+    video.muted = !video.muted
+    if (!video.muted && video.paused) video.play().catch(() => {})
+  }
+
   return (
-    <div className="project__video">
-      <video
-        ref={videoRef}
-        className="project__image"
-        src={src}
-        poster={poster ?? undefined}
-        muted
-        loop
-        playsInline
-        aria-label={`Video of ${title}`}
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-      />
-      <TitleFrame
-        as="button"
-        type="button"
-        color="var(--white)"
-        className="project__video-toggle title-frame--press"
-        onClick={toggle}
-      >
-        {playing ? 'Pause video' : 'Play video'}
-      </TitleFrame>
-    </div>
+    <>
+      <div className="project__cover-frame">
+        <video
+          ref={videoRef}
+          className="project__cover-image"
+          src={src}
+          poster={poster ?? undefined}
+          muted
+          loop
+          playsInline
+          aria-label={`Video of ${title}`}
+          onPlay={() => setPlaying(true)}
+          onPause={() => setPlaying(false)}
+          onVolumeChange={(event) => setMuted(event.target.muted)}
+        />
+      </div>
+      <div className="project__video-controls">
+        <TitleFrame
+          as="button"
+          type="button"
+          color="var(--white)"
+          className="project__video-toggle title-frame--press"
+          onClick={toggle}
+        >
+          {playing ? 'Pause video' : 'Play video'}
+        </TitleFrame>
+        <TitleFrame
+          as="button"
+          type="button"
+          color="var(--white)"
+          className="project__video-toggle title-frame--press"
+          onClick={toggleSound}
+        >
+          {muted ? 'Sound on' : 'Sound off'}
+        </TitleFrame>
+      </div>
+    </>
   )
 }
 
@@ -108,8 +132,8 @@ export default function Project() {
         '--project-secondary': project.secondaryColor,
       }}
     >
-      {/* --- Hero: the cover in a slanted white frame, the title tagged
-          over its top-left corner in framed lines --------------------- */}
+      {/* --- Hero: the video, or else the cover, in a slanted white frame,
+          the title tagged over its top-left corner in framed lines ----- */}
       <header className="project__head">
         <div className="project__cover">
           {/* aria-label: screen readers would otherwise read the lines
@@ -128,10 +152,14 @@ export default function Project() {
             ))}
           </h1>
 
-          {project.cover && (
-            <div className="project__cover-frame">
-              <img className="project__cover-image" src={project.cover} alt="" />
-            </div>
+          {project.media?.type === 'video' ? (
+            <ProjectVideo src={project.media.src} poster={project.cover} title={project.title} />
+          ) : (
+            project.cover && (
+              <div className="project__cover-frame">
+                <img className="project__cover-image" src={project.cover} alt="" />
+              </div>
+            )
           )}
         </div>
       </header>
@@ -191,12 +219,9 @@ export default function Project() {
           )}
         </div>
 
-        {/* Video / image and the gallery: full width, no frames */}
-        {(project.media || project.images.length > 0) && (
+        {/* Image and the gallery: full width, no frames */}
+        {(project.media?.type === 'image' || project.images.length > 0) && (
           <div className="project__images">
-            {project.media?.type === 'video' && (
-              <ProjectVideo src={project.media.src} poster={project.cover} title={project.title} />
-            )}
             {project.media?.type === 'image' && (
               <img className="project__image" src={project.media.src} alt={project.title} />
             )}

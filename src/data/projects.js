@@ -12,7 +12,8 @@
 //       cover.jpg          <- file named by "cover" in the JSON
 //       background.jpg     <- optional: the pattern behind the project page's
 //                             hero and footer (in the project's colors)
-//       media.mp4          <- file named by "media" in the JSON (video or photo)
+//       media.mp4          <- file named by "media" in the JSON: a video replaces
+//                             the cover in the hero, a photo goes above images/
 //       images/            <- every image in here is shown, sorted by name
 //         01.jpg
 //         02.jpg

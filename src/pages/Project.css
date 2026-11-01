@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Project page: on the project's pattern the cover in a white slanted frame,
-   with the title tagged on its top-left corner; then a white sheet with a
-   slanted top edge: the subtitle, the facts next to the write-up and the
+   Project page: on the project's pattern the video (or else the cover) in a
+   white slanted frame, with the title tagged on its top-left corner; then a
+   white sheet with a slanted top edge: the subtitle, the facts next to the write-up and the
    links, and all images full width, without frames. The sheet runs into the
    footer the same way the home page does (footer.css).
    The project's colors are applied site-wide by useProjectTheme
@@ -70,6 +70,26 @@
   max-height: 66.667cqi;
   object-fit: cover;
   clip-path: var(--cover-shape);
+}
+
+/* Phone: under the video, which is too small to carry them. Tablet and up:
+   on its bottom-right (below) */
+.project__video-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-block-start: 0.75rem;
+}
+
+.project__video-toggle {
+  --frame-pad-y: 0.45em;
+  --frame-pad-x: 0.8em;
+
+  color: var(--red);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 /* --- The white sheet ----------------------------------------------------- */
@@ -159,24 +179,6 @@
   height: auto;
 }
 
-.project__video {
-  position: relative;
-}
-
-.project__video-toggle {
-  --frame-pad-y: 0.45em;
-  --frame-pad-x: 0.8em;
-
-  position: absolute;
-  left: 1rem;
-  bottom: 1rem;
-
-  color: var(--red);
-  font-size: 0.875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
 /* At the end of the page, in the middle */
 .project__more {
   --frame-pad-y: 0.55em;
@@ -210,6 +212,16 @@
 
   .project__title {
     left: -1.6em;
+  }
+
+  /* Bottom-right: the frame's bottom-left corner is cut away, and next to
+     the frame instead of in it, the buttons aren't cut by its shape */
+  .project__video-controls {
+    position: absolute;
+    z-index: 1;
+    right: 1rem;
+    bottom: 1rem;
+    margin-block-start: 0;
   }
 
   /* Facts on the left, the write-up and the links on the right */
