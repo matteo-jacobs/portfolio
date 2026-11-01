@@ -1,6 +1,7 @@
 {
-  "title": "Podcast Battles",
-  "subtitle": "Meeting the Albanian Mafia: a solo narrative podcast",
+  "title": "Meeting the Albanian Maffia",
+  "subtitle": "Meeting the Albanian Maffia podcast",
+  "titleLines": ["Meeting", "the Albanian", "Maffia"],
   "appstate": true,
   "course": "New Narrative Media and Gaming, Appalachian State University",
   "team": ["Solo project"],

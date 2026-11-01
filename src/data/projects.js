@@ -81,8 +81,10 @@ function toProject([infoPath, info]) {
     .map((path) => assetFiles[path])
 
   // background.jpg / Background.png / ...: any case, any image type
-  const backgroundPath = Object.keys(assetFiles).find((path) =>
-    /^background\.(jpe?g|png|webp|avif)$/i.test(path.slice(folder.length + 1)),
+  const backgroundPath = Object.keys(assetFiles).find(
+    (path) =>
+      path.startsWith(`${folder}/`) &&
+      /^background\.(jpe?g|png|webp|avif)$/i.test(path.slice(folder.length + 1)),
   )
 
   return {
