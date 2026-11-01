@@ -7,6 +7,10 @@
 //       Information.json   <- the text, links and colors (see Project 1)
 //                             optional "titleLines" splits the title on the
 //                             home page: ["Let's run", "Oostende", "Beachrun"]
+//                             optional "titleCentered": true centres the lines
+//                             of the project page's title
+//                             optional "blackText" turns these words black in
+//                             that title and the subtitle
 //                             "appstate": true puts it on the AppState page
 //                             instead of the Portfolio page
 //                             optional "website" / "game" add a link button;
@@ -14,8 +18,9 @@
 //                             "/games/who-killed-hedwig.html"
 //                             optional "course" and "team" go with the facts
 //                             optional "sections" go under the facts, each
-//                             with a "title" and any of "image" + "caption",
-//                             "text" (**like this** is bold) and "items" (a list)
+//                             with a "title" and any of "image" + "alt" +
+//                             "caption", "audio" (an mp3), "text" (**like
+//                             this** is bold) and "items" (a list)
 //       cover.jpg          <- file named by "cover" in the JSON
 //       background.jpg     <- optional: the pattern behind the project page's
 //                             hero and footer (in the project's colors)
@@ -36,7 +41,7 @@ const infoFiles = import.meta.glob('./Projects/*/Information.json', {
 
 // Every other file in a project folder, as a URL Vite can serve/bundle
 const assetFiles = import.meta.glob(
-  './Projects/*/**/*.{jpg,jpeg,png,webp,avif,gif,svg,mp4,webm,mov}',
+  './Projects/*/**/*.{jpg,jpeg,png,webp,avif,gif,svg,mp4,webm,mov,mp3}',
   { eager: true, query: '?url', import: 'default' },
 )
 
@@ -80,8 +85,10 @@ function toProject([infoPath, info]) {
     .map((path) => assetFiles[path])
 
   // background.jpg / Background.png / ...: any case, any image type
-  const backgroundPath = Object.keys(assetFiles).find((path) =>
-    /^background\.(jpe?g|png|webp|avif)$/i.test(path.slice(folder.length + 1)),
+  const backgroundPath = Object.keys(assetFiles).find(
+    (path) =>
+      path.startsWith(`${folder}/`) &&
+      /^background\.(jpe?g|png|webp|avif)$/i.test(path.slice(folder.length + 1)),
   )
 
   return {
@@ -94,6 +101,8 @@ function toProject([infoPath, info]) {
     // How the title is split over lines on the home page cards, e.g.
     // ["Let's run", "Oostende", "Beachrun"]. Default: one word per line.
     titleLines: info.titleLines ?? (info.title || folderName).split(/\s+/),
+    titleCentered: info.titleCentered === true,
+    blackText: info.blackText ?? '',
     industry: info.industry ?? '',
     course: info.course ?? '',
     team: info.team ?? [],
@@ -103,6 +112,7 @@ function toProject([infoPath, info]) {
     sections: (info.sections ?? []).map((section) => ({
       ...section,
       image: asset(folder, section.image),
+      audio: asset(folder, section.audio),
     })),
     media: media(folder, info.media),
     cover: asset(folder, info.cover ?? 'cover.jpg'),

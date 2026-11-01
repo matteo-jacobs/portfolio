@@ -109,6 +109,21 @@ function withBold(text) {
     .map((part, i) => (i % 2 ? <strong key={i}>{part}</strong> : part))
 }
 
+// The project's "blackText" words stand out from the colored title
+function withBlack(text, words) {
+  if (!words) return text
+  return text.split(words).flatMap((part, i) =>
+    i === 0
+      ? [part]
+      : [
+          <span key={i} className="project__black">
+            {words}
+          </span>,
+          part,
+        ],
+  )
+}
+
 export default function Project() {
   const { projectSlug } = useParams()
   const project = getProject(projectSlug)
@@ -149,7 +164,10 @@ export default function Project() {
         <div className="project__cover">
           {/* aria-label: screen readers would otherwise read the lines
               run together ("MixboxBranding") */}
-          <h1 className="project__title title-stack" aria-label={project.title}>
+          <h1
+            className={`project__title title-stack${project.titleCentered ? ' project__title--centered' : ''}`}
+            aria-label={project.title}
+          >
             {project.titleLines.map((line, i) => (
               <TitleFrame
                 key={i}
@@ -158,7 +176,7 @@ export default function Project() {
                 className="project__title-line title-frame--lay"
                 style={{ '--lay-delay': `${i * 120}ms` }}
               >
-                {line}
+                {withBlack(line, project.blackText)}
               </TitleFrame>
             ))}
           </h1>
@@ -177,7 +195,9 @@ export default function Project() {
 
       {/* --- The white sheet ------------------------------------------- */}
       <div className="project__sheet">
-        {project.subtitle && <h2 className="project__subtitle">{project.subtitle}</h2>}
+        {project.subtitle && (
+          <h2 className="project__subtitle">{withBlack(project.subtitle, project.blackText)}</h2>
+        )}
 
         <div className="project__info">
           {facts.length > 0 && (
@@ -234,9 +254,25 @@ export default function Project() {
         {project.sections.map((section) => (
           <section key={section.title} className="project__section">
             <h3 className="project__section-title">{section.title}</h3>
-            {section.image && (
+            {(section.image || section.audio) && (
               <figure className="project__section-figure">
-                <img className="project__image" src={section.image} alt="" loading="lazy" />
+                {section.image && (
+                  <img
+                    className="project__image"
+                    src={section.image}
+                    alt={section.alt ?? ''}
+                    loading="lazy"
+                  />
+                )}
+                {section.audio && (
+                  <audio
+                    className="project__section-audio"
+                    src={section.audio}
+                    controls
+                    preload="metadata"
+                    aria-label={`Listen: ${section.title}`}
+                  />
+                )}
                 {section.caption && <figcaption>{section.caption}</figcaption>}
               </figure>
             )}
