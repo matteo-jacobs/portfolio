@@ -215,11 +215,12 @@
   }
 
   /* Bottom-right: the frame's bottom-left corner is cut away, and next to
-     the frame instead of in it, the buttons aren't cut by its shape */
+     the frame instead of in it, the buttons aren't cut by its shape. In %,
+     to stay clear of the slanted right edge at every width. */
   .project__video-controls {
     position: absolute;
     z-index: 1;
-    right: 1rem;
+    right: 7%;
     bottom: 1rem;
     margin-block-start: 0;
   }
