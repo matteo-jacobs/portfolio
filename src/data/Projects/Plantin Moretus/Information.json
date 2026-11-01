@@ -1,0 +1,16 @@
+{
+  "title": "Gray areas",
+  "subtitle": "Interactive website for the Museum Plantin-Moretus",
+  "industry": "Museum",
+  "scopeOfWork": ["Concept and storytelling", " Webdesign", "Interaction design and animation", "Front-end development"],
+  "toolsUsed": ["Figma", "Adobe after effects", "GSAP", "Adobe Photoshop"],
+  "details": "For the Museum Plantin-Moretus, we were challenged to tell the story of Christophe Plantin, one of the most important printers and publishers of 16th-century Antwerp, in an original and interactive way. Rather than presenting his life as a classic timeline, the website invites visitors to discover his story by exploring, experimenting and uncovering hidden details along the way.\n\nThe site was built with GSAP, with animations and interactions designed as an integral part of the storytelling. Visitors can reveal a hidden map that only appears on hover, and use a Caesar cipher machine to encode and decode their own secret messages, a playful nod to the world of secrecy, codes and hidden knowledge surrounding Plantin's life and work. The result is a story that is not just read, but experienced, bringing a historical figure to life for a modern audience.",
+  "media": "/",
+  "cover": "cover.jpg",
+  "figmaFile": "https://www.figma.com/design/UCiFTCutJTWo8T6CjDSSg7/Plantin-Moretus-assignment?node-id=229-2&t=tcnXyx1zCHeI3FQo-1",
+  "figmaPrototype": "/",
+  "website": "https://matteojacobs.github.io/integration-03/",
+  "notion": "/",
+  "mainColor": "#1E1E1E",
+  "secondaryColor": "#AC203D"
+}

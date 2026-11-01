@@ -115,6 +115,7 @@ export default function Project() {
   const links = [
     ['Visit Figma file', project.figmaFile],
     ['Visit Figma prototype', project.figmaPrototype],
+    ['Visit website', project.website],
     ['Visit Notion', project.notion],
   ].filter(([, href]) => href)
 

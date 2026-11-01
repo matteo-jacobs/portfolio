@@ -97,6 +97,7 @@ function toProject([infoPath, info]) {
     images,
     figmaFile: isEmpty(info.figmaFile) ? null : info.figmaFile,
     figmaPrototype: isEmpty(info.figmaPrototype) ? null : info.figmaPrototype,
+    website: isEmpty(info.website) ? null : info.website,
     notion: isEmpty(info.notion) ? null : info.notion,
     // AppState projects go on the AppState page, the rest on Portfolio
     appState: info.appstate === true,
