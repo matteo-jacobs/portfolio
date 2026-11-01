@@ -189,6 +189,11 @@
   font-size: 0.875rem;
 }
 
+/* Unlike the write-up next to the facts, these run the full width */
+.project__section .project__about {
+  max-width: none;
+}
+
 .project__section-list {
   display: grid;
   gap: 0.75rem;
