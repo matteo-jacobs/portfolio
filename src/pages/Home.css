@@ -303,7 +303,7 @@
 }
 
 /* ==========================================================================
-   Passed work: the 3 newest projects
+   Favourite works: the 3 favourite projects
    ========================================================================== */
 
 .homePage__content {
@@ -533,7 +533,7 @@
 /* ==========================================================================
    Passed work on tablet and desktop: all 3 projects on one screen instead
    of the carousel (no swiping, arrows or dots).
-     Tablet portrait:            the newest one big on top, two below
+     Tablet portrait:            the first one big on top, two below
      Tablet landscape + desktop: three in a row
    Covers are cropped to one shape (object-fit: cover) so the cards line up
    and everything fits on one screen, whatever the cover's own size.
@@ -570,7 +570,7 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  /* The newest project (first) spans both columns */
+  /* The first project spans both columns */
   .homePage__content .carousel__slide:first-child {
     grid-column: 1 / -1;
   }

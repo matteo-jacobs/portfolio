@@ -130,7 +130,7 @@ A deliberately narrow, sign-painted palette: one saturated red, one warm-neutral
 
 ### Hierarchy
 - **Display** (800, italic, 75% width, uppercase, `13.09vw`, line-height 1): Page titles ("Matteo's / Portfolio", "About me", "Fun fact"), always on a TitleFrame. Scales 1:1 with the viewport so it keeps proportion with the hero image.
-- **Headline** (600, 75% width, uppercase, 24px→40px fluid, line-height 1.1): Section headings (h2/h3) such as "Latest work" (shown at 1.5× there, with a red outline box).
+- **Headline** (600, 75% width, uppercase, 24px→40px fluid, line-height 1.1): Section headings (h2/h3) such as "Favourite works" (shown at 1.5× there, with a red outline box).
 - **Body** (600, 16px→20px fluid, line-height 1.5): Paragraphs. Semibold by default, so text holds its own against the loud red ground. Project write-ups cap at 65ch.
 - **Label** (700, uppercase, 0.875rem): Nav links, buttons, form placeholders, footer contact lines, the scrolling roles band.
 
@@ -182,7 +182,7 @@ Playful but precise: a label cut by hand, placed by machine.
 - **Hover / Focus / Pressed (`.title-frame--press`):** Like a sticker. Hover or keyboard focus lifts it: leans to −2° and grows to 1.04 (0.25s, `cubic-bezier(0.16, 1, 0.3, 1)`). Pressing slaps it flat: 0°, 0.94, in 80ms. No color swap on the frame; arrows inside nudge toward where they go. Disabled drops to 0.6 opacity (0.3 for carousel arrows) and doesn't move. Used on the CTA, Send message, carousel arrows, hamburger, footer home button, desktop logo and the nav's Portfolio link.
 
 ### Cards / Containers
-- **Latest-work card:** Cover image inside a BorderFrame with project-colored corner wedges, a stacked Title Frame title over it, and an arrow in the bottom-right wedge. Image zooms on hover (`scale`, 0.4s ease).
+- **Favourite-work card:** Cover image inside a BorderFrame with project-colored corner wedges, a stacked Title Frame title over it, and an arrow in the bottom-right wedge. Image zooms on hover (`scale`, 0.4s ease).
 - **Wall print:** Image in a thick Packed Snow border (`max(6px, 1.3vw)`), aspect 1.25, rotated ±3°, two-tone title (red / black lines) on Packed Snow frames hanging past the right edge. On hover or keyboard focus it is picked up: scales to 1.03 and straightens to 30% of its tilt (0.3s, `cubic-bezier(0.16, 1, 0.3, 1)`).
 - **No shadow, no radius** on either.
 

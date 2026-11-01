@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { latestProjects } from '../data/projects.js'
+import { favouriteProjects } from '../data/projects.js'
 import heroMobile from '../assets/hero__mobile.png'
 import desktopHero1 from '../assets/Desktop hero 1.png'
 import desktopHero2 from '../assets/Desktop Hero 2.png'
@@ -147,7 +147,7 @@ export default function Home() {
   // bar, or use the button that appears when you Tab to it
   const [barHeld, setBarHeld] = useState(false)
   const toggleBar = () => setBarHeld((held) => !held)
-  const latest = latestProjects(3)
+  const favourites = favouriteProjects()
 
   return (
     <div className="homePage">
@@ -239,9 +239,9 @@ export default function Home() {
 
 
       <div className="homePage__content" id="scroll-down" tabIndex={-1}>
-        <h2>Latest work</h2>
-        <ProjectCarousel label="Latest work">
-          {latest.map((project) => (
+        <h2>Favourite works</h2>
+        <ProjectCarousel label="Favourite works">
+          {favourites.map((project) => (
             // The whole card is the link to the project
             <Link
               key={project.slug}

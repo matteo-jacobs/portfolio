@@ -22,7 +22,7 @@ Matteo is a designer who also develops. The site itself is hand-built in React, 
 
 ## Operating Context
 
-- Agency reviewers usually skim: the home page, the latest work, one or two project pages, the about page, then contact.
+- Agency reviewers usually skim: the home page, the favourite works, one or two project pages, the about page, then contact.
 - Each project page can link out to the Figma file, the Figma prototype and Notion, so reviewers can check the process behind the result.
 - Contact goes through the footer form on every page (sent via FormSubmit to his email), or directly by phone or email.
 

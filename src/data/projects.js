@@ -138,8 +138,11 @@ export const projects = Object.entries(infoFiles)
 // "Project 2"; "Project 10" after "Project 9"). Newest first.
 const newestFirst = (list) => [...list].sort((a, b) => byName(b.folderName, a.folderName))
 
-export function latestProjects(count = 3) {
-  return newestFirst(projects).slice(0, count)
+// The home page's "Favourite works", in this order (by slug)
+const FAVOURITES = ['mixbox', 'antwerppov', 'plantin-moretus']
+
+export function favouriteProjects() {
+  return FAVOURITES.map(getProject).filter(Boolean)
 }
 
 // The AppState page: projects with "appstate": true, newest first
