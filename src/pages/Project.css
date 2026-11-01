@@ -189,6 +189,10 @@
   font-size: 0.875rem;
 }
 
+.project__section-audio {
+  width: 100%;
+}
+
 /* Unlike the write-up next to the facts, these run the full width */
 .project__section .project__about {
   max-width: none;

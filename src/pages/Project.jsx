@@ -234,9 +234,25 @@ export default function Project() {
         {project.sections.map((section) => (
           <section key={section.title} className="project__section">
             <h3 className="project__section-title">{section.title}</h3>
-            {section.image && (
+            {(section.image || section.audio) && (
               <figure className="project__section-figure">
-                <img className="project__image" src={section.image} alt="" loading="lazy" />
+                {section.image && (
+                  <img
+                    className="project__image"
+                    src={section.image}
+                    alt={section.alt ?? ''}
+                    loading="lazy"
+                  />
+                )}
+                {section.audio && (
+                  <audio
+                    className="project__section-audio"
+                    src={section.audio}
+                    controls
+                    preload="metadata"
+                    aria-label={`Listen: ${section.title}`}
+                  />
+                )}
                 {section.caption && <figcaption>{section.caption}</figcaption>}
               </figure>
             )}

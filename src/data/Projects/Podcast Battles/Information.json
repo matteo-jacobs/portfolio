@@ -1,0 +1,33 @@
+{
+  "title": "Podcast Battles",
+  "subtitle": "Meeting the Albanian Mafia: a solo narrative podcast",
+  "appstate": true,
+  "course": "New Narrative Media and Gaming, Appalachian State University",
+  "team": ["Solo project"],
+  "scopeOfWork": ["Story development", "Scripting", "Recording", "Editing", "Sound design"],
+  "toolsUsed": ["Voice Memos", "Adobe Audition", "Pixabay", "Google Gemini", "Speechma"],
+  "details": "Podcast Project: Meeting the Albanian Mafia is a solo narrative podcast created for a course assignment, telling the story of my real-life encounter with the Albanian mafia. I was responsible for the entire production, including story development, scripting, recording, editing, and revising the episode based on feedback. The goal was to capture the suspense, uncertainty, and unexpected human moments of the experience, using sound design and music to build tension and pull listeners in. I then used Google Gemini to generate an AI script with the same plot and characters, turned it into audio with Speechma, and compared both versions on emotional impact, authenticity, and environmental cost.",
+  "media": "/",
+  "cover": "cover.jpg",
+  "figmaFile": "/",
+  "figmaPrototype": "/",
+  "notion": "/",
+  "mainColor": "#FF0000",
+  "secondaryColor": "#161616",
+  "sections": [
+    {
+      "title": "Project process (self-recorded version)",
+      "image": "cover.jpg",
+      "alt": "A group of people around a table on an unfinished brick balcony at night.",
+      "audio": "podcast-self-recorded.mp3",
+      "text": "I recorded my narration using Voice Memos and did all of the editing and sound design in Adobe Audition, sourcing my sound effects and background music from royalty-free platforms like Pixabay. The biggest challenge came in my first edit: I didn't leave enough breathing room between clips, so the pacing felt rushed and undercut the suspense I was going for. I went back and rerecorded several sections to fix the timing, though I think there's still some room to tighten the pacing further. Layering and syncing the sound effects in Audition was also harder than I expected at first, since small timing mismatches could break the tension I was trying to build. Through a mix of trial and error and YouTube tutorials, I eventually got comfortable enough with the software to make the effects land the way I'd envisioned."
+    },
+    {
+      "title": "Project process (AI version)",
+      "image": "ai-version.jpg",
+      "alt": "An old man steers a small wooden boat with bags and four blurred passengers across a dark mountain lake.",
+      "audio": "podcast-ai-version.mp3",
+      "text": "To build the AI version, I gave Gemini my original story and asked it to generate a podcast-style script based on the same plot and characters. Even with the full story provided, Gemini occasionally misread details or shifted small plot points, so I had to review its output carefully and correct it before moving forward. For the narration itself, I had originally planned to use ElevenLabs, but since it was no longer free, I switched to Speechma to generate the voice track instead. Overall, the AI process moved faster than recording and editing myself, but it also stripped away the performance choices, like tone, pacing, and emotional delivery, that I could fine-tune by hand in my own recording."
+    }
+  ]
+}
