@@ -1,10 +1,9 @@
 /* ==========================================================================
    Footer: "Contact me" title, a red slanted contact form, my contact
    details, links to the other pages and a home button.
-     Phone:   form, then my details next to
-              the home button (no page links: the menu has them)
-     Tablet:  form on the left, my details and the home button next to it
-              (no page links either)
+     Phone:   my details next to the home button (no form, no page links:
+              the details are enough and the menu has the links)
+     Tablet:  the same, with more room
      Desktop: form on the left,
               details and links on the right, home button bottom-right
    ========================================================================== */
@@ -51,13 +50,11 @@
 .footer__body {
   display: grid;
   grid-template-columns: 1fr auto;
-  grid-template-areas:
-    'form    form'
-    'contact home';
+  grid-template-areas: 'contact home';
   gap: 2rem 1rem;
 }
 
-.footer__form    { grid-area: form; }
+.footer__form    { display: none; } /* phone and tablet: just my details */
 .footer__contact { grid-area: contact; }
 .footer__nav     { display: none; } /* phone: only the home button */
 .footer__home    { grid-area: home; }
@@ -88,7 +85,6 @@
   --frame-pad-y: 1.75rem;
   --frame-pad-x: 1.25rem;
 
-  display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem 1.25rem;
 
@@ -311,15 +307,10 @@
 @media (max-width: 743.98px) {
   .footer__body {
     grid-template-areas:
-      'form  form'
       'name  home'
       'phone home'
       'email home';
     row-gap: 0.6rem;
-  }
-
-  .footer__form {
-    margin-block-end: 1.4rem; /* 2rem from the details, like before */
   }
 
   /* Let the three lines take their own places in the footer's grid */
@@ -354,7 +345,6 @@
      next to it. 13.5em = the lowercase address' width. */
   .site-footer--red .footer__body {
     grid-template-areas:
-      'form  form'
       'name  home'
       'phone home'
       'email email';
@@ -367,26 +357,16 @@
 
 /* --- Tablet ------------------------------------------------------------ */
 
-/* Form on the left, my details and the home button next to it. Still no
-   page links (from desktop up they show again). */
+/* My details and the home button, more spacious. Still no form or page
+   links (from desktop up they show again). */
 @media (min-width: 744px) {
   .site-footer {
     padding-block-start: 4rem;
     padding-inline: 8%;
   }
 
-  .footer__body {
-    grid-template-columns: 1fr 1fr; /* room for the email at full size */
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-      'form contact'
-      'form home';
-    column-gap: 3rem;
-  }
-
   .footer__contact {
     gap: 1.25rem;
-    padding-block-start: 1.75rem; /* level with the form's first fields */
   }
 }
 
@@ -411,6 +391,7 @@
   }
 
   .footer__form {
+    display: grid;
     grid-column: 1;
     grid-row: 1 / -1;
     --frame-pad-y: 2.5rem;

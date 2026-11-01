@@ -106,7 +106,7 @@ export default function Navigation() {
                 <li><NavLink to="/appstate" onClick={closeMenu}>AppState</NavLink></li>
                 <li>
                     <TitleFrame as={NavLink} to="/portfolio" className="important title-frame--press" onClick={closeMenu}>
-                        Portfolio
+                        My work
                     </TitleFrame>
                 </li>
             </TitleFrame>

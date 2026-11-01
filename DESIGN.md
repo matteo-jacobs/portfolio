@@ -189,7 +189,7 @@ Playful but precise: a label cut by hand, placed by machine.
 ### Inputs / Fields
 - **Style:** Transparent, Signal Red 2px bottom border only; placeholders act as labels (700, uppercase, 0.875rem) with visually hidden real labels. The message textarea gets a full 2px border.
 - **Focus:** 2px outline in the field's text color, 3px offset.
-- **Container:** The form itself is a large Title Frame (Packed Snow on red home footer, Signal Red on the other pages, which flips the field color to Packed Snow).
+- **Container:** The form itself is a large Title Frame (Packed Snow on red home footer, Signal Red on the other pages, which flips the field color to Packed Snow). Desktop only: on phone and tablet the footer shows just the contact details and the home button.
 
 ### Navigation
 - **Phone:** Logo mark left, square Title Frame hamburger right (three red bars that morph into an X, 0.25s). Opens a full Bib Black panel that sweeps down with the hero's slant (0.4s), its links laid on 50ms apart; body scroll locks and Escape closes. Closing is instant.
