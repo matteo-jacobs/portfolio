@@ -102,6 +102,13 @@ function ProjectVideo({ src, poster, title }) {
   )
 }
 
+// **Like this** in a section's text turns bold
+function withBold(text) {
+  return text
+    .split(/\*\*(.+?)\*\*/)
+    .map((part, i) => (i % 2 ? <strong key={i}>{part}</strong> : part))
+}
+
 export default function Project() {
   const { projectSlug } = useParams()
   const project = getProject(projectSlug)
@@ -236,7 +243,7 @@ export default function Project() {
             {(section.text || section.items) && (
               <div className="project__about">
                 {section.text?.split(/\n\s*\n/).map((paragraph, i) => (
-                  <p key={i}>{paragraph}</p>
+                  <p key={i}>{withBold(paragraph)}</p>
                 ))}
                 {section.items && (
                   <ul className="project__section-list">

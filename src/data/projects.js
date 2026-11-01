@@ -15,7 +15,7 @@
 //                             optional "course" and "team" go with the facts
 //                             optional "sections" go under the facts, each
 //                             with a "title" and any of "image" + "caption",
-//                             "text" and "items" (a list)
+//                             "text" (**like this** is bold) and "items" (a list)
 //       cover.jpg          <- file named by "cover" in the JSON
 //       background.jpg     <- optional: the pattern behind the project page's
 //                             hero and footer (in the project's colors)
