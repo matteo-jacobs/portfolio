@@ -7,6 +7,10 @@
 //       Information.json   <- the text, links and colors (see Project 1)
 //                             optional "titleLines" splits the title on the
 //                             home page: ["Let's run", "Oostende", "Beachrun"]
+//                             optional "titleCentered": true centres the lines
+//                             of the project page's title
+//                             optional "blackText" turns these words black in
+//                             that title and the subtitle
 //                             "appstate": true puts it on the AppState page
 //                             instead of the Portfolio page
 //                             optional "website" / "game" add a link button;
@@ -97,6 +101,8 @@ function toProject([infoPath, info]) {
     // How the title is split over lines on the home page cards, e.g.
     // ["Let's run", "Oostende", "Beachrun"]. Default: one word per line.
     titleLines: info.titleLines ?? (info.title || folderName).split(/\s+/),
+    titleCentered: info.titleCentered === true,
+    blackText: info.blackText ?? '',
     industry: info.industry ?? '',
     course: info.course ?? '',
     team: info.team ?? [],

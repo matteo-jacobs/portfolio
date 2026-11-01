@@ -2,6 +2,8 @@
   "title": "Meeting the Albanian Maffia",
   "subtitle": "Meeting the Albanian Maffia podcast",
   "titleLines": ["Meeting", "the Albanian", "Maffia"],
+  "titleCentered": true,
+  "blackText": "the Albanian",
   "appstate": true,
   "course": "New Narrative Media and Gaming, Appalachian State University",
   "team": ["Solo project"],

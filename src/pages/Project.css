@@ -48,6 +48,20 @@
   margin-inline-start: 1.3em;
 }
 
+/* "titleCentered": the lines centred on each other, without the indent */
+.project__title--centered {
+  justify-items: center;
+}
+
+.project__title--centered .project__title-line:nth-child(2n) {
+  margin-inline-start: 0;
+}
+
+/* "blackText" */
+.project__black {
+  color: var(--black);
+}
+
 /* The cover's shape: a slanted four-sided frame, like a sticker cut by
    hand (the top edge drops to the right, the right edge leans out). The
    white border and the image are cut to the same shape. */
