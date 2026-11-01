@@ -166,6 +166,40 @@
   text-transform: uppercase;
 }
 
+/* --- Extra sections: title, then a picture, text and / or a list ---------- */
+
+.project__section {
+  display: grid;
+  gap: 1rem;
+}
+
+.project__section-title {
+  color: var(--red);
+  font-size: var(--subtitle-size);
+  font-weight: 800;
+  font-style: italic;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.project__section-figure {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.project__section-list {
+  display: grid;
+  gap: 0.75rem;
+  padding-inline-start: 1.2em;
+  list-style: square;
+}
+
+.project__section-list ::marker {
+  color: var(--red);
+}
+
 /* --- Images: one under the other, the full width, no frames ------------- */
 
 .project__images {
@@ -229,6 +263,17 @@
   .project__info {
     grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     column-gap: 3rem;
+  }
+
+  /* A picture with text: side by side, the title over both */
+  .project__section:has(.project__section-figure) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 3rem;
+    align-items: start;
+  }
+
+  .project__section-title {
+    grid-column: 1 / -1;
   }
 }
 

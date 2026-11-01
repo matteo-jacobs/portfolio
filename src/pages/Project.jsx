@@ -113,6 +113,7 @@ export default function Project() {
   const moreProjects = project.appState ? '/appstate' : '/portfolio'
 
   const links = [
+    ['Play the game', project.game],
     ['Visit Figma file', project.figmaFile],
     ['Visit Figma prototype', project.figmaPrototype],
     ['Visit website', project.website],
@@ -121,6 +122,8 @@ export default function Project() {
 
   const facts = [
     ['Industry', project.industry ? [project.industry] : []],
+    ['Course', project.course ? [project.course] : []],
+    ['Team', project.team],
     ['Scope of work', project.scopeOfWork],
     ['Tools used', project.toolsUsed],
   ].filter(([, values]) => values.length > 0)
@@ -219,6 +222,33 @@ export default function Project() {
             </div>
           )}
         </div>
+
+        {/* Optional extra sections: a picture, text and / or a list */}
+        {project.sections.map((section) => (
+          <section key={section.title} className="project__section">
+            <h3 className="project__section-title">{section.title}</h3>
+            {section.image && (
+              <figure className="project__section-figure">
+                <img className="project__image" src={section.image} alt="" loading="lazy" />
+                {section.caption && <figcaption>{section.caption}</figcaption>}
+              </figure>
+            )}
+            {(section.text || section.items) && (
+              <div className="project__about">
+                {section.text?.split(/\n\s*\n/).map((paragraph, i) => (
+                  <p key={i}>{paragraph}</p>
+                ))}
+                {section.items && (
+                  <ul className="project__section-list">
+                    {section.items.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+          </section>
+        ))}
 
         {/* Image and the gallery: full width, no frames */}
         {(project.media?.type === 'image' || project.images.length > 0) && (

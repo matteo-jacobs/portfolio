@@ -9,6 +9,13 @@
 //                             home page: ["Let's run", "Oostende", "Beachrun"]
 //                             "appstate": true puts it on the AppState page
 //                             instead of the Portfolio page
+//                             optional "website" / "game" add a link button;
+//                             "game" can be a page in public/, like
+//                             "/games/who-killed-hedwig.html"
+//                             optional "course" and "team" go with the facts
+//                             optional "sections" go under the facts, each
+//                             with a "title" and any of "image" + "caption",
+//                             "text" and "items" (a list)
 //       cover.jpg          <- file named by "cover" in the JSON
 //       background.jpg     <- optional: the pattern behind the project page's
 //                             hero and footer (in the project's colors)
@@ -88,9 +95,15 @@ function toProject([infoPath, info]) {
     // ["Let's run", "Oostende", "Beachrun"]. Default: one word per line.
     titleLines: info.titleLines ?? (info.title || folderName).split(/\s+/),
     industry: info.industry ?? '',
+    course: info.course ?? '',
+    team: info.team ?? [],
     scopeOfWork: info.scopeOfWork ?? [],
     toolsUsed: info.toolsUsed ?? [],
     details: info.details ?? '',
+    sections: (info.sections ?? []).map((section) => ({
+      ...section,
+      image: asset(folder, section.image),
+    })),
     media: media(folder, info.media),
     cover: asset(folder, info.cover ?? 'cover.jpg'),
     background: backgroundPath ? assetFiles[backgroundPath] : null,
@@ -98,6 +111,7 @@ function toProject([infoPath, info]) {
     figmaFile: isEmpty(info.figmaFile) ? null : info.figmaFile,
     figmaPrototype: isEmpty(info.figmaPrototype) ? null : info.figmaPrototype,
     website: isEmpty(info.website) ? null : info.website,
+    game: isEmpty(info.game) ? null : info.game,
     notion: isEmpty(info.notion) ? null : info.notion,
     // AppState projects go on the AppState page, the rest on Portfolio
     appState: info.appstate === true,

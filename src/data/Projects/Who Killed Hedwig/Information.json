@@ -1,0 +1,47 @@
+{
+  "title": "Who Killed Hedwig?!?!",
+  "subtitle": "Interactive murder mystery + Twine game",
+  "titleLines": ["Who Killed", "Hedwig?!?!"],
+  "appstate": true,
+  "course": "New Narrative Media and Gaming, Appalachian State University",
+  "team": ["Matteo (story draft, Twine programming)", "Isabella (artwork, story refinement)"],
+  "scopeOfWork": ["Interactive storytelling", "Game design", "Twine programming"],
+  "toolsUsed": ["Twine (Harlowe)"],
+  "details": "Who Killed Hedwig?!?! is a text-based murder mystery set in the forest of Nightingale. Hedwig has been found dead at the Old Oak clearing, and six unusual guests staying at the Council Lodge are now suspects. Together with Bramble, an investigator who trusts absolutely no one, the player examines the body, searches the rooms, and questions the suspects. Every clue you find unlocks new questions and new information, so the story is pieced together by the player. When you think you've cracked the case, you make your accusation. Choose right, and you solve the mystery. Choose wrong, and the killer walks free.",
+  "media": "/",
+  "cover": "cover.jpg",
+  "game": "/games/who-killed-hedwig.html",
+  "figmaFile": "/",
+  "figmaPrototype": "/",
+  "notion": "/",
+  "mainColor": "#FF0000",
+  "secondaryColor": "#161616",
+  "sections": [
+    {
+      "title": "How the game is structured",
+      "image": "flowchart.png",
+      "caption": "The full story map in Twine, showing every passage and connection.",
+      "items": [
+        "The opening: the player starts at the crime scene, where they can examine the body, check Hedwig's pockets, and get an early hint from a squirrel who saw more than it should have.",
+        "The hub: the Council Lodge lobby connects everything, so players can investigate in any order they want.",
+        "Suspects: six characters, each with their own secret, alibi, motive, and opportunity. Their alibis can confirm or contradict each other.",
+        "Search: rooms like the Pub, the Shore, the Lodge Hallway, and the suspects' rooms each hide a clue.",
+        "Accuse: the game counts which clues you've found before you name the killer, leading to one of two endings."
+      ]
+    },
+    {
+      "title": "Reflection",
+      "text": "Hi, I'm Matteo, a senior exchange student at Appalachian State University. For my New Narrative Media and Gaming class, I worked with my teammate Isabella to create Who Killed Hedwig?!?!, an interactive murder mystery built in Twine. I wrote the first draft of the story and did all of the Twine programming, while Isabella created the artwork and refined the storytelling.\n\nMy goal was simple: I wanted players to have a fun time and feel like a real detective. Rather than teaching a lesson, I wanted to give players that satisfying moment when scattered clues suddenly click together. Because of this, the interactivity is the heart of the game. What you discover changes what you can ask, so no two investigations feel exactly the same.\n\nThe project actually started as a small test to learn Twine. Once I understood the basics, we kept building on top of it until it became a full mystery. Before writing any scenes, I gave every suspect four things: a secret, an alibi, a plausible motive, and an opportunity to commit the murder. Then I pictured the Council Lodge as if it were a real building, so the rooms and clues would connect logically. In Twine, I designed a central hub (the lobby) that branches into three parts: questioning suspects, searching rooms, and making an accusation. I used variables to track every clue and secret the player finds, which unlocks new dialogue and decides which ending you get.\n\nMy biggest challenge was language. Writing a murder mystery is already difficult, because one wrong word can give away the killer or confuse the player. Doing it in English, which is not my native language, made it even harder. To overcome this, I used AI to help improve my wording, and Isabella refined the story's writing. The second challenge was the complexity itself. Every alibi had to match the clues and the other suspects' statements, so changing one detail often meant changing many passages.\n\nClassmates playtested the game. Emily liked that the alibis cross-check each other, that Bramble's suspicion of everyone forces you to decide who to trust, and that new information unlocks new questions. She felt the killer was too obvious, though, and suggested more misdirection and a vaguer hint from the squirrel. We agree, and I especially like her idea of the killer pretending to help the investigation, although I'm still figuring out how realistic that is to build. Justin enjoyed the tone and the dropdown-style dialogue, but pointed out spelling, spacing issues, and an error in my code, which became our next fixes. Overall, the interactivity worked: players said they felt like they were putting the story together themselves, which was exactly my goal.\n\nThrough this project, I learned Twine from scratch, including how to use variables and logic to build a non-linear story. If I did it again, I would choose a simpler story. The intricate plot made my work much harder, especially in a second language. I would rather have fewer suspects with deeper stories, and plan the misdirection from the start instead of adding it later."
+    },
+    {
+      "title": "Credits & sources",
+      "items": [
+        "Story concept & first draft: Matteo",
+        "Story refinement & all artwork: Isabella (original work)",
+        "Programming: Matteo, in Twine (Harlowe format)",
+        "Outside sources: none. All characters, story, and art were created by our team.",
+        "AI use: AI was used only to improve the English grammar and wording. All story ideas, characters, clues, and game structure are our own."
+      ]
+    }
+  ]
+}
