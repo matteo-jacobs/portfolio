@@ -1,0 +1,755 @@
+:: StoryTitle
+Who killed Hedwig?
+
+
+:: StoryData
+{
+  "ifid": "4EB5C5B9-E74D-4886-BDCA-6FE15DE45C87",
+  "format": "Harlowe",
+  "format-version": "3.3.9",
+  "start": "Start",
+  "zoom": 1
+}
+
+
+:: ''Suspect 1: Dracula the vampire'' {"position":"250,1175","size":"100,100"}
+Dracula's room is very dark, very velvet, and smells faintly of seaweed. He is lying across a chaise longue with one arm draped over his forehead, wearing sunglasses. Indoors. At night.
+
+"Detective," he sighs. "Have you come to arrest me? Do it. Do it ''dramatically''."
+
+(link: "Where were you last night?")[(set: $metDracula to true)
+"Swimming," he says. "In the sea. From three until six."
+
+You point out that it was the middle of the night.
+
+"Vampires love the sea," he says. "Famously."
+
+You have never once heard this.
+
+''Notebook: Dracula says he was at the sea from 3 to 6 am. The Shore might be worth a visit.''
+
+(link: "What did you think of Hedwig?")[He sits up and adjusts his cape. "Hedwig was... a very protective owl. Very wise. Very ''nosy''. He adopted the mermaid in the bay, you know. Treated her like a baby chick. Checked on her every evening. Hooted at anyone who swam too close."
+
+He pauses.
+
+"Not that I would know anything about swimming close to anyone."]]
+
+(if: $talkedMermaid is true)[ [["The mermaid told me everything."->Dracula Secret]] ]
+
+[[Back to the suspects->Suspects]]
+
+
+:: ''Suspect 2: Goober the gremlin'' {"position":"375,1150","size":"100,100"}
+Goober is sitting on top of a wardrobe, eating a spoon. Not food ''with'' a spoon. The spoon.
+
+"DETECTIVE!" he shrieks, delighted. "Are you here to arrest me? Can I wear the cuffs as bracelets? Do they come in green?"
+
+(link: "Where were you last night?")["In the restroom!" he says proudly. "All night! Well, from about four. The door locked itself and wouldn't open. I screamed for two hours. Did you hear me? I'm a very good screamer."
+
+Half the Lodge heard him. Bramble says she thought it was a kettle.
+
+"Bramble let me out at six," Goober adds. "I've never been so happy to see a skunk."
+
+(link: "Why were you screaming?")["Because I was LOCKED IN THE RESTROOM," he screams, demonstrating. A picture falls off the wall. "Sorry. Force of habit."]]
+
+(if: $visitedPub is true)[ [["Why were you in the council chamber?"->Goober Secret]] ]
+
+(if: $clueChair is true)[(link: "Who locked you in?")[Goober stops chewing his spoon.
+
+"I don't know. But I heard footsteps outside the door right before it jammed. Soft ones. Squishy ones. Like a wet sponge going for a walk." He shudders. "And someone was humming."]]
+
+[[Back to the suspects->Suspects]]
+
+
+:: ''Suspect 3: Mike Wazowski'' {"position":"125,1175","size":"100,100"}
+Mike is in the Lodge library, curled up in a big armchair with a cup of cocoa and a long striped scarf he insists is "100% authentic wizard merchandise." When he sees you, he jumps up and pulls out a chair.
+
+"Detective! Sit, sit. Do you want cocoa? I made extra. Terrible business, all this. Poor Hedwig." He shakes his head. "Whatever you need, I'm here to help."
+
+(link: "Where were you last night?")["Bath night!" he says. "I take a long one every week. Bubbles, the works. I sing in there too. Loudly. Sorry, Dirk." He laughs. "Dirk's room is right next to my bathroom, so I'm afraid he got a full concert."
+
+(link: "Did you see anything strange last night?")[(set: $clueSlip to true)
+Mike thinks hard, tapping his chin.
+
+"Well... I don't like to point fingers. But I did see Cornelius out by the Old Oak, around a quarter to five. Stomping about, looking very worked up." He lowers his voice. "I'm sure there's an innocent explanation. There usually is with Cornelius. Usually."
+
+''Notebook: Mike saw Cornelius by the Old Oak at about a quarter to five.''
+
+(link: "What did you think of Hedwig?")["A legend," Mike says warmly. "Do you know who he used to work for? The most famous young wizard in the world! I'm a bit of a fan." He tugs at his scarf, a little embarrassed. "Okay, a big fan. I asked Hedwig about the old days once or twice. He was always very polite about it."]]]
+
+(if: $clueDryBath or $clueMusicBox is true)[(link: "Your towel was bone dry, Mike.")Mike blinks.
+
+"Was it? Oh, I used the fluffy towel, the good one. It's in the laundry." He smiles. "You're very thorough. I like that."]
+
+(if: $clueMusicBox is true)[You mention the music box under his sink.
+
+"Oh, that!" He laughs. "I record myself so I can practice. Every great singer does it. Want to hear? I'm working on my high notes." He hums a little. It's not great.]
+
+(if: $clueLetters is true)[(link: "You wrote Hedwig a lot of letters.")[Mike's smile stays on, but his paw goes still on his cocoa mug.
+
+"A few. I wanted an introduction, that's all. Just a hello. He said no." He shrugs. "Disappointing, sure. But you don't hurt someone over a ''hello'', Detective."]]
+
+[[Back to the suspects->Suspects]]
+
+
+:: ''Suspect 4: Cornelius the ogre'' {"position":"250,1300","size":"100,100"}
+Cornelius is sitting on a rock by the lake, which is impressive, because he is much bigger than the rock. He is throwing breadcrumbs at the ducks. The ducks are throwing them back.
+
+"Oh," he says. "It's you."
+
+He sniffs loudly. A duck pats his knee.
+
+(link: "Where were you last night?")["Nowhere. Somewhere. Outside." He waves a huge hand at the trees. "It's a big forest. I was in it."
+
+That narrows it down to the entire forest.
+
+(link: "What did you mean by 'You will PAY for this'?")[Cornelius goes pink. Then purple. Then a sort of blue.
+
+"I was upset! I lost the election! Ogres say big things when we're sad. Last year I told a vending machine I'd destroy it. It's still fine. I bought a granola bar from it this morning."
+
+He stares sadly at the water.]]
+
+(if: $clueSlip or $foundCalendar is true) [(link: "You were seen in the woods last night.")[Cornelius's shoulders slump so far they nearly reach the lake.
+
+"Fine. Yes. Hedwig asked me to meet him at the Old Oak at half past four. To 'talk things through.' I thought he wanted to gloat. But he was... nice. Really nice. We talked until quarter to five."
+
+"And when you left?"
+
+"He was fine! Alive! Hooting! He said he'd stay a bit longer because he had ''one more appointment''." Cornelius frowns.
+
+(link: "Did he say who he had an appointment with'?")[Cornelius looks up 
+
+"no, I was so tired couldn't care anymore, just wanted to go to sleep!"]]]
+
+
+(if: $foundPocketNote is true)[ [["Did Hedwig offer you a job?"->Cornelius Secret]] ]
+[[Back to the suspects->Suspects]]
+
+
+
+:: ''Suspect 5: Dirk, bigfoot'' {"position":"375,1275","size":"100,100"}
+Dirk's room is spotless, apart from a small mountain of toenail clippings on a towel. He is sitting cross-legged, holding a nail file like a violin bow, and working on his left big toe with the focus of a surgeon.
+
+"Detective," he nods, without looking up. "Forgive me. This toe is at a delicate stage."
+
+(link: "Where were you last night?")["Here. All night." He gestures at the clipping mountain. "Bigfoot. Big feet. Twenty toes, counting the spares. It takes time."
+
+You decide not to ask about the spares.
+
+(link: "Did you hear anything last night?")[(set: $clueVoiceCrack to true)
+"Only Mike," Dirk sighs. "My room shares a wall with his bathroom. The shower ran for ages, and he sang the whole time. The same song. Over and over."
+
+He puts down the file.
+
+"And here is the strange part. Every few minutes he hit the ''exact'' same wrong note. Same crack, same spot, like clockwork. Even bad singers are not ''that'' consistent."
+
+''Notebook: Dirk says Mike hit the same bad note every few minutes, like clockwork.''
+
+(link: "You and Hedwig didn't get along, did you?")[Dirk's face goes stiff.
+
+"He made jokes. About my... appreciation of feet. In public. At the pub. At the ''council meeting''." He clutches the nail file. "Feet are the foundation of every creature, Detective. Literally."]]]
+
+(if: $foundBlood is true)[ [["Why is Hedwig's blood in your room?"->Dirk Secret]] ]
+
+[[Back to the suspects->Suspects]]
+
+
+
+:: ''Suspect 6: Aurora the yeti'' {"position":"125,1300","size":"100,100"}
+Aurora is wrapped in three blankets, which seems unnecessary for a yeti. She is holding a mug of ginger tea in each paw.
+
+"Oh, hi, Detective," she yawns. "Sorry. Long night. Short night? Medium night."
+
+(link: "Where were you last night?")["Girls' night at the pub with the other yetis! We sang, we danced, Brenda arm-wrestled a moose. We all stumbled home together around half past one."
+
+She sips her tea. "Well, ''they'' stumbled. I sort of... walked."
+
+(link: "Did you hear Hedwig last night?")["Yes! There's a door between our rooms. It doesn't lock, which was fine, because Hedwig was a perfect neighbour. Very quiet. Hooted once a day, max."
+
+She thinks.
+
+"He woke me at about ten past four. He poked his head through the door and said, 'Sorry, dear, just off to a meeting in the clearing.' He sounded happy. Then I went back to sleep."
+
+She looks at her tea. "That was the last thing he ever said to me. 'Sorry, dear.' So polite."
+
+(link: "What did you think of Hedwig and Dirk?")[Aurora narrows her eyes.
+
+"Everyone thinks they hated each other. But I've ''heard'' things through that door. Hooting. Giggling. Discussions about ''toes''." She shakes her head. "Nobody talks about toes that much with someone they hate."]]]
+
+(if: $visitedPub is true)[ [["I checked the pub, you weren't drinking at girls' night! You normally drink a lot, why didn't you drink this night?"->Aurora Secret]] ]
+
+[[Back to the suspects->Suspects]]
+
+
+:: Accuse {"position":"1175,650","size":"100,100"}
+{
+(set: _count to (count: (a: $clueDryBath, $clueMusicBox, $clueVoiceCrack, $clueWindowsill, $clueSlip, $clueBruises, $clueLetters, $clueChair), true))
+(set: _other to (count: (a: $foundPocketNote, $foundCalendar, $foundBlood, $visitedPub, $talkedMermaid), true))
+Bramble locks the lobby door, closes the curtains and lights a single dramatic candle. "For atmosphere," she whispers.<br><br>
+"Right, Detective. Before you point any fingers, let's go over what we know."<br><br>
+''WHAT YOU'VE FOUND (_count of 8 clues)''<br>
+(if: _count + _other is 0)[Absolutely nothing. You have a doodle of Bramble and a strong feeling. Bramble says that's "brave."<br>]
+(if: $clueBruises is true)[• The bruises: a small, smooth, four-fingered hand. No claws, fur or scales.<br>]
+(if: $clueDryBath is true)[• Mike's tub was full, but his towel and soap were bone dry.<br>]
+(if: $clueMusicBox is true)[• A music box under Mike's sink plays a recording of him singing.<br>]
+(if: $clueVoiceCrack is true)[• Dirk heard Mike hit the same bad note every few minutes, like clockwork.<br>]
+(if: $clueWindowsill is true)[• Mud and pine needles on Mike's bathroom windowsill.<br>]
+(if: $clueSlip is true)[• Mike saw Cornelius by the Old Oak at about a quarter to five.<br>]
+(if: $clueLetters is true)[• Mike wrote Hedwig 47 letters asking for an introduction. Hedwig said no.<br>]
+(if: $clueChair is true)[• The chair jammed under the restroom door has a green smudge.<br>]
+(if: $foundPocketNote is true)[• Hedwig planned to offer Cornelius a job as his assistant.<br>]
+(if: $foundCalendar is true)[• Hedwig's calendar: 4:30 Old Oak, C. Something at 5:00, hidden under a tea stain.<br>]
+(if: $foundBlood is true)[• Hedwig's blood on Dirk's rug. Dried and hours old.<br>]
+(if: $visitedPub is true)[• Goober fought Hedwig at the pub. Aurora drank only water at girls' night.<br>]
+(if: $talkedMermaid is true)[• The mermaid says Dracula was with her all night.<br>]
+<br>
+"Lovely. Now, I've had a bad feeling about every single one of them, so here's why you should accuse each one."<br><br>
+''Dracula the Vampire''<br>
+//"He was missing from three until six in the morning, and he sleeps in a box. Normal people sleep in beds. I rest my case."//<br>
+[[Accuse Dracula->Unfortunatelly]]<br><br>
+''Goober the Gremlin''<br>
+//"He had a screaming match with Hedwig the night before, in front of the whole pub. And he was screaming again at the exact time of the murder. That's a lot of screaming for an innocent gremlin."//<br>
+[[Accuse Goober->Unfortunatelly]]<br><br>
+''Mike Wazowski''<br>
+//"He is too friendly. Nobody smiles that much unless they're hiding something. He's got something up his sleeve, I'm sure of it. Does he have sleeves? Somebody check."//<br>
+[[Accuse Mike Wazowski->Congratulations]]<br><br>
+''Cornelius the Ogre''<br>
+//"He stood up in front of the entire town and shouted 'You will PAY for this, Hedwig!' I don't know how much clearer a monster can be."//<br>
+[[Accuse Cornelius->Unfortunatelly]]<br><br>
+''Dirk (Bigfoot)''<br>
+//"Hedwig's blood. On his rug. ON. HIS. RUG. Also, have you seen those toenails? He could cut down a tree with them."//<br>
+[[Accuse Dirk->Unfortunatelly]]<br><br>
+''Aurora the Yeti''<br>
+//"She slept right next door, and the door between them doesn't even lock. One step and she's in Hedwig's room. Yetis have very long legs."//<br>
+[[Accuse Aurora->Unfortunatelly]]<br><br>
+
+"Choose carefully," Bramble whispers. "If you get it wrong, I'm telling the sign."<br><br>
+}
+[[I'm not ready yet->Hub]]
+
+
+:: Aurora Secret {"position":"75,1425","size":"100,100"}
+(set: $secretAurora to true)
+Aurora puts down both mugs and pulls the blankets up to her chin.
+
+"Okay. You can't tell anyone. ''Especially'' not Cornelius. He'll write a poem about it."
+
+She takes a deep breath.
+
+"I'm pregnant. Baby yeti on the way. That's why I only drank water, and why I'm living on ginger tea. And at half past five this morning, I was very, ''very'' sick. The girls came over and held my fur back until sunrise."
+
+She smiles weakly.
+
+"So if you're wondering whether I snuck through that door and hurt Hedwig... I couldn't make it to the ''bathroom'' on time. I wasn't going to make it to the woods."
+
+''Notebook: Aurora is pregnant and was sick from 5:30 am with her friends beside her.''
+
+[[Back to the suspects->Suspects]]
+
+
+
+:: Congratulations {"position":"1300,775","size":"100,100"}
+You stand up. You point your finger. It's only shaking a little.
+
+"Mike Wazowski. You killed Hedwig."
+
+The lobby goes completely silent. Bramble drops her biscuit. Upstairs, the radiator gurgles, also in shock.
+
+Mike laughs. "Me? I was in the bath! Ask Dirk!"
+
+So you explain everything.
+
+The bath that nobody was sitting in. The towel, folded perfectly in thirds and dry as a cracker. The little music box under the sink, playing the same song over and over, cracking on the same note every few minutes, so Dirk would hear a whole concert through the wall. The open window. The mud and pine needles on the windowsill. A shortcut through the trees to the Old Oak, where Hedwig was waiting for his five o'clock appointment.
+
+Forty-seven letters. Forty-seven polite requests. And one final "no."
+
+"And you told me yourself," you say, "that you saw Cornelius by the Old Oak at a quarter to five. You can't see the Old Oak from a bathtub, Mike."
+
+Mike opens his mouth. Closes it. Opens it again. Then he sinks into the armchair and pulls his striped scarf over his eye.
+
+"He could have just said hello," he mumbles. "Just one hello."
+
+Bramble walks over to him with the brass key and a very serious face. She inspects Mike's arms very carefully.
+
+"No sleeves," she says. "Hm. But I was still right."
+
+''CONGRATULATIONS, DETECTIVE! YOU ACCUSED THE RIGHT CREATURE!''
+
+That evening, the whole town gathers under the Old Oak for Hedwig's memorial. Cornelius reads a poem (it's terrible; everyone cries). Dracula and Coralina hold hands in public for the first time, in the shade, of course. Dirk brings flowers, and for once nobody makes a joke. Aurora tells Bramble her secret, and Bramble immediately starts knitting a very small yeti hat. Goober eats a candle in Hedwig's honor.
+
+And high in the branches, the squirrel finally gets another peppermint.
+
+Justice for Hedwig.
+
+
+:: Cornelius Secret {"position":"275,1425","size":"100,100"}
+(set: $secretCornelius to true)
+
+"He did," he sobs. "He wanted me as his ''assistant''. He said the Council needed 'multiple perspectives and ideas.' Nobody has ever wanted my perspective. Not even the vending machine."
+
+A duck hands him a tissue. You don't ask where it got it.
+
+"So why are you out here alone?"
+
+He pulls a crumpled piece of paper from his pocket. It is covered in very large handwriting and a few tear stains.
+
+"I came to the lake after the meeting. To write poems. About Aurora." He sighs the sigh of an ogre with a broken heart. "She's taken. I know she's taken. But a heart wants what it wants. Mine wants a yeti."
+
+He reads one aloud before you can stop him:
+
+//"Aurora, your fur is like freshly fallen snow,<br>
+which I am not allowed to shovel.<br>
+I'd climb a mountain for you,<br>
+but I get winded on stairs."//
+
+The ducks and Bramble are crying emotionally and clapping their hands as if they heard the best poem ever.
+
+''Notebook: Cornelius was offered a job by Hedwig, then spent the night at the lake writing (bad) poems about Aurora.''
+
+[[Back to the suspects->Suspects]]
+
+
+:: Crime Scene {"position":"850,600","size":"100,100"}
+The Old Oak clearing is the kind of place that ends up on postcards. //Greetings from Nightingale! Wish you were here!// Today's postcard would need a very different message.
+
+Hedwig lies at the foot of the oak, wings neatly folded, as if he lay down to think very hard about something and simply forgot to get up. A few white feathers drift across the grass. A squirrel watches from a low branch, clearly hoping to be interviewed.
+
+Bramble hovers at your elbow. "I haven't touched anything," she says. "Well. I screamed. Does screaming count as touching?"
+
+You assure her it does not.
+
+"Good. Good. I also fainted a little. Onto that mushroom." She points at a very flat mushroom. "That one's on me."
+
+What do you want to do?
+
+(if: $clueBruises is true)[ [[Examine the body again->Examine Body]] ]
+(else:)[ [[Examine the body->Examine Body]] ]
+(if: $foundPocketNote is true)[ [[Check Hedwig's pockets again->Hedwig's Pockets]] ]
+(else:)[ [[Check Hedwig's pockets->Hedwig's Pockets]] ]
+[[Interview the squirrel->Squirrel]]
+[[Head to the Council Lodge->Hub]]
+
+
+:: Dirk Secret {"position":"500,1300","size":"100,100"}
+(set: $secretDirk to true)
+Dirk puts the nail file down. Slowly. Respectfully. This is serious.
+
+"Hedwig and I were... close," he says. "Secretly close. ''Very'' secretly. The jokes in public were his idea, so nobody would guess. He was very good at pretending. Too good. Some of them really stung."
+
+"And the blood?"
+
+Dirk winces.
+
+"He came to visit around eleven. I had just sharpened my toenails, which is a ''very'' important part of my routine. Hedwig landed on the wrong side of me, and..." He mimes a tiny owl colliding with a big foot. "Snip. A little cut on his wing. He was fine. He made fun of me for an hour."
+
+You look at the stain on the rug. It's dark and dry.
+
+Dirk's eyes are wet. "He hooted at all my jokes, you know. Even the bad ones. ''Especially'' the bad ones."
+
+''Notebook: Dirk and Hedwig were secretly together. The blood is supposedly from a toenail accident at 11 pm.''
+
+[[Back to the suspects->Suspects]]
+
+
+:: Dirk's Room {"position":"1150,1650","size":"100,100"}
+(set: $foundBlood to true)
+Dirk isn't here right now. Bramble says he went to the shop for more nail files, even though he already has eleven. They're lined up on the table in a perfect row.
+
+Amai, so many toenails. They sit in a small mountain on a towel next to the bed, neatly sorted by size. Dirk is clearly a man with a system.
+
+On the rug by the door there's a dark brown stain. You kneel down. It's blood, with a few little white feathers stuck in it. Hedwig's feathers.
+
+You touch it carefully. The blood is completely dry and hard, so it's been here a long time. Hours, at least.
+
+Bramble gasps so loudly she nearly falls over. "Blood! In the room of the //foot man//!"
+
+''Notebook: Hedwig's blood on Dirk's rug. Dried. Old.''
+
+[[Back to the search->Search]]
+
+
+:: Dracula Secret {"position":"225,1050","size":"100,100"}
+(set: $secretDracula to true)
+Dracula freezes. Then he takes off his sunglasses, very slowly, for maximum effect.
+
+"So. You know." He clutches his chest. "Yes! I love her! Coralina, the mermaid of the bay! It is a forbidden love, Detective. A creature of the night and a creature of the sea. We have nothing in common. She cannot leave the water and I cannot go out in the sun. Our dates are ''very'' specific."
+
+"And Hedwig?"
+
+"Hedwig disapproved. He sent me forty letters telling me to stay away from her. Well. One letter, forty times. He was very thorough."
+
+He sniffs.
+
+"But I did not hurt him. I was with Coralina all night, from three until the sun started threatening me. Ask her. Ask the seaweed. It was everywhere."
+
+You notice his cape is still damp and smells strongly of the sea.
+
+''Notebook: Dracula says he was with the mermaid all night.''
+
+[[Back to the suspects->Suspects]]
+
+
+
+:: Examine Body {"position":"725,450","size":"100,100"}
+(set: $clueBruises to true)
+You kneel beside Hedwig. Up close he looks peaceful, which is more than can be said for Bramble, who is watching through her claws.
+
+"Lividity," she announces, in the voice of a skunk who has read exactly one detective novel and has waited her whole life to use that word. "The blood settles after death. I'd say he died between two and six this morning."
+
+You raise an eyebrow.
+
+"I'm a part-time nurse," she adds. "For hedgehogs. It's mostly splinters."
+
+Then you notice them: dark bruises around Hedwig's neck. Someone strangled him.
+
+You lean closer. The marks were left by a small, smooth hand with only four fingers. No claw scratches. No fur caught in the feathers. No scales. Whoever did this had remarkably soft, remarkably small hands.
+
+You write it in your notebook. You underline it. Twice. Bramble looks impressed, so you underline it a third time.
+
+''Notebook updated: the handprint bruises.''
+
+[[Back to the clearing->Crime Scene]]
+
+
+:: Goober Secret {"position":"500,1175","size":"100,100"}
+(set: $secretGoober to true)
+Goober climbs down from the wardrobe and looks around, very suspiciously, at nobody.
+
+"Okay. OKAY. I was in the council chamber because Cornelius asked me to check the votes. He was sure they were counted wrong. They weren't. Hedwig won by a lot. Like, a ''lot'' a lot."
+
+"So why didn't you just say that?"
+
+Goober leans in close. His breath smells like spoon.
+
+"Because that's not the only reason. I had a dream. A ''bad'' dream. Someone in this town was going to die. So I was looking for clues! Like you! We're basically colleagues."
+
+"What happened in the dream?"
+
+"There was a giant eyeball," he whispers. "And it was singing. Badly. Then I woke up and ate a candle."
+
+Hedwig caught him in the chamber and threatened to report him to the Council. Hence the shouting match at the pub. Goober feels terrible about it now. He tells you this while eating the candle's cousin.
+
+''Notebook: Goober was snooping for Cornelius and because of a dream. He was locked in the restroom confirmed by Bramble.''
+
+[[Back to the suspects->Suspects]]
+
+
+:: Hedwig's Pockets {"position":"675,575","size":"100,100"}
+(set: $foundPocketNote to true)
+Hedwig is wearing a tiny tweed waistcoat. Of course he is. He was the kind of owl who owned a pocket watch and used it to arrive early to things on purpose.
+
+In the pocket you find one peppermint, one pair of very small reading glasses, and a folded note in neat, loopy handwriting:
+
+//"Offer Cornelius the assistant job. Multiple perspectives! (Also bring tissues. He gets emotional.)"//
+
+Bramble reads it over your shoulder. "Cornelius? The ogre who shouted 'You will PAY for this'? Hedwig wanted to give him a ''job''?"
+
+"Apparently," you say.
+
+Bramble sniffs and dabs her eyes with her lantern sleeve. "That owl was too good for this town."
+
+''Notebook updated: Hedwig's note about Cornelius.''
+
+[[Back to the clearing->Crime Scene]]
+
+
+:: Hedwig's Room {"position":"1275,1650","size":"100,100"}
+(set: $foundCalendar to true)
+Hedwig's room is small and cozy. There are books everywhere, a tea set with tiny cups, and by the window stands a perch with a little cushion on it. It smells like old paper and peppermint.
+
+A calendar hangs on the wall. On the day of the murder, someone has written in neat handwriting:
+
+//4:30 — Old Oak — C.//
+
+There was something written underneath, too, but someone spilled tea over it. All you can make out is //5:00//, followed by a big brown stain. Very annoying.
+
+In the side wall is a door to Aurora's room. You try it: it's unlocked. It swings open without a sound. The hinges are very well oiled.
+
+"Hedwig did everything perfectly," Bramble says sadly. "Even the hinges."
+
+''Notebook: Hedwig's calendar: "4:30 Old Oak, C." Something at 5:00, but it's unreadable.''
+
+[[Back to the search->Search]]
+
+
+:: Hub {"position":"850,775","size":"100,100"}
+(if: visits is 1)[The Council Lodge lobby smells of old wood, wet fur and the fancy biscuits the Council only brings out for funerals and elections. This week, they've needed both.
+
+Portraits of former council chairs line the walls. A grumpy fox. A leopard who looks permanently surprised. And at the very end, freshly hung, Hedwig: tiny gold medal, kind eyes, and the expression of an owl who noticed the frame wasn't spirit leavel and was far too polite to say so.
+
+Bramble presses a heavy brass key into your hand. "Every suspect is staying here or nearby," she says. "Nobody leaves town until you say so. I told them myself. Well. I wrote a sign. The sign is telling them."
+
+By the door, a hand-painted sign reads: //NOBODY LEAVE TOWN. BY ORDER OF THE DETECTIVE (AND BRAMBLE).//](else:)[You're back in the Lodge lobby. (either: "Someone has eaten another funeral biscuit. Bramble is pretending it wasn't her.", "The surprised moose portrait is still surprised. You're starting to feel the same way.", "Bramble is sorting the biscuits into piles labelled SUSPICIOUS and VERY SUSPICIOUS.", "The radiator gurgles like it has a theory of its own.", "Hedwig's portrait watches you. Judgmentally. But kindly.")]
+
+What's next, Detective?
+
+[[Question a suspect->Suspects]]
+[[Search a place->Search]]
+[[Make an accusation->Accuse]]
+
+
+:: Intro {"position":"850,450","size":"100,100"}
+Two days ago, the forest of Nightingale threw the biggest party it had seen in years.
+
+Hedwig, the snowy owl who once carried letters for a certain famous young wizard, had retired to the quiet of the woods. Now the creatures of Nightingale had elected him head of chair of the Civil Creatures' Council. Everyone agreed he was the wisest choice.
+
+Well. Almost everyone.
+
+Cornelius the Ogre stormed out of the hall, roaring that Hedwig would pay for this. Others clapped politely and said nothing at all. In a forrest full of vampires, gremlins, yetis and worse, a quiet monster can be the most dangerous kind.
+
+This morning, at a quarter to six, Old Bramble the skunk was making her rounds when she found Hedwig lying beneath the Old Oak. He was not moving.
+
+The Council has sent for you.
+
+You arrive at the edge of the woods just as the mist begins to lift. Bramble is waiting for you, her lantern shaking in her paw.
+
+"Thank goodness you've come, Detective," she whispers. "Six creatures in this town had a reason to be angry with Hedwig. And I'd bet my burrow that one of them is lying."
+
+[[Follow Bramble to the Old Oak|Crime Scene]]
+
+
+:: Lodge Hallway {"position":"1000,1500","size":"100,100"}
+(set: $clueChair to true)
+The Lodge's hallway is long, and the floorboards creak with every step. //Squeak. Squeak.// Terrible for sneaking, you'd think.
+
+Next to the restroom door stands a wooden chair. It isn't with the other chairs. It's all on its own, which is suspicious for a chair. On the floor are two scratches where someone pushed it under the doorknob. This is the chair that kept Goober locked in!
+
+You take a closer look. On the back of the chair is a small smudge. It's green. Green and a little slimy.
+
+Bramble sniffs it. "Hm. Green." She thinks very hard. "Goober is green, isn't he?"
+
+Goober is //greenish//. That's not exactly the same thing.
+
+''Notebook: The chair jammed under the restroom door has a green smudge.''
+
+[[Back to the search->Search]]
+
+
+:: Mike's Bathroom {"position":"825,1650","size":"100,100"}
+(set: $clueDryBath to true)
+Mike's bathroom is clean. Like, //really// clean. Cleaner than any bathroom you've ever seen. Your mother would be jealous.
+
+The tub is still full of water. It's cold, and the bubbles are long gone. Beside it hangs a big fluffy towel, folded perfectly in thirds. You touch it. It's completely dry. So is the soap, so dry it's cracking.
+
+Bramble looks at the towel. "Who folds a towel that neatly after a bath?" she says. "I don't even fold mine //before// one."
+
+''Notebook: Mike's tub is full, but the towel and soap are bone dry.''
+
+(link: "Look under the sink")[(set: $clueMusicBox to true)
+Behind a small mountain of toilet paper rolls (apparently Mike buys in bulk), you find a little wooden music box. You wind it up.
+
+Out comes... Mike. Singing. A long song about a candle that's in love with the moon. Every few minutes his voice cracks on exactly the same note. //Krrrk.// Then the song starts over from the beginning.
+
+Amai. It is not good.
+
+Bramble covers her ears. "Is this a crime too? It should be a crime."
+
+''Notebook: A music box under Mike's sink plays a recording of him singing.''
+
+(link: "Check the window")[(set: $clueWindowsill to true)
+The small window next to the tub is unlocked. On the sill lie some dried mud and three pine needles. Outside there's nothing but trees. The woods start right behind the Lodge.
+
+"Probably the wind," says Bramble. "The wind is very messy in Mossbrook. Always dragging mud everywhere, that wind."
+
+''Notebook: Mud and pine needles on Mike's bathroom windowsill.'']]
+
+[[Back to the search->Search]]
+
+
+:: Mike's Room {"position":"1000,1650","size":"100,100"}
+Mike's room is packed with wizard stuff. Posters on every wall, a broom in the corner (it doesn't fly, Bramble already checked), a pointy hat covered in stars, and four striped scarves, all "authentic." On the bed sits a pillow with an owl on it. You decide not to think about that too hard.
+
+"He's a big fan," Bramble whispers. "Of... everything."
+
+(link: "Open the desk drawer")[(set: $clueLetters to true)
+Inside the drawer is a thick stack of letters, tied with a ribbon. They're copies of letters Mike sent to Hedwig. You count them. Forty-seven. //Forty-seven// letters!
+
+They all ask more or less the same thing: //Dear Hedwig, could you please introduce me to your former boss? Just a quick hello. I promise I'll be very normal.//
+
+At the bottom of the stack is a single reply, in Hedwig's neat handwriting:
+
+//Dear Mike, for the last time, no. Kind regards, Hedwig.//
+
+Bramble reads it over your shoulder. "Oof. 'Kind regards.' That's cold, even for an owl."
+
+''Notebook: Mike wrote Hedwig 47 letters asking for an introduction. Hedwig said no.'']
+
+[[Back to the search->Search]]
+
+
+:: Search {"position":"1050,1350","size":"100,100"}
+Where do you want to search? Bramble has given you the key of the Lodge, so you can go almost everywhere. Almost.
+
+[[Mike's Bathroom]]: a very clean bathroom. Suspicious clean? We will see.
+[[Mike's Room]]: Mike his room. Bramble says it is "a lot".
+[[Dirk's Room]]: be careful where you put your feet. Dirk would appreciate it.
+[[Hedwig's Room]]: the room of the victim. Bramble insists you take off your shoes before.
+[[The Lodge hallway->Lodge Hallway]]: long and squeaky. Maybe more interesting then it sounds.
+[[The Pub]]: //The Soggy Toadstool//. Gus the troll knows everything what happens in this town.
+(if: $metDracula is true)[ [[The Shore]]: the sea. Somebody there maybe knows where Dracula was last night. ]
+
+[[Back to the lobby->Hub]]
+
+
+
+:: Squirrel {"position":"725,700","size":"100,100"}
+You crouch down and look the squirrel in the eye. "Excuse me. Did you see anything strange last night?"
+
+The squirrel puffs out his cheeks.
+
+"Chk-chk. Skrrrrit nubba nubba. Akorn? AKORN. Fliffle-pip squee!"
+
+You nod slowly, as if you understood any of that.
+
+"Oh! I speak a little Squirrel," says Bramble, stepping forward. "I did a semester abroad. In a tree."
+
+She clears her throat and chitters: "Chk. Nubba skrit?"
+
+The squirrel gasps. He is deeply, personally offended.
+
+"Hmm," says Bramble. "I may have asked about his mother."
+
+(link: "Offer the squirrel a peppermint")[The squirrel snatches the peppermint, sniffs it, and his whole tail goes stiff with joy.
+
+"Flonk! Flonk-a-flonka! Ooooo... blinky-blink gloopa-gloop, la-la-LAAAA! Skrrt skrrt, zip-zip, WHOOOSH!"
+
+He squeezes one eye shut and holds his paws in a big round circle in front of the other. Then he wobbles his head side to side and warbles a horribly off-key little tune. Then he points at the Lodge and flaps his arms.
+
+Bramble translates. "He says thank you for the mint. And something about a... big eyeball? Singing? And then something went whoosh." She frowns. "Squirrels have very vivid dreams."
+
+The squirrel stuffs the peppermint into his cheek, chitters something extremely rude, and vanishes up the oak.
+
+"Well," says Bramble. "I'm not translating that last part."]
+
+[[Back to the clearing->Crime Scene]]
+
+
+
+:: Start {"position":"850,325","size":"100,100"}
+//''Who Killed Hedwig?!?!''//
+
+A murder mystery in the forest of Nightingale.
+
+Six suspect, a lot of liars, one victim and one perpetrator. Find who it is before he goes free without any consequences.
+
+TRIGGER WARNING, SOMEONE DIES!
+
+[[Begin the investigation->Intro]]
+
+
+:: StoryInit {"position":"575,325","size":"100,100"}
+{
+<!-- Clues -->
+(set: $clueDryBath to false)
+(set: $clueMusicBox to false)
+(set: $clueVoiceCrack to false)
+(set: $clueWindowsill to false)
+(set: $clueSlip to false)
+(set: $clueBruises to false)
+(set: $clueLetters to false)
+(set: $clueChair to false)
+
+<!-- Unlocks -->
+(set: $metDracula to false)
+(set: $talkedMermaid to false)
+(set: $visitedPub to false)
+(set: $foundPocketNote to false)
+(set: $foundCalendar to false)
+(set: $foundBlood to false)
+
+<!-- Secrets -->
+(set: $secretDracula to false)
+(set: $secretGoober to false)
+(set: $secretCornelius to false)
+(set: $secretDirk to false)
+(set: $secretAurora to false)
+
+<!-- Accusation -->
+(set: $accused to "")
+}
+
+
+:: Suspects {"position":"500,1050","size":"100,100"}
+Bramble pulls a crumpled piece of paper out of her apron and smooths it on the table. At the top, in big wobbly letters, it says:
+
+''SUSPECTS (I HAVE A BAD FEELING ABOUT ALL OF THEM)''
+
+"I made a list," she says proudly. "I couldn't sleep. Or sit. Or stop making lists."
+
+[[''Suspect 1: Dracula the vampire'']], he is very old and old people do get a bit crazy. Also wears sunglasses at night, which is a red flag. Would interview.
+
+[[''Suspect 2: Goober the gremlin'']], he screamed for two hours straight on the night of the murder and once ate my doorknob. Would interview. From a distance.
+
+[[''Suspect 3: Mike Wazowski'']], he is TOO friendly. Nobody smiles that much unless they're hiding something. He probably has something up his sleeve. (Does he have sleeves? Check.) Would interview.
+
+[[''Suspect 4: Cornelius the ogre'']], he shouted "You will PAY for this, Hedwig!" in front of the whole town, which is basically a confession with extra steps. Would interview, but bring tissues. He cries.
+
+[[''Suspect 5: Dirk, bigfoot'']], there is Hedwig's blood on his rug (I peeked) and he talks about feet more than is normal. Hedwig made fun of him a LOT. Would interview, but do not look directly at the toes.
+
+[[''Suspect 6: Aurora the yeti'']], she sleeps right next door to Hedwig and the door between them doesn't even lock. Also she is a yeti and yetis are very strong. Would interview, gently. She seems tired.
+
+//P.S. I also have a bad feeling about the squirrel. Would not interview. He bites.//
+
+Bramble beams at you. "Helpful?"
+
+[[Back to the lobby->Hub]]
+
+
+:: The Pub {"position":"1150,1475","size":"100,100"}
+(set: $visitedPub to true)
+The pub is called //The Soggy Toadstool//. It's dark and warm, and it smells like beer and wet dog, even though there's no dog. Behind the bar stands Gus, a troll, who has been drying the same glass since you walked in.
+
+"Detective," he says. "Get you something? We've got beer, more beer, and soup. The soup's also a little bit beer."
+
+(link: "Ask about the night before the murder")[Gus puts down the glass. Finally.
+
+"Wild night. First, Goober and Hedwig had a huge fight, right over at that table." He points. "Hedwig said he caught Goober in the council chamber, snooping through the secret election papers. Said he'd report him and Goober would lose his seat. Goober was screaming, Hedwig was hooting, and a chair went flying. I think Goober threw it. Or maybe the chair just left on its own, I don't know."
+
+"And after that?"
+
+"Girls' night! The yetis. Very loud, very fun. Brenda arm-wrestled a moose and won." He picks the glass back up. "Only one strange thing: Aurora drank nothing but water all night. //Aurora!// Usually she drinks more than the moose."
+
+''Notebook: The bartender saw Goober fight Hedwig, and Aurora drank only water at girls' night.'']
+
+[[Back to the search->Search]]
+
+
+:: The Shore {"position":"1300,1475","size":"100,100"}
+(set: $talkedMermaid to true)
+The shore is quiet and grey this morning. The waves come and go, as waves do. It's the sea. On a big rock a little way out sits a mermaid with long, shell-tangled hair. This must be Coralina.
+
+She eyes you very suspiciously. "If you've come to tell me to stay away from Dracula, you're too late. The owl already tried. Forty times."
+
+(link: "Ask where Dracula was last night")[Coralina sighs and fiddles with a shell.
+
+"He was here. With me. From three o'clock until almost sunrise, and then he had to run, because, you know." She makes a dramatic gesture, as if she's bursting into flames. "He read me poems. Very bad ones. I loved them."
+
+"All night? He never left?"
+
+"Not for a minute. Ask the crabs, they saw everything. Very nosy, crabs."
+
+A crab nods. Probably. With crabs it's hard to tell.
+
+''Notebook: The mermaid says Dracula was with her all night.'']
+
+[[Back to the search->Search]]
+
+
+:: Unfortunatelly {"position":"1175,775","size":"100,100"}
+You stand up, point, and say the name with total confidence. Very dramatic. Bramble claps a little.
+
+But then the suspect starts explaining. Where they were, who they were with, at what time. Everything fits together perfectly. There are witnesses. One of the witnesses is even a squirrel, which isn't ideal, but still.
+
+Slowly, your finger sinks back down.
+
+The room goes very quiet. Bramble hides her face behind a biscuit.
+
+"Detective," she whispers, "I don't think it was them."
+
+On the other side of the room, someone is humming a happy little tune. Nobody pays any attention.
+
+''UNFORTUNATELY, THE KILLER IS STILL OUT THERE. YOU ACCUSED THE WRONG PERSON.''
+
+Bramble pats your arm. "Don't worry. The sign says //nobody leaves town//, so they're all still here. Allez, let's look again. Properly this time."
+
+(link: "Start over")[(restart:)]
