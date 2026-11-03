@@ -13,6 +13,8 @@ Who killed Hedwig?
 
 
 :: ''Suspect 1: Dracula the vampire'' {"position":"250,1175","size":"100,100"}
+<img src="https://i.postimg.cc/Cx32zFd5/IMG-1543.jpg">
+
 Dracula's room is very dark, very velvet, and smells faintly of seaweed. He is lying across a chaise longue with one arm draped over his forehead, wearing sunglasses. Indoors. At night.
 
 "Detective," he sighs. "Have you come to arrest me? Do it. Do it ''dramatically''."
@@ -40,6 +42,8 @@ He pauses.
 
 
 :: ''Suspect 2: Goober the gremlin'' {"position":"375,1150","size":"100,100"}
+<img src="https://i.postimg.cc/RhSy4Xhf/IMG-1546.jpg">
+
 Goober is sitting on top of a wardrobe, eating a spoon. Not food ''with'' a spoon. The spoon.
 
 "DETECTIVE!" he shrieks, delighted. "Are you here to arrest me? Can I wear the cuffs as bracelets? Do they come in green?"
@@ -62,6 +66,8 @@ Half the Lodge heard him. Bramble says she thought it was a kettle.
 
 
 :: ''Suspect 3: Mike Wazowski'' {"position":"125,1175","size":"100,100"}
+<img src="https://i.postimg.cc/y881vyTp/IMG-1544.jpg">
+
 Mike is in the Lodge library, curled up in a big armchair with a cup of cocoa and a long striped scarf he insists is "100% authentic wizard merchandise." When he sees you, he jumps up and pulls out a chair.
 
 "Detective! Sit, sit. Do you want cocoa? I made extra. Terrible business, all this. Poor Hedwig." He shakes his head. "Whatever you need, I'm here to help."
@@ -93,6 +99,8 @@ Mike thinks hard, tapping his chin.
 
 
 :: ''Suspect 4: Cornelius the ogre'' {"position":"250,1300","size":"100,100"}
+<img src="https://i.postimg.cc/D006xDmx/IMG-1542.jpg">
+
 Cornelius is sitting on a rock by the lake, which is impressive, because he is much bigger than the rock. He is throwing breadcrumbs at the ducks. The ducks are throwing them back.
 
 "Oh," he says. "It's you."
@@ -128,6 +136,8 @@ He stares sadly at the water.]]
 
 
 :: ''Suspect 5: Dirk, bigfoot'' {"position":"375,1275","size":"100,100"}
+<img src="https://i.postimg.cc/ydPpQcjS/IMG-1545.jpg">
+
 Dirk's room is spotless, apart from a small mountain of toenail clippings on a towel. He is sitting cross-legged, holding a nail file like a violin bow, and working on his left big toe with the focus of a surgeon.
 
 "Detective," he nods, without looking up. "Forgive me. This toe is at a delicate stage."
@@ -156,6 +166,8 @@ He puts down the file.
 
 
 :: ''Suspect 6: Aurora the yeti'' {"position":"125,1300","size":"100,100"}
+<img src="https://i.postimg.cc/vTGFDGqx/IMG-1540-(1).jpg">
+
 Aurora is wrapped in three blankets, which seems unnecessary for a yeti. She is holding a mug of ginger tea in each paw.
 
 "Oh, hi, Detective," she yawns. "Sorry. Long night. Short night? Medium night."
@@ -229,6 +241,8 @@ Bramble locks the lobby door, closes the curtains and lights a single dramatic c
 
 
 :: Aurora Secret {"position":"75,1425","size":"100,100"}
+<img src="https://i.postimg.cc/tCfSMX3W/IMG-1541.jpg">
+
 (set: $secretAurora to true)
 Aurora puts down both mugs and pulls the blankets up to her chin.
 
@@ -351,7 +365,7 @@ Dirk's eyes are wet. "He hooted at all my jokes, you know. Even the bad ones. ''
 [[Back to the suspects->Suspects]]
 
 
-:: Dirk's Room {"position":"1150,1650","size":"100,100"}
+:: Dirk's Room {"position":"1100,1325","size":"100,100"}
 (set: $foundBlood to true)
 Dirk isn't here right now. Bramble says he went to the shop for more nail files, even though he already has eleven. They're lined up on the table in a perfect row.
 
@@ -453,7 +467,7 @@ Bramble sniffs and dabs her eyes with her lantern sleeve. "That owl was too good
 [[Back to the clearing->Crime Scene]]
 
 
-:: Hedwig's Room {"position":"1275,1650","size":"100,100"}
+:: Hedwig's Room {"position":"1225,1325","size":"100,100"}
 (set: $foundCalendar to true)
 Hedwig's room is small and cozy. There are books everywhere, a tea set with tiny cups, and by the window stands a perch with a little cushion on it. It smells like old paper and peppermint.
 
@@ -508,7 +522,7 @@ You arrive at the edge of the woods just as the mist begins to lift. Bramble is 
 [[Follow Bramble to the Old Oak|Crime Scene]]
 
 
-:: Lodge Hallway {"position":"1000,1500","size":"100,100"}
+:: Lodge Hallway {"position":"950,1175","size":"100,100"}
 (set: $clueChair to true)
 The Lodge's hallway is long, and the floorboards creak with every step. //Squeak. Squeak.// Terrible for sneaking, you'd think.
 
@@ -525,7 +539,7 @@ Goober is //greenish//. That's not exactly the same thing.
 [[Back to the search->Search]]
 
 
-:: Mike's Bathroom {"position":"825,1650","size":"100,100"}
+:: Mike's Bathroom {"position":"775,1325","size":"100,100"}
 (set: $clueDryBath to true)
 Mike's bathroom is clean. Like, //really// clean. Cleaner than any bathroom you've ever seen. Your mother would be jealous.
 
@@ -556,7 +570,7 @@ The small window next to the tub is unlocked. On the sill lie some dried mud and
 [[Back to the search->Search]]
 
 
-:: Mike's Room {"position":"1000,1650","size":"100,100"}
+:: Mike's Room {"position":"950,1325","size":"100,100"}
 Mike's room is packed with wizard stuff. Posters on every wall, a broom in the corner (it doesn't fly, Bramble already checked), a pointy hat covered in stars, and four striped scarves, all "authentic." On the bed sits a pillow with an owl on it. You decide not to think about that too hard.
 
 "He's a big fan," Bramble whispers. "Of... everything."
@@ -577,7 +591,7 @@ Bramble reads it over your shoulder. "Oof. 'Kind regards.' That's cold, even for
 [[Back to the search->Search]]
 
 
-:: Search {"position":"1050,1350","size":"100,100"}
+:: Search {"position":"1000,1025","size":"100,100"}
 Where do you want to search? Bramble has given you the key of the Lodge, so you can go almost everywhere. Almost.
 
 [[Mike's Bathroom]]: a very clean bathroom. Suspicious clean? We will see.
@@ -695,7 +709,7 @@ Bramble beams at you. "Helpful?"
 [[Back to the lobby->Hub]]
 
 
-:: The Pub {"position":"1150,1475","size":"100,100"}
+:: The Pub {"position":"1100,1150","size":"100,100"}
 (set: $visitedPub to true)
 The pub is called //The Soggy Toadstool//. It's dark and warm, and it smells like beer and wet dog, even though there's no dog. Behind the bar stands Gus, a troll, who has been drying the same glass since you walked in.
 
@@ -714,7 +728,7 @@ The pub is called //The Soggy Toadstool//. It's dark and warm, and it smells lik
 [[Back to the search->Search]]
 
 
-:: The Shore {"position":"1300,1475","size":"100,100"}
+:: The Shore {"position":"1250,1150","size":"100,100"}
 (set: $talkedMermaid to true)
 The shore is quiet and grey this morning. The waves come and go, as waves do. It's the sea. On a big rock a little way out sits a mermaid with long, shell-tangled hair. This must be Coralina.
 
